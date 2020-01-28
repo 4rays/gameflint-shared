@@ -1,6 +1,6 @@
 import Foundation
 
-public struct TokenPayload: Codable {
+public struct TokenPayload: Codable, Equatable {
   public var access: String
 
   public init(access: String) {
