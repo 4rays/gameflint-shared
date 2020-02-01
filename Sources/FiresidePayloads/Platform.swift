@@ -6,10 +6,12 @@ public struct PlatformPayload: Codable, Equatable, Hashable {
   public var createdAt: Date?
   public var updatedAt: Date?
 
-  public init(name: String,
-              abbreviation: String?,
-              createdAt: Date?,
-              updatedAt: Date?) {
+  public init(
+    name: String,
+    abbreviation: String? = nil,
+    createdAt: Date? = nil,
+    updatedAt: Date? = nil
+  ) {
     self.name = name
     self.abbreviation = abbreviation
     self.createdAt = createdAt

@@ -9,23 +9,25 @@ public struct ReleasePayload: Codable, Hashable, Equatable {
   public var quarter: Int?
   public var year: Int?
   public var platform: PlatformPayload
-  public var localizedNames: Set<LocalizedNamePayload>?
-  public var regions: Set<String>
+  public var localizedNames: [LocalizedNamePayload]?
+  public var regions: [String]
   public var createdAt: Date?
   public var updatedAt: Date?
-
-  public init(isTentative: Bool,
-              human: String?,
-              date: Date?,
-              day: Int?,
-              month: Int?,
-              quarter: Int?,
-              year: Int?,
-              platform: PlatformPayload,
-              localizedNames: Set<LocalizedNamePayload>?,
-              regions: Set<String>,
-              createdAt: Date?,
-              updatedAt: Date?) {
+  
+  public init(
+    isTentative: Bool,
+    platform: PlatformPayload,
+    regions: [String],
+    human: String? = nil,
+    date: Date? = nil,
+    day: Int? = nil,
+    month: Int? = nil,
+    quarter: Int? = nil,
+    year: Int? = nil,
+    localizedNames: [LocalizedNamePayload]? = nil,
+    createdAt: Date? = nil,
+    updatedAt: Date? = nil
+  ) {
     self.isTentative = isTentative
     self.human = human
     self.date = date

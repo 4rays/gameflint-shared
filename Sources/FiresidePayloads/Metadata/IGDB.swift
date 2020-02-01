@@ -7,11 +7,13 @@ public struct IGDBMetadata: Codable, Equatable {
   public var updatedAt: Date
   public var aggregatedRating: Double?
   
-  public init(url: String,
-              id: String,
-              coverHash: String,
-              updatedAt: Date,
-              aggregatedRating: Double?) {
+  public init(
+    url: String,
+    id: String,
+    coverHash: String,
+    updatedAt: Date,
+    aggregatedRating: Double? = nil
+  ) {
     self.url = url
     self.id = id
     self.coverHash = coverHash
