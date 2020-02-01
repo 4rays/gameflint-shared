@@ -1,4 +1,4 @@
-public enum AgeRating: String, Codable, Equatable {
+public enum AgeRating: String, Codable, Equatable, CaseIterable {
   case pegiThree = "pegi-three"
   case pegiSeven = "pegi-seven"
   case pegiTwelve = "pegi-twelve"
