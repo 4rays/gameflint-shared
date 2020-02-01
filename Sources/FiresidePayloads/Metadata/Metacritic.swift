@@ -1,0 +1,13 @@
+public struct MetacriticMetadata: Codable, Equatable {
+  public var metaScore: Float
+  public var userScore: Float?
+  public var url: String?
+
+  public init(metaScore: Float,
+              userScore: Float?,
+              url: String?) {
+    self.metaScore = metaScore
+    self.userScore = userScore
+    self.url = url
+  }
+}
