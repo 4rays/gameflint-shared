@@ -14,14 +14,13 @@ public struct GameCompanyPayload: Codable, Hashable, Equatable {
     self.isDeveloper = isDeveloper
     self.isPublisher = isPublisher
   }
-
 }
 
 public struct CompanyPayload: Codable, Hashable, Equatable {
   public var name: String
   public var website: String?
   public var country: Int?
-  public var localizedNames: [LocalizedNamePayload]?
+  public var localizedNames: [LocalizedNamePayload]
   public var createdAt: Date?
   public var updatedAt: Date?
 
@@ -29,7 +28,7 @@ public struct CompanyPayload: Codable, Hashable, Equatable {
     name: String,
     website: String? = nil,
     country: Int? = nil,
-    localizedNames: [LocalizedNamePayload]? = nil,
+    localizedNames: [LocalizedNamePayload] = [],
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {

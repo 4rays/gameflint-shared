@@ -9,14 +9,14 @@ public struct ReleasePayload: Codable, Hashable, Equatable {
   public var quarter: Int?
   public var year: Int?
   public var platform: PlatformPayload
-  public var regions: [String]
+  public var regions: [Region]
   public var createdAt: Date?
   public var updatedAt: Date?
 
   public init(
     isTentative: Bool,
     platform: PlatformPayload,
-    regions: [String],
+    regions: [Region],
     human: String? = nil,
     date: Date? = nil,
     day: Int? = nil,
