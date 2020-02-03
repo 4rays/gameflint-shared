@@ -9,11 +9,10 @@ public struct ReleasePayload: Codable, Hashable, Equatable {
   public var quarter: Int?
   public var year: Int?
   public var platform: PlatformPayload
-  public var localizedNames: [LocalizedNamePayload]?
   public var regions: [String]
   public var createdAt: Date?
   public var updatedAt: Date?
-  
+
   public init(
     isTentative: Bool,
     platform: PlatformPayload,
@@ -24,7 +23,6 @@ public struct ReleasePayload: Codable, Hashable, Equatable {
     month: Int? = nil,
     quarter: Int? = nil,
     year: Int? = nil,
-    localizedNames: [LocalizedNamePayload]? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
@@ -36,7 +34,6 @@ public struct ReleasePayload: Codable, Hashable, Equatable {
     self.quarter = quarter
     self.year = year
     self.platform = platform
-    self.localizedNames = localizedNames
     self.regions = regions
     self.createdAt = createdAt
     self.updatedAt = updatedAt
