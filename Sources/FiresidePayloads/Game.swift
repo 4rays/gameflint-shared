@@ -5,7 +5,7 @@ public struct GamePayload: Codable, Equatable, Identifiable {
   public var name: String
   public var localizedNames: [LocalizedNamePayload]
   public var releases: [ReleasePayload]
-  public var companies: [CompanyPayload]
+  public var companies: [GameCompanyPayload]
   public var ageRatings: [AgeRating]
   public var openCriticMetadata: OpenCriticMetadata?
   public var metacriticMetadata: MetacriticMetadata?
@@ -22,7 +22,7 @@ public struct GamePayload: Codable, Equatable, Identifiable {
     name: String,
     localizedNames: [LocalizedNamePayload] = [],
     releases: [ReleasePayload] = [],
-    companies: [CompanyPayload] = [],
+    companies: [GameCompanyPayload] = [],
     ageRatings: [AgeRating] = [],
     openCriticMetadata: OpenCriticMetadata? = nil,
     metacriticMetadata: MetacriticMetadata? = nil,
