@@ -3,7 +3,6 @@ import Foundation
 public struct ReleasePayload: Codable, Hashable, Equatable {
   public var isTentative: Bool
   public var human: String?
-  public var date: Date?
   public var day: Int?
   public var month: Int?
   public var quarter: Int?
@@ -18,7 +17,6 @@ public struct ReleasePayload: Codable, Hashable, Equatable {
     platform: PlatformPayload,
     regions: [Region],
     human: String? = nil,
-    date: Date? = nil,
     day: Int? = nil,
     month: Int? = nil,
     quarter: Int? = nil,
@@ -28,7 +26,6 @@ public struct ReleasePayload: Codable, Hashable, Equatable {
   ) {
     self.isTentative = isTentative
     self.human = human
-    self.date = date
     self.day = day
     self.month = month
     self.quarter = quarter
