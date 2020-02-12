@@ -17,14 +17,16 @@ public struct GameCompanyPayload: Codable, Hashable, Equatable {
 }
 
 public struct CompanyPayload: Codable, Hashable, Equatable {
+  public var id: UUID?
   public var name: String
   public var website: String?
   public var country: Int?
-  public var localizedNames: [LocalizedNamePayload]
+  public var localizedNames: [Localize  dNamePayload]
   public var createdAt: Date?
   public var updatedAt: Date?
 
   public init(
+    id: UUID? = nil,
     name: String,
     website: String? = nil,
     country: Int? = nil,
@@ -32,6 +34,7 @@ public struct CompanyPayload: Codable, Hashable, Equatable {
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
+    self.id = id
     self.name = name
     self.website = website
     self.country = country

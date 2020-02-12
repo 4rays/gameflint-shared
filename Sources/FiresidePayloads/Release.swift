@@ -1,8 +1,8 @@
 import Foundation
 
 public struct ReleasePayload: Codable, Hashable, Equatable {
+  public var id: UUID?
   public var isTentative: Bool
-  public var human: String?
   public var day: Int?
   public var month: Int?
   public var quarter: Int?
@@ -13,10 +13,10 @@ public struct ReleasePayload: Codable, Hashable, Equatable {
   public var updatedAt: Date?
 
   public init(
+    id: UUID? = nil,
     isTentative: Bool,
     platform: PlatformPayload,
     regions: [Region],
-    human: String? = nil,
     day: Int? = nil,
     month: Int? = nil,
     quarter: Int? = nil,
@@ -24,8 +24,8 @@ public struct ReleasePayload: Codable, Hashable, Equatable {
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
+    self.id = id
     self.isTentative = isTentative
-    self.human = human
     self.day = day
     self.month = month
     self.quarter = quarter
