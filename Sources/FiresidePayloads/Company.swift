@@ -21,7 +21,7 @@ public struct CompanyPayload: Codable, Hashable, Equatable {
   public var name: String
   public var website: String?
   public var country: Int?
-  public var localizedNames: [Localize  dNamePayload]
+  public var localizedNames: [LocalizedNamePayload]
   public var createdAt: Date?
   public var updatedAt: Date?
 
