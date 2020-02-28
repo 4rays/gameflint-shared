@@ -1,6 +1,6 @@
 import Foundation
 
-public struct GamePayload: Codable, Equatable, Identifiable {
+public struct GamePayload: Codable, Equatable, Identifiable, Hashable {
   public var id: UUID?
   public var name: String
   public var localizedNames: [LocalizedNamePayload]

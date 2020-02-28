@@ -1,4 +1,4 @@
-public struct OpenCriticMetadata: Codable, Equatable {
+public struct OpenCriticMetadata: Codable, Equatable, Hashable {
   public var criticAverage: Float
   public var recommendedBy: Float?
   public var url: String?

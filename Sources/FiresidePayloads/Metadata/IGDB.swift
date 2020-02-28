@@ -1,6 +1,6 @@
 import Foundation
 
-public struct IGDBMetadata: Codable, Equatable {
+public struct IGDBMetadata: Codable, Equatable, Hashable {
   public var url: String
   public var id: Int
   public var coverHash: String?

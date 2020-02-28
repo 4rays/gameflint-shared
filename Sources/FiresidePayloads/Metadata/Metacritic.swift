@@ -1,4 +1,4 @@
-public struct MetacriticMetadata: Codable, Equatable {
+public struct MetacriticMetadata: Codable, Equatable, Hashable {
   public var metaScore: Float
   public var userScore: Float?
   public var url: String?
