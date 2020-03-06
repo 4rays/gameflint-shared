@@ -1,4 +1,5 @@
-public enum PlayState: String, Codable, Equatable, CaseIterable  {
+public enum PlayState: String, Codable, Equatable, CaseIterable {
+  case interested
   case acquired
   case playing
   case abandoned
