@@ -34,7 +34,7 @@ public struct ReleaseDate: Codable, Hashable, Equatable, CustomStringConvertible
 public extension ReleaseDate {
   func toRawDate() throws -> Date {
     try ReleaseDate.formatter.date(from: description).unwrap(
-      error: PayloadError.Data.invalidReleaseDate
+      error: DataError.Data.invalidReleaseDate
     )
   }
 

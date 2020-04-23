@@ -1,12 +1,12 @@
 import Foundation
 
-public struct GameCompanyPayload: Codable, Hashable, Equatable {
-  public var company: CompanyPayload
+public struct GameCompany: Codable, Hashable, Equatable {
+  public var company: Company
   public var isDeveloper: Bool
   public var isPublisher: Bool
 
   public init(
-    company: CompanyPayload,
+    company: Company,
     isDeveloper: Bool = false,
     isPublisher: Bool = false
   ) {
@@ -16,12 +16,12 @@ public struct GameCompanyPayload: Codable, Hashable, Equatable {
   }
 }
 
-public struct CompanyPayload: Codable, Hashable, Equatable {
+public struct Company: Codable, Hashable, Equatable {
   public var id: UUID?
   public var name: String
   public var website: String?
   public var country: Int?
-  public var localizedNames: [LocalizedNamePayload]
+  public var localizedNames: [LocalizedName]
   public var createdAt: Date?
   public var updatedAt: Date?
 
@@ -30,7 +30,7 @@ public struct CompanyPayload: Codable, Hashable, Equatable {
     name: String,
     website: String? = nil,
     country: Int? = nil,
-    localizedNames: [LocalizedNamePayload] = [],
+    localizedNames: [LocalizedName] = [],
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {

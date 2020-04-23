@@ -1,7 +1,7 @@
 import XCTest
-@testable import FiresidePayloads
+@testable import FiresideShared
 
-final class FiresidePayloadsTests: XCTestCase {
+final class FiresideSharedTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct UserPayload: Codable, Equatable, Identifiable {
+public struct User: Codable, Equatable, Identifiable {
   public var id: UUID
   public var username: String
   public var isMod: Bool

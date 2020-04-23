@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ProfileGamePayload: Codable, Equatable, Hashable {
+public struct UpdateUserGame: Codable, Equatable, Hashable {
   public var gameID: UUID
   public var playState: PlayState?
 

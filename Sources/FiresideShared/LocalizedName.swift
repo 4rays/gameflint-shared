@@ -1,6 +1,6 @@
 import Foundation
 
-public struct LocalizedNamePayload: Codable, Hashable, Equatable {
+public struct LocalizedName: Codable, Hashable, Equatable {
   public var language: String
   public var name: String
   

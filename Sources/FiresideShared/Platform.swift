@@ -1,10 +1,10 @@
 import Foundation
 
-public struct PlatformPayload: Codable, Equatable, Hashable {
+public struct Platform: Codable, Equatable, Hashable {
   public var id: UUID?
   public var name: String
   public var abbreviation: String
-  public var localizedNames: [LocalizedNamePayload]
+  public var localizedNames: [LocalizedName]
   public var createdAt: Date?
   public var updatedAt: Date?
 
@@ -12,7 +12,7 @@ public struct PlatformPayload: Codable, Equatable, Hashable {
     id: UUID? = nil,
     name: String,
     abbreviation: String,
-    localizedNames: [LocalizedNamePayload] = [],
+    localizedNames: [LocalizedName] = [],
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {

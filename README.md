@@ -1,3 +1,3 @@
-# fireside-payloads
+# FiresideShared
 
-A description of this package.
+A collection of shared types between front-end and backend.

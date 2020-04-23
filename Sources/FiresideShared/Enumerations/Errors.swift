@@ -1,4 +1,4 @@
-enum PayloadError {
+enum DataError {
   enum Data: Int, Error {
     case invalidReleaseDate = 100
 

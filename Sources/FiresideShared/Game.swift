@@ -1,11 +1,11 @@
 import Foundation
 
-public struct GamePayload: Codable, Equatable, Identifiable, Hashable {
+public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var id: UUID?
   public var name: String
-  public var localizedNames: [LocalizedNamePayload]
-  public var releases: [ReleasePayload]
-  public var companies: [GameCompanyPayload]
+  public var localizedNames: [LocalizedName]
+  public var releases: [Release]
+  public var companies: [GameCompany]
   public var ageRatings: [AgeRating]
   public var openCriticMetadata: OpenCriticMetadata?
   public var metacriticMetadata: MetacriticMetadata?
@@ -20,9 +20,9 @@ public struct GamePayload: Codable, Equatable, Identifiable, Hashable {
   public init(
     id: UUID? = nil,
     name: String,
-    localizedNames: [LocalizedNamePayload] = [],
-    releases: [ReleasePayload] = [],
-    companies: [GameCompanyPayload] = [],
+    localizedNames: [LocalizedName] = [],
+    releases: [Release] = [],
+    companies: [GameCompany] = [],
     ageRatings: [AgeRating] = [],
     openCriticMetadata: OpenCriticMetadata? = nil,
     metacriticMetadata: MetacriticMetadata? = nil,

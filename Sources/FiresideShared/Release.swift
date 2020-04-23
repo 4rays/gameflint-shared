@@ -1,10 +1,10 @@
 import Foundation
 
-public struct ReleasePayload: Codable, Hashable, Equatable {
+public struct Release: Codable, Hashable, Equatable {
   public var id: UUID?
   public var isTentative: Bool
   public var date: ReleaseDate?
-  public var platform: PlatformPayload
+  public var platform: Platform
   public var regions: [Region]
   public var createdAt: Date?
   public var updatedAt: Date?
@@ -12,7 +12,7 @@ public struct ReleasePayload: Codable, Hashable, Equatable {
   public init(
     id: UUID? = nil,
     isTentative: Bool,
-    platform: PlatformPayload,
+    platform: Platform,
     regions: [Region],
     date: ReleaseDate? = nil,
     createdAt: Date? = nil,

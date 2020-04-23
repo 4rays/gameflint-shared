@@ -1,7 +1,7 @@
 import XCTest
 
-import FiresidePayloadsTests
+import FiresideSharedTests
 
 var tests = [XCTestCaseEntry]()
-tests += FiresidePayloadsTests.allTests()
+tests += FiresideSharedTests.allTests()
 XCTMain(tests)
