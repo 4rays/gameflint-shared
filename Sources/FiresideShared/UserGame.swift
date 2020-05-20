@@ -1,6 +1,6 @@
 import Foundation
 
-public struct UserGame: Codable, Equatable, Hashable  {
+public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
   public struct State: Codable, Equatable, Hashable  {
     public var playState: PlayState
     public var totalPlayTimeMinutes: Int?
@@ -17,5 +17,9 @@ public struct UserGame: Codable, Equatable, Hashable  {
   public init(game: Game, state: UserGame.State) {
     self.game = game
     self.state = state
+  }
+
+  public var id: UUID? {
+    game.id
   }
 }

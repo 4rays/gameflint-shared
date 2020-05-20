@@ -12,3 +12,9 @@ public struct LocalizedName: Codable, Hashable, Equatable {
     self.name = name
   }
 }
+
+extension LocalizedName: Identifiable {
+  public var id: String {
+    language + "_" + name
+  }
+}
