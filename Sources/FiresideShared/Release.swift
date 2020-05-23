@@ -5,7 +5,7 @@ public struct Release: Codable, Hashable, Equatable {
   public var isTentative: Bool
   public var humanDate: ReleaseDate?
   public var date: Date?
-  public var platform: Platform
+  public var platforms: [Platform]
   public var regions: [Region]
   public var createdAt: Date?
   public var updatedAt: Date?
@@ -13,8 +13,8 @@ public struct Release: Codable, Hashable, Equatable {
   public init(
     id: UUID? = nil,
     isTentative: Bool,
-    platform: Platform,
-    regions: [Region],
+    platforms: [Platform] = [],
+    regions: [Region] = [],
     humanDate: ReleaseDate? = nil,
     date: Date? = nil,
     createdAt: Date? = nil,
@@ -24,7 +24,7 @@ public struct Release: Codable, Hashable, Equatable {
     self.isTentative = isTentative
     self.humanDate = humanDate
     self.date = date
-    self.platform = platform
+    self.platforms = platforms
     self.regions = regions
     self.createdAt = createdAt
     self.updatedAt = updatedAt
