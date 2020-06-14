@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ReleaseDate: Codable, Hashable, Equatable, CustomStringConvertible {
+public struct ReleaseDate: Codable, Hashable, Equatable, CustomStringConvertible, Comparable {
   public var year: Int
   public var quarter: Int?
   public var month: Int?
@@ -28,6 +28,15 @@ public struct ReleaseDate: Codable, Hashable, Equatable, CustomStringConvertible
     let coalescingDay = day ?? 1
     let coalescingMonth = month ?? quarter.flatMap(month(from:)) ?? 1
     return "\(year)-\(coalescingMonth)-\(coalescingDay)"
+  }
+
+  public static func < (lhs: ReleaseDate, rhs: ReleaseDate) -> Bool {
+    switch (try? lhs.toRawDate(), try? rhs.toRawDate()) {
+    case let (.some(lhd), .some(rhd)):
+      return lhd < rhd
+    default:
+      return false
+    }
   }
 }
 

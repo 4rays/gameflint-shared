@@ -4,7 +4,12 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var id: UUID?
   public var name: String
   public var localizedNames: [LocalizedName]
-  public var releases: [Release]
+  public fileprivate(set) var earliestReleaseDate: Date?
+  public var releases: [Release] {
+    didSet {
+      updateEarliestReleaseDate()
+    }
+  }
   public var companies: [GameCompany]
   public var ageRatings: [AgeRating]
   public var openCriticMetadata: OpenCriticMetadata?
@@ -49,5 +54,18 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.links = links
     self.createdAt = createdAt
     self.updatedAt = updatedAt
+
+    updateEarliestReleaseDate()
   }
 }
+
+public extension Game {
+  mutating func updateEarliestReleaseDate() {
+    earliestReleaseDate = releases
+      .filter { $0.date != nil }
+      .sorted()
+      .first?.date
+  }
+}
+
+
