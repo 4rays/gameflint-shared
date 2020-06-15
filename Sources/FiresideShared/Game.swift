@@ -6,9 +6,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var localizedNames: [LocalizedName]
   public fileprivate(set) var earliestReleaseDate: Date?
   public var releases: [Release] {
-    didSet {
-      updateEarliestReleaseDate()
-    }
+    didSet { updateEarliestReleaseDate() }
   }
   public var companies: [GameCompany]
   public var ageRatings: [AgeRating]
