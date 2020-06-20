@@ -20,7 +20,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
 
   public init(
     game: Game,
-    state: UserGame.State
+    state: UserGame.State,
     platform: Platform? = nil
   ) {
     self.game = game
