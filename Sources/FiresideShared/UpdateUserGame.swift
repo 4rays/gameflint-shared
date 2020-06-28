@@ -7,11 +7,11 @@ public struct UpdateUserGame: Codable, Equatable, Hashable {
 
   public init(
     gameID: Game.ID,
-    playState: UserGame.State?,
+    state: UserGame.State?,
     platformID: Platform.ID? = nil
   ) {
     self.gameID = gameID
-    self.state = playState
+    self.state = state
     self.platformID = platformID
   }
 }
