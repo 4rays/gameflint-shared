@@ -64,6 +64,17 @@ public extension Game {
       .sorted()
       .first?.date
   }
+
+  var compact: Compact {
+    .init(
+      id: id,
+      name: name,
+      localizedNames: localizedNames,
+      coverHash: coverHash,
+      // TODO: Add platforms
+      platforms: [],
+      earliestReleaseDate: earliestReleaseDate)
+  }
 }
 
 
