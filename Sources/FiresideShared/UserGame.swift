@@ -46,3 +46,20 @@ extension UserGame {
     case cleared
   }
 }
+
+extension UserGame {
+  public struct Expanded: Codable, Equatable, Hashable, Identifiable {
+    public var value: UserGame
+    public var game: Game.Compact
+
+    public init(value: UserGame, game: Game.Compact) {
+      self.value = value
+      self.game = game
+    }
+
+    public var id: UUID? {
+      game.id
+    }
+  }
+}
+
