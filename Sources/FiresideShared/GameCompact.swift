@@ -24,6 +24,15 @@ public extension Game {
       self.platforms = platforms
       self.earliestReleaseDate = earliestReleaseDate
     }
+
+    public func expand() -> Game {
+      .init(
+        id: id,
+        name: name,
+        localizedNames: localizedNames,
+        coverHash: coverHash
+      )
+    }
   }
 
 }
