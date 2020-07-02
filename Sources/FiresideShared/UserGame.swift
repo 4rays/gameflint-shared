@@ -8,23 +8,26 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
   public var totalPlayTimeMinutes: Int?
   public var completionRate: Float?
   public var platform: Platform?
+  public var gameInfo: Game.Compact?
 
   public init(
-    game: Game.ID,
+    gameID: Game.ID,
     status: Status = .interested,
     format: Format = .digital,
     inLibrary: Bool = false,
     totalPlayTimeMinutes: Int? = nil,
     completionRate: Float? = nil,
-    platform: Platform? = nil
+    platform: Platform? = nil,
+    gameInfo: Game.Compact? = nil
   ) {
-    self.gameID = game
+    self.gameID = gameID
     self.status = status
     self.totalPlayTimeMinutes = totalPlayTimeMinutes
     self.format = format
     self.inLibrary = inLibrary
     self.completionRate = completionRate
     self.platform = platform
+    self.gameInfo = gameInfo
   }
 
   public var id: UUID? {
@@ -46,20 +49,3 @@ extension UserGame {
     case cleared
   }
 }
-
-extension UserGame {
-  public struct Expanded: Codable, Equatable, Hashable, Identifiable {
-    public var value: UserGame
-    public var game: Game.Compact
-
-    public init(value: UserGame, game: Game.Compact) {
-      self.value = value
-      self.game = game
-    }
-
-    public var id: UUID? {
-      game.id
-    }
-  }
-}
-
