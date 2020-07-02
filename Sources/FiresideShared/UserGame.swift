@@ -23,22 +23,22 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     }
   }
 
-  public var game: Game
+  public var gameID: Game.ID
   public var state: State
   public var platform: Platform?
 
   public init(
-    game: Game,
+    game: Game.ID,
     state: UserGame.State,
     platform: Platform? = nil
   ) {
-    self.game = game
+    self.gameID = game
     self.state = state
     self.platform = platform
   }
 
   public var id: UUID? {
-    game.id
+    gameID
   }
 }
 
