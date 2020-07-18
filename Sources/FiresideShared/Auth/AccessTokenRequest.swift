@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AccessTokenRequest {
+public struct AccessTokenRequest: Codable, Equatable {
   public let refreshToken: String
 
   public init(refreshToken: String) {
