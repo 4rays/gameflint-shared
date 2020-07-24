@@ -52,4 +52,13 @@ final class FiresideSharedTests: XCTestCase {
 
     XCTAssertEqual(date1, date2)
   }
+
+  func testPathComponents() {
+    let path1 = APIRoutes.V1.Auth.signIn.make
+    let path2 = APIRoutes.V1.make
+
+
+    XCTAssertEqual(path1.fullPath, "api/v1/auth/sign-in")
+    XCTAssertEqual(path2.fullPath, "api/v1")
+  }
 }
