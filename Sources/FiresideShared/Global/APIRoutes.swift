@@ -47,6 +47,7 @@ public enum APIRoutes: EndpointFactory {
       case signIn = "sign-in"
       case signUp = "sign-up"
       case refreshAccessToken = "refresh-access"
+      case verifyEmail = "verify-email"
 
       public static var base: (Endpoint) -> (Endpoint) {
         compose(
