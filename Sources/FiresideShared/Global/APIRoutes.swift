@@ -63,5 +63,24 @@ public enum APIRoutes: EndpointFactory {
         )(.init())
       }
     }
+
+    public enum Account: String, EndpointFactory {
+      case games = "games"
+      case resendVerification = "resend-verification"
+
+      public static var base: (Endpoint) -> (Endpoint) {
+        compose(
+          Endpoint.component("account"),
+          V1.base
+        )
+      }
+
+      public var make: Endpoint {
+        compose(
+          Endpoint.component(rawValue),
+          Self.base
+        )(.init())
+      }
+    }
   }
 }
