@@ -80,6 +80,10 @@ public extension APIRoutes {
   static var v1: EndpointFactory {
     compose(component("v1"), api)
   }
+
+  static var games: EndpointFactory {
+    component("games")
+  }
 }
 
 // MARK: - Auth
@@ -124,7 +128,7 @@ public extension APIRoutes {
   }
 
   static var userGames: EndpointFactory {
-    compose(component("games"), account)
+    compose(games, account)
   }
 
   static var resendVerification: EndpointFactory {
@@ -132,3 +136,32 @@ public extension APIRoutes {
   }
 }
 
+// MARK: - Admin
+public extension APIRoutes {
+  static var admin: EndpointFactory {
+    compose(component("admin"), v1)
+  }
+
+  static var adminGames: EndpointFactory {
+    compose(games, admin)
+  }
+
+  static var importGames: EndpointFactory {
+    compose(component("import"), adminGames)
+  }
+}
+
+// MARK: - Hearth
+public extension APIRoutes {
+  static var hearthGames: EndpointFactory {
+    compose(games, v1)
+  }
+
+  static var upcomingGames: EndpointFactory {
+    compose(component("upcoming"), hearthGames)
+  }
+
+  static var gameSearch: EndpointFactory {
+    compose(component("search"), hearthGames)
+  }
+}
