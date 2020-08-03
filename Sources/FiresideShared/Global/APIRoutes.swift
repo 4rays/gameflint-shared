@@ -29,6 +29,7 @@ public enum APIRoutes {
       case verifyEmail
       case resetPassword
       case verifyPasswordToken
+      case changePassword
 
       public var endpoint: Endpoint {
         switch self {
@@ -44,6 +45,8 @@ public enum APIRoutes {
           return APIRoutes.resetPassword(.init())
         case .verifyPasswordToken:
           return APIRoutes.verifyPasswordToken(.init())
+        case .changePassword:
+          return APIRoutes.changePassword(.init())
         }
       }
     }
@@ -58,6 +61,37 @@ public enum APIRoutes {
           return APIRoutes.userGames(.init())
         case .resendVerification:
           return APIRoutes.resendVerification(.init())
+        }
+      }
+    }
+
+    public enum Admin {
+      case games
+      case importGames
+
+      public var endpoint: Endpoint {
+        switch self {
+        case .games:
+          return APIRoutes.adminGames(.init())
+        case .importGames:
+          return APIRoutes.importGames(.init())
+        }
+      }
+    }
+
+    public enum Hearth {
+      case games
+      case upcomingGames
+      case gameSearch
+
+      public var endpoint: Endpoint {
+        switch self {
+        case .games:
+          return APIRoutes.hearthGames(.init())
+        case .upcomingGames:
+          return APIRoutes.upcomingGames(.init())
+        case .gameSearch:
+          return APIRoutes.gameSearch(.init())
         }
       }
     }
