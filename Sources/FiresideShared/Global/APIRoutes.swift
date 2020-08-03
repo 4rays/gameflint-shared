@@ -2,7 +2,6 @@ import Foundation
 
 public typealias EndpointFactory = (Endpoint) -> Endpoint
 
-
 public struct Endpoint {
   public var components: [String]
 
@@ -20,9 +19,19 @@ public struct Endpoint {
   }
 }
 
+public protocol EndpointFactoryGroup {
+  var make: EndpointFactory { get }
+}
+
+public extension EndpointFactoryGroup {
+  var endpoint: Endpoint {
+    make(.init())
+  }
+}
+
 public enum APIRoutes {
   public enum V1 {
-    public enum Auth {
+    public enum Auth: EndpointFactoryGroup {
       case signIn
       case signUp
       case refreshAccessToken
@@ -31,67 +40,103 @@ public enum APIRoutes {
       case verifyPasswordToken
       case changePassword
 
-      public var endpoint: Endpoint {
+      public var make: EndpointFactory {
         switch self {
         case .signIn:
-          return APIRoutes.signIn(.init())
+          return APIRoutes.signIn
         case .signUp:
-          return APIRoutes.signUp(.init())
+          return APIRoutes.signUp
         case .refreshAccessToken:
-          return APIRoutes.refreshAccessToken(.init())
+          return APIRoutes.refreshAccessToken
         case .verifyEmail:
-          return APIRoutes.verifyEmail(.init())
+          return APIRoutes.verifyEmail
         case .resetPassword:
-          return APIRoutes.resetPassword(.init())
+          return APIRoutes.resetPassword
         case .verifyPasswordToken:
-          return APIRoutes.verifyPasswordToken(.init())
+          return APIRoutes.verifyPasswordToken
         case .changePassword:
-          return APIRoutes.changePassword(.init())
+          return APIRoutes.changePassword
         }
       }
     }
 
-    public enum Account {
-      case userGames
+    public enum Account: EndpointFactoryGroup {
+      case games(Games)
       case resendVerification
 
-      public var endpoint: Endpoint {
+      public var make: EndpointFactory {
         switch self {
-        case .userGames:
-          return APIRoutes.userGames(.init())
+        case .games(let games):
+          return games.make
         case .resendVerification:
-          return APIRoutes.resendVerification(.init())
+          return APIRoutes.resendVerification
+        }
+      }
+
+      public enum Games: EndpointFactoryGroup {
+        case all
+        case update
+        case delete
+
+        public var make: EndpointFactory {
+          APIRoutes.userGames
         }
       }
     }
 
-    public enum Admin {
-      case games
-      case importGames
+    public enum Admin: EndpointFactoryGroup {
+      case games(Games)
 
-      public var endpoint: Endpoint {
+      public var make: EndpointFactory {
         switch self {
-        case .games:
-          return APIRoutes.adminGames(.init())
-        case .importGames:
-          return APIRoutes.importGames(.init())
+        case .games(let games):
+          return games.make
+        }
+      }
+
+      public enum Games: EndpointFactoryGroup {
+        case batchImport
+        case create
+        case update
+        case delete
+
+        public var make: EndpointFactory {
+          switch self {
+          case .batchImport:
+            return APIRoutes.importGames
+          case .create, .update, .delete:
+            return APIRoutes.adminGames
+          }
         }
       }
     }
 
-    public enum Hearth {
-      case games
-      case upcomingGames
-      case gameSearch
+    public enum Hearth: EndpointFactoryGroup {
+      case games(Games)
 
-      public var endpoint: Endpoint {
+
+      public var make: EndpointFactory {
         switch self {
-        case .games:
-          return APIRoutes.hearthGames(.init())
-        case .upcomingGames:
-          return APIRoutes.upcomingGames(.init())
-        case .gameSearch:
-          return APIRoutes.gameSearch(.init())
+        case .games(let games):
+          return games.make
+        }
+      }
+
+      public enum Games: EndpointFactoryGroup {
+        case all
+        case find
+        case upcoming
+        case search
+
+        public var make: EndpointFactory {
+          switch self {
+          case .all, .find:
+            return APIRoutes.hearthGames
+          case .upcoming:
+            return APIRoutes.upcomingGames
+          case .search:
+            return APIRoutes.gameSearch
+          }
         }
       }
     }
