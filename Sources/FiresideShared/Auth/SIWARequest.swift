@@ -3,13 +3,13 @@ import Foundation
 public struct SIWARequest: Codable, Equatable, Hashable {
   public var firstName: String?
   public var lastName: String?
-  public var email: String?
+  public var email: String
   public var token: String
 
   public init(
     firstName: String? = nil,
     lastName: String? = nil,
-    email: String? = nil,
+    email: String,
     token: String
   ) {
     self.firstName = firstName
