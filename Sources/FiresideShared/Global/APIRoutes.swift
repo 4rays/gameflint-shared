@@ -39,6 +39,7 @@ public enum APIRoutes {
       case resetPassword
       case verifyPasswordToken
       case changePassword
+      case siwa
 
       public var make: EndpointFactory {
         switch self {
@@ -56,6 +57,8 @@ public enum APIRoutes {
           return APIRoutes.verifyPasswordToken
         case .changePassword:
           return APIRoutes.changePassword
+        case .siwa:
+          return APIRoutes.siwa
         }
       }
     }
@@ -197,6 +200,10 @@ public extension APIRoutes {
 
   static var changePassword: EndpointFactory {
     compose(component("change-password"), auth)
+  }
+
+  static var siwa: EndpointFactory {
+    compose(component("siwa"), auth)
   }
 }
 
