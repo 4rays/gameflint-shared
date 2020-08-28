@@ -40,9 +40,10 @@ extension UserGame {
 
   public enum Status: String, Codable, Equatable, CaseIterable {
     case interested
+    case wishlisted
     case ready
     case playing
-    case abandoned
     case cleared
+    case abandoned
   }
 }
