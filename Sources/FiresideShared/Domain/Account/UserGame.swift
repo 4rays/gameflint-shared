@@ -1,34 +1,40 @@
 import Foundation
 
 public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
+  public var id: UUID?
   public var gameID: Game.ID
   public var status: Status
   public var format: Format
   public var inLibrary: Bool
-  public var totalPlayTime: Int?
+  public var userPlayTime: Int?
+  public private(set) var aggregatePlayTime: Int
   public var platform: Platform?
   public var gameInfo: Game.Compact?
 
+  public var playthroughs: [Playthrough]
+
   public init(
+    id: UUID? = nil,
     gameID: Game.ID,
     status: Status = .interested,
     format: Format = .digital,
     inLibrary: Bool = false,
-    totalPlayTime: Int? = nil,
+    userPlayTime: Int? = nil,
+    aggregatePlayTime: Int = 0,
     platform: Platform? = nil,
+    playthroughs: [Playthrough] = [],
     gameInfo: Game.Compact? = nil
   ) {
+    self.id = id
     self.gameID = gameID
     self.status = status
-    self.totalPlayTime = totalPlayTime
+    self.userPlayTime = userPlayTime
+    self.aggregatePlayTime = aggregatePlayTime
     self.format = format
     self.inLibrary = inLibrary
     self.platform = platform
     self.gameInfo = gameInfo
-  }
-
-  public var id: UUID? {
-    gameID
+    self.playthroughs = playthroughs
   }
 }
 
