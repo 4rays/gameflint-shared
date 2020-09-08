@@ -85,6 +85,16 @@ public enum APIRoutes {
           APIRoutes.userGames
         }
       }
+
+      public enum PlaySessions: EndpointFactoryGroup {
+        case all
+        case create
+        case delete
+
+        public var make: EndpointFactory {
+          APIRoutes.playSessions
+        }
+      }
     }
 
     public enum Admin: EndpointFactoryGroup {
@@ -215,6 +225,10 @@ public extension APIRoutes {
 
   static var userGames: EndpointFactory {
     compose(games, account)
+  }
+
+  static var playSessions: EndpointFactory {
+    compose(component("play-sessions"), account)
   }
 
   static var resendVerification: EndpointFactory {
