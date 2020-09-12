@@ -26,7 +26,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     platform: Platform? = nil,
     playthroughs: [Playthrough] = [],
     gameInfo: Game.Compact? = nil,
-    createdAt: Date? = nil
+    createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
     self.id = id
