@@ -10,6 +10,8 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
   public private(set) var aggregatePlayTime: Int
   public var platform: Platform?
   public var gameInfo: Game.Compact?
+  public var createdAt: Date?
+  public var updatedAt: Date?
 
   public var playthroughs: [Playthrough]
 
@@ -23,7 +25,9 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     aggregatePlayTime: Int = 0,
     platform: Platform? = nil,
     playthroughs: [Playthrough] = [],
-    gameInfo: Game.Compact? = nil
+    gameInfo: Game.Compact? = nil,
+    createdAt: Date? = nil
+    updatedAt: Date? = nil
   ) {
     self.id = id
     self.gameID = gameID
@@ -35,6 +39,8 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     self.platform = platform
     self.gameInfo = gameInfo
     self.playthroughs = playthroughs
+    self.createdAt = createdAt
+    self.updatedAt = updatedAt
   }
 }
 
