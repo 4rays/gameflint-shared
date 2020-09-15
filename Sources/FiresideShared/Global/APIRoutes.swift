@@ -65,12 +65,15 @@ public enum APIRoutes {
 
     public enum Account: EndpointFactoryGroup {
       case games(Games)
+      case sessions(PlaySessions)
       case resendVerification
 
       public var make: EndpointFactory {
         switch self {
         case .games(let games):
           return games.make
+        case .sessions(let sessions):
+          return sessions.make
         case .resendVerification:
           return APIRoutes.resendVerification
         }
