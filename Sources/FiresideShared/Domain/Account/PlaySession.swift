@@ -2,7 +2,7 @@ import Foundation
 
 public struct PlaySession: Codable, Equatable, Hashable, Identifiable {
   public var id: UUID?
-  public private(set) var playTime: Int?
+  public var playTime: Int?
   public var startedAt: Date
   public var endedAt: Date?
   public var description: String?
@@ -13,6 +13,7 @@ public struct PlaySession: Codable, Equatable, Hashable, Identifiable {
     id: UUID? = nil,
     startedAt: Date,
     endedAt: Date? = nil,
+    playTime: Int? = nil,
     description: String? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
