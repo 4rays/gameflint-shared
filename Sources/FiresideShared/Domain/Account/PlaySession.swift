@@ -6,6 +6,8 @@ public struct PlaySession: Codable, Equatable, Hashable, Identifiable {
   public var startedAt: Date
   public var endedAt: Date?
   public var description: String?
+  public var pauseDates: [Date]
+  public var resumeDates: [Date]
   public var createdAt: Date?
   public var updatedAt: Date?
 
@@ -24,5 +26,7 @@ public struct PlaySession: Codable, Equatable, Hashable, Identifiable {
     self.description = description
     self.createdAt = createdAt
     self.updatedAt = updatedAt
+    self.pauseDates = []
+    self.resumeDates = []
   }
 }
