@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Paged<T>: Codable where T: Codable {
+public struct Paged<T>: Codable, Equatable, Hashable where T: Codable & Equatable & Hashable {
   public let items: [T]
   public let metadata: Metadata
 
