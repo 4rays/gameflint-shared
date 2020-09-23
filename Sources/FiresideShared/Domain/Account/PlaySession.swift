@@ -36,6 +36,11 @@ public extension PlaySession {
     public var startedAt: Date
     public var endedAt: Date?
 
+    public init(startedAt: Date, endedAt: Date? = nil) {
+      self.startedAt = startedAt
+      self.endedAt = endedAt
+    }
+
     public var isOngoing: Bool {
       endedAt == nil
     }
