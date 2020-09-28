@@ -81,6 +81,7 @@ public enum APIRoutes {
 
       public enum Games: EndpointFactoryGroup {
         case all
+        case filterByPlaythrough
         case update
         case delete
 
@@ -179,6 +180,10 @@ public extension APIRoutes {
   static var games: EndpointFactory {
     component("games")
   }
+
+  static var filters: EndpointFactory {
+    component("filters")
+  }
 }
 
 // MARK: - Auth
@@ -228,6 +233,10 @@ public extension APIRoutes {
 
   static var userGames: EndpointFactory {
     compose(games, account)
+  }
+
+  static var userGamesByPlaythrough: EndpointFactory {
+    compose(component("playthroughs"), filters, userGames)
   }
 
   static var playSessions: EndpointFactory {
