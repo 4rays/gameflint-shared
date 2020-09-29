@@ -86,7 +86,12 @@ public enum APIRoutes {
         case delete
 
         public var make: EndpointFactory {
-          APIRoutes.userGames
+          switch self {
+          case .filterByPlaythrough:
+            return APIRoutes.userGamesByPlaythrough
+          default:
+            return APIRoutes.userGames
+          }
         }
       }
 
