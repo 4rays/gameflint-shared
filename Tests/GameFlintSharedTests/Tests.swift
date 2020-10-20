@@ -1,7 +1,7 @@
 import XCTest
-@testable import FiresideShared
+@testable import GameFlintShared
 
-final class FiresideSharedTests: XCTestCase {
+final class GameFlintSharedTests: XCTestCase {
   func testEarliestReleaseDateInit() {
     let earliestReleaseDate = ReleaseDate(year: 2017, month: 1, day: 30)
 
