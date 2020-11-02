@@ -50,7 +50,10 @@ final class GameFlintSharedTests: XCTestCase {
     let date1 = try? ReleaseDate(year: 2016).toRawDate()
     let date2 = try? ReleaseDate(year: 2016, month: 1, day: 1).toRawDate()
 
-    XCTAssertEqual(date1, date2)
+    let expectedDate = Date(timeIntervalSince1970: 1451606400)
+
+    XCTAssertEqual(date1, expectedDate)
+    XCTAssertEqual(date2, expectedDate)
   }
 
   func testPathComponents() {

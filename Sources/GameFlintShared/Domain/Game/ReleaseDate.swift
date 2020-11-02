@@ -9,6 +9,7 @@ public struct ReleaseDate: Codable, Hashable, Equatable, CustomStringConvertible
   static let formatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "YYYY-MM-dd"
+    formatter.timeZone = TimeZone(identifier: "UTC")
     return formatter
   }()
 
