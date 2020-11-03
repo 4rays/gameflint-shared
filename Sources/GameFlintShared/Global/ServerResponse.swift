@@ -10,7 +10,7 @@ public struct ServerResponse: Codable, Equatable {
   }
 }
 
-public struct ResponseError: Codable, Equatable, Hashable {
+public struct ResponseError: Error, Codable, Equatable, Hashable {
   public var code: Code
   public var message: String
 
