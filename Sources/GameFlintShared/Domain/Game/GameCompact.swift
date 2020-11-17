@@ -6,7 +6,8 @@ public extension Game {
     public var name: String
     public var localizedNames: [LocalizedName]
     public var coverHash: String?
-    public var platforms: [Platform]
+    public var platforms: [String]
+    public var tags: [String]
     public var earliestReleaseDate: Date?
 
     public init(
@@ -14,7 +15,8 @@ public extension Game {
       name: String,
       localizedNames: [LocalizedName] = [],
       coverHash: String? = nil,
-      platforms: [Platform] = [],
+      platforms: [String] = [],
+      tags: [String] = [],
       earliestReleaseDate: Date? = nil
     ) {
       self.id = id
@@ -22,6 +24,7 @@ public extension Game {
       self.localizedNames = localizedNames
       self.coverHash = coverHash
       self.platforms = platforms
+      self.tags = tags
       self.earliestReleaseDate = earliestReleaseDate
     }
 
