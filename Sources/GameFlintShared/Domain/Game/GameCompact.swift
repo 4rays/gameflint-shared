@@ -28,7 +28,7 @@ public extension Game {
       self.earliestReleaseDate = earliestReleaseDate
     }
 
-    public func expand() -> Game {
+    public func expanded() -> Game {
       .init(
         id: id,
         name: name,
@@ -37,5 +37,4 @@ public extension Game {
       )
     }
   }
-
 }

@@ -8,6 +8,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var releases: [Release] {
     didSet { updateEarliestReleaseDate() }
   }
+  public var platforms: [Platform]
   public var companies: [GameCompany]
   public var ageRatings: [AgeRating]
   public var openCriticMetadata: OpenCriticMetadata?
@@ -25,6 +26,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     name: String,
     localizedNames: [LocalizedName] = [],
     releases: [Release] = [],
+    platforms: [Platform] = [],
     companies: [GameCompany] = [],
     ageRatings: [AgeRating] = [],
     openCriticMetadata: OpenCriticMetadata? = nil,
@@ -41,6 +43,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.name = name
     self.localizedNames = localizedNames
     self.releases = releases
+    self.platforms = platforms
     self.companies = companies
     self.ageRatings = ageRatings
     self.openCriticMetadata = openCriticMetadata
@@ -54,6 +57,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.updatedAt = updatedAt
 
     updateEarliestReleaseDate()
+    updatePlatforms()
   }
 }
 
@@ -65,16 +69,25 @@ public extension Game {
       .first?.date
   }
 
-  var compact: Compact {
+  mutating func updatePlatforms() {
+    let releasePlatforms = releases
+      .flatMap(\.platforms)
+      .uniqued()
+
+    if releasePlatforms.isEmpty { return }
+
+    platforms = releasePlatforms
+  }
+
+  func compacted() -> Compact {
     .init(
       id: id,
       name: name,
       localizedNames: localizedNames,
       coverHash: coverHash,
-      // TODO: Add platforms
-      platforms: [],
-      earliestReleaseDate: earliestReleaseDate)
+      platforms: platforms.map(\.abbreviation),
+      tags: tags + genres,
+      earliestReleaseDate: earliestReleaseDate
+    )
   }
 }
-
-
