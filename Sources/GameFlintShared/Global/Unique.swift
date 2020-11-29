@@ -11,7 +11,7 @@
 
 extension Sequence where Element: Hashable {
   @inlinable
-  func uniqued() -> [Element] {
+  public func uniqued() -> [Element] {
     uniqued(on: { $0 })
   }
 }
