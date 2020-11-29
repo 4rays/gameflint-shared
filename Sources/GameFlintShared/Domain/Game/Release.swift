@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Release: Codable, Hashable, Equatable, Comparable {
+public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
   public var id: UUID?
   public var isTentative: Bool
   public var humanDate: ReleaseDate? {
