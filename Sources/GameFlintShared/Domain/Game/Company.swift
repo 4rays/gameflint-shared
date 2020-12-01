@@ -2,17 +2,14 @@ import Foundation
 
 public struct GameCompany: Codable, Hashable, Equatable {
   public var company: Company
-  public var isDeveloper: Bool
-  public var isPublisher: Bool
+  public var roles: [CompanyRole]
 
   public init(
     company: Company,
-    isDeveloper: Bool = false,
-    isPublisher: Bool = false
+    roles: [CompanyRole]
   ) {
     self.company = company
-    self.isDeveloper = isDeveloper
-    self.isPublisher = isPublisher
+    self.roles = roles
   }
 }
 
