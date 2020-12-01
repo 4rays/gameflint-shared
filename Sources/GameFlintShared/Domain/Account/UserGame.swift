@@ -8,6 +8,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
   public var inLibrary: Bool
   public var userPlayTime: Int?
   public private(set) var aggregatePlayTime: Int
+  public var completionRate: Float?
   public var platform: Platform?
   public var gameInfo: Game.Compact?
   public var createdAt: Date?
@@ -23,6 +24,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     inLibrary: Bool = false,
     userPlayTime: Int? = nil,
     aggregatePlayTime: Int = 0,
+    completionRate: Float? = nil,
     platform: Platform? = nil,
     playthroughs: [Playthrough] = [],
     gameInfo: Game.Compact? = nil,
@@ -34,6 +36,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     self.status = status
     self.userPlayTime = userPlayTime
     self.aggregatePlayTime = aggregatePlayTime
+    self.completionRate = completionRate
     self.format = format
     self.inLibrary = inLibrary
     self.platform = platform
