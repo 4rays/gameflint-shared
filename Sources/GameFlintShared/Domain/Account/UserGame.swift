@@ -7,6 +7,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
   public var format: Format
   public var inLibrary: Bool
   public var userPlayTime: Int?
+  public private(set) var lastPlayedAt: Date?
   public private(set) var aggregatePlayTime: Int
   public var completionRate: Float?
   public var platform: Platform?
@@ -23,6 +24,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     format: Format = .digital,
     inLibrary: Bool = false,
     userPlayTime: Int? = nil,
+    lastPlayedAt: Date? = nil,
     aggregatePlayTime: Int = 0,
     completionRate: Float? = nil,
     platform: Platform? = nil,
@@ -35,6 +37,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     self.gameID = gameID
     self.status = status
     self.userPlayTime = userPlayTime
+    self.lastPlayedAt = lastPlayedAt
     self.aggregatePlayTime = aggregatePlayTime
     self.completionRate = completionRate
     self.format = format
