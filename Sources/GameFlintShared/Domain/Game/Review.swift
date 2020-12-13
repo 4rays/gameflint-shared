@@ -4,8 +4,8 @@ public struct Review:  Codable, Equatable, Identifiable, Hashable {
   public var id: UUID?
   public var text: String
   public var rating: Rating
-  public var profileID: Profile.ID
-  public var releaseID: Release.ID
+  public var profileID: UUID
+  public var releaseID: UUID
   public var createdAt: Date?
   public var updatedAt: Date?
 
