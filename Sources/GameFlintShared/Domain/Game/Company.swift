@@ -13,7 +13,7 @@ public struct GameCompany: Codable, Hashable, Equatable {
   }
 }
 
-public struct Company: Codable, Hashable, Equatable {
+public struct Company: Codable, Hashable, Equatable, Identifiable {
   public var id: UUID?
   public var name: String
   public var website: String?
