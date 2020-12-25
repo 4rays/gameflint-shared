@@ -2,7 +2,7 @@ import Foundation
 
 public extension Game {
   struct Compact: Codable, Equatable, Identifiable, Hashable {
-    public var id: UUID?
+    public var id: UUID
     public var name: String
     public var localizedNames: [LocalizedName]
     public var coverHash: String?
@@ -11,7 +11,7 @@ public extension Game {
     public var earliestReleaseDate: Date?
 
     public init(
-      id: UUID?,
+      id: UUID,
       name: String,
       localizedNames: [LocalizedName] = [],
       coverHash: String? = nil,

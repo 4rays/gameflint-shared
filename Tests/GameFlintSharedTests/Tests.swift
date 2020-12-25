@@ -5,9 +5,9 @@ final class GameFlintSharedTests: XCTestCase {
   func testEarliestReleaseDateInit() {
     let earliestReleaseDate = ReleaseDate(year: 2017, month: 1, day: 30)
 
-    let release1 = Release(humanDate: earliestReleaseDate)
-    let release2 = Release(humanDate: .init(year: 2020, month: 12, day: 30))
-    let release3 = Release(humanDate: .init(year: 2022))
+    let release1 = Release(id: .init(), humanDate: earliestReleaseDate)
+    let release2 = Release(id: .init(), humanDate: .init(year: 2020, month: 12, day: 30))
+    let release3 = Release(id: .init(), humanDate: .init(year: 2022))
 
     let game = Game(id: UUID(), name: "Game", releases: [release1, release3, release2])
 
@@ -17,9 +17,9 @@ final class GameFlintSharedTests: XCTestCase {
   func testEarliestReleaseDateUpdate() {
     let earliestReleaseDate = ReleaseDate(year: 2016, month: 1, day: 30)
 
-    let release1 = Release(humanDate: .init(year: 2017, month: 1, day: 30))
-    let release2 = Release(humanDate: .init(year: 2020, month: 12, day: 30))
-    var release3 = Release(humanDate: .init(year: 2022))
+    let release1 = Release(id: .init(), humanDate: .init(year: 2017, month: 1, day: 30))
+    let release2 = Release(id: .init(), humanDate: .init(year: 2020, month: 12, day: 30))
+    var release3 = Release(id: .init(), humanDate: .init(year: 2022))
 
     var game = Game(id: UUID(), name: "Game", releases: [release1, release3, release2])
 
@@ -33,9 +33,9 @@ final class GameFlintSharedTests: XCTestCase {
   func testEarliestReleaseDateAppend() {
     let earliestReleaseDate = ReleaseDate(year: 2016, month: 1, day: 30)
 
-    let release1 = Release(humanDate: .init(year: 2017, month: 1, day: 30))
-    let release2 = Release(humanDate: .init(year: 2020, month: 12, day: 30))
-    var release3 = Release(humanDate: .init(year: 2022))
+    let release1 = Release(id: .init(), humanDate: .init(year: 2017, month: 1, day: 30))
+    let release2 = Release(id: .init(), humanDate: .init(year: 2020, month: 12, day: 30))
+    var release3 = Release(id: .init(), humanDate: .init(year: 2022))
 
     var game = Game(id: UUID(), name: "Game", releases: [release1, release2])
 

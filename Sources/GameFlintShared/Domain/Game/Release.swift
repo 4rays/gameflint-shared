@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
-  public var id: UUID?
+  public var id: UUID
   public var isTentative: Bool
   public var humanDate: ReleaseDate? {
     didSet {
@@ -15,7 +15,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
   public var updatedAt: Date?
 
   public init(
-    id: UUID? = nil,
+    id: UUID,
     isTentative: Bool = false,
     platforms: [Platform] = [],
     regions: [Region] = [],

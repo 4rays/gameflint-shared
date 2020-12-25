@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Platform: Codable, Equatable, Hashable, Identifiable {
-  public var id: UUID?
+  public var id: UUID
   public var name: String
   public var abbreviation: String
   public var localizedNames: [LocalizedName]
@@ -9,7 +9,7 @@ public struct Platform: Codable, Equatable, Hashable, Identifiable {
   public var updatedAt: Date?
 
   public init(
-    id: UUID? = nil,
+    id: UUID,
     name: String,
     abbreviation: String,
     localizedNames: [LocalizedName] = [],

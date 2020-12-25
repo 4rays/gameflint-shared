@@ -1,8 +1,16 @@
 import Foundation
 
 public struct Profile: Codable, Equatable, Identifiable, Hashable  {
+  public var id: UUID
+  public var username: String
+  public var firewood: Int
+  public var displayName: String?
+  public var avatarURL: String?
+  public var createdAt: Date?
+  public var updatedAt: Date?
+
   public init(
-    id: UUID? = nil,
+    id: UUID,
     username: String,
     firewood: Int = 0,
     displayName: String? = nil,
@@ -19,11 +27,4 @@ public struct Profile: Codable, Equatable, Identifiable, Hashable  {
     self.updatedAt = updatedAt
   }
 
-  public var id: UUID?
-  public var username: String
-  public var firewood: Int
-  public var displayName: String?
-  public var avatarURL: String?
-  public var createdAt: Date?
-  public var updatedAt: Date?
 }

@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Game: Codable, Equatable, Identifiable, Hashable {
-  public var id: UUID?
+  public var id: UUID
   public var name: String
   public var localizedNames: [LocalizedName]
   public fileprivate(set) var earliestReleaseDate: Date?
@@ -22,7 +22,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var updatedAt: Date?
 
   public init(
-    id: UUID? = nil,
+    id: UUID,
     name: String,
     localizedNames: [LocalizedName] = [],
     releases: [Release] = [],

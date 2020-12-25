@@ -1,14 +1,14 @@
 import Foundation
 
 public struct Fireplace: Codable, Equatable, Identifiable, Hashable {
-  public var id: UUID?
+  public var id: UUID
   public var firewood: Int
   public var createdAt: Date?
   public var updatedAt: Date?
   public var reviews: [Review]
 
   public init(
-    id: UUID? = nil,
+    id: UUID,
     firewood: Int,
     createdAt: Date? = nil,
     updatedAt: Date? = nil,

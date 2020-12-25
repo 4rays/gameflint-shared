@@ -14,7 +14,7 @@ public struct GameCompany: Codable, Hashable, Equatable {
 }
 
 public struct Company: Codable, Hashable, Equatable, Identifiable {
-  public var id: UUID?
+  public var id: UUID
   public var name: String
   public var website: String?
   public var country: Int?
@@ -23,7 +23,7 @@ public struct Company: Codable, Hashable, Equatable, Identifiable {
   public var updatedAt: Date?
 
   public init(
-    id: UUID? = nil,
+    id: UUID,
     name: String,
     website: String? = nil,
     country: Int? = nil,

@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Review:  Codable, Equatable, Identifiable, Hashable {
-  public var id: UUID?
+  public var id: UUID
   public var text: String
   public var rating: Rating
   public var profileID: UUID
@@ -10,7 +10,7 @@ public struct Review:  Codable, Equatable, Identifiable, Hashable {
   public var updatedAt: Date?
 
   public init(
-    id: UUID? = nil,
+    id: UUID,
     text: String,
     rating: Rating,
     profileID: UUID,

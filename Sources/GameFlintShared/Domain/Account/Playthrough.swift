@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Playthrough: Codable, Equatable, Hashable, Identifiable {
-  public var id: UUID?
+  public var id: UUID
   public var userPlayTime: Int?
   public private(set) var aggregatePlayTime: Int
   public var startedAt: Date?
@@ -25,7 +25,7 @@ public struct Playthrough: Codable, Equatable, Hashable, Identifiable {
   }
 
   public init(
-    id: UUID? = nil,
+    id: UUID,
     userPlayTime: Int? = nil,
     aggregatePlayTime: Int = 0,
     startedAt: Date? = nil,

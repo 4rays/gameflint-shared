@@ -1,7 +1,7 @@
 import Foundation
 
 public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
-  public var id: UUID?
+  public var id: UUID
   public var gameID: UUID
   public var status: Status
   public var format: Format
@@ -18,7 +18,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
   public var playthroughs: [Playthrough]
 
   public init(
-    id: UUID? = nil,
+  id: UUID,
     gameID: UUID,
     status: Status = .interested,
     format: Format = .digital,
