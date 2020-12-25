@@ -8,8 +8,8 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var releases: [Release] {
     didSet { updateEarliestReleaseDate() }
   }
-  public var platforms: [Platform]
-  public var companies: [GameCompany]
+  public var platforms: [String]
+  public var companies: [GameCompany.Compact]
   public var ageRatings: [AgeRating]
   public var openCriticMetadata: OpenCriticMetadata?
   public var metacriticMetadata: MetacriticMetadata?
@@ -26,8 +26,8 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     name: String,
     localizedNames: [LocalizedName] = [],
     releases: [Release] = [],
-    platforms: [Platform] = [],
-    companies: [GameCompany] = [],
+    platforms: [String] = [],
+    companies: [GameCompany.Compact] = [],
     ageRatings: [AgeRating] = [],
     openCriticMetadata: OpenCriticMetadata? = nil,
     metacriticMetadata: MetacriticMetadata? = nil,
@@ -76,18 +76,21 @@ public extension Game {
 
     if releasePlatforms.isEmpty { return }
 
-    platforms = releasePlatforms
+    platforms = releasePlatforms.map(\.abbreviation)
   }
+}
 
-  func compacted() -> Compact {
+extension Game: Compactable {
+  public func compacted() -> Compact {
     .init(
       id: id,
       name: name,
       localizedNames: localizedNames,
       coverHash: coverHash,
-      platforms: platforms.map(\.abbreviation),
+      platforms: platforms,
       tags: tags + genres,
       earliestReleaseDate: earliestReleaseDate
     )
   }
 }
+

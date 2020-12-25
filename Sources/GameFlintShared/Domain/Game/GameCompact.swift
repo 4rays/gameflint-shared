@@ -1,7 +1,7 @@
 import Foundation
 
 public extension Game {
-  struct Compact: Codable, Equatable, Identifiable, Hashable {
+  struct Compact: Codable, Equatable, Identifiable, Hashable, Expandable {
     public var id: UUID
     public var name: String
     public var localizedNames: [LocalizedName]

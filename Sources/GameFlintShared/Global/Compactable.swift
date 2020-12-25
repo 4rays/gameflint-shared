@@ -1,8 +1,9 @@
-//
-//  File 2.swift
-//  
-//
-//  Created by Reda Lemeden on 2020-12-25.
-//
+public protocol Compactable {
+  associatedtype Compact: Codable, Equatable
+  func compacted() -> Compact
+}
 
-import Foundation
+public protocol Expandable {
+  associatedtype Expanded: Codable, Equatable
+  func expanded() -> Expanded
+}
