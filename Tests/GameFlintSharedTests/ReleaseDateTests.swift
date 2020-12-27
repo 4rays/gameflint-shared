@@ -1,7 +1,7 @@
 import XCTest
 @testable import GameFlintShared
 
-final class GameFlintSharedTests: XCTestCase {
+final class ReleaseDateTests: XCTestCase {
   func testEarliestReleaseDateInit() {
     let earliestReleaseDate = ReleaseDate(year: 2017, month: 1, day: 30)
 
@@ -56,17 +56,18 @@ final class GameFlintSharedTests: XCTestCase {
     XCTAssertEqual(date2, expectedDate)
   }
 
-  func testPathComponents() {
-    let path1 = APIRoutes.signIn(.init())
-    let path2 = APIRoutes.v1(.init())
-    let path3 = APIRoutes.V1.Auth.verifyPasswordToken.endpoint
+  func testDecodeReleaseDate() throws {
+    let json = """
+    { "year": 2000, "month": 14, "day": 20 }
+    """
 
-    XCTAssertEqual(path1.fullPath, "api/v1/auth/sign-in")
-    XCTAssertEqual(path2.fullPath, "api/v1")
-    XCTAssertEqual(path3.fullPath, "api/v1/auth/reset-password/verify")
+    let value = try JSONDecoder().decode(
+      ReleaseDate.self,
+      from: json.data(using: .utf8)!
+    )
 
-    XCTAssertEqual(path3.last(3), ["auth", "reset-password", "verify"])
-    XCTAssertEqual(path3.last(2), ["reset-password", "verify"])
-    XCTAssertEqual(path3.last(1), ["verify"])
+    XCTAssertNotNil(value)
+    XCTAssertEqual(value.month, 12)
+    XCTAssertEqual(value.day, 20)
   }
 }

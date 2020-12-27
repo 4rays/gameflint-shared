@@ -1,10 +1,16 @@
 import Foundation
 
-public struct ReleaseDate: Codable, Hashable, Equatable, CustomStringConvertible, Comparable {
-  public var year: Int
-  public var quarter: Int?
-  public var month: Int?
-  public var day: Int?
+public struct ReleaseDate:
+  Codable,
+  Hashable,
+  Equatable,
+  CustomStringConvertible,
+  Comparable {
+
+  @Year public var year: Int
+  @Quarter public var quarter: Int?
+  @Month public var month: Int?
+  @Day public var day: Int?
 
   static let formatter: DateFormatter = {
     let formatter = DateFormatter()
