@@ -48,6 +48,15 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     self.createdAt = createdAt
     self.updatedAt = updatedAt
   }
+
+  public func requirePlaythrough() throws -> Playthrough {
+    guard let playthrough = playthroughs.first(where: { $0.isDefault })
+    else {
+      throw DataError.Data.missingDefaultPlaythrough
+    }
+
+    return playthrough
+  }
 }
 
 extension UserGame {

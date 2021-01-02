@@ -51,4 +51,8 @@ public struct Playthrough: Codable, Equatable, Hashable, Identifiable {
     self.createdAt = createdAt
     self.updatedAt = updatedAt
   }
+
+  public var isDefault: Bool {
+    return !userCreated
+  }
 }

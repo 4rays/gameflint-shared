@@ -92,5 +92,10 @@ extension Game: Compactable {
       earliestReleaseDate: earliestReleaseDate
     )
   }
+
+  public var japaneseName: String {
+    localizedNames
+      .first(where: { $0.language == "jp" })?.name ?? name
+  }
 }
 
