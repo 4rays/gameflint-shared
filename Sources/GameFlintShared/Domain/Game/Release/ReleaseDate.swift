@@ -12,9 +12,9 @@ public struct ReleaseDate:
   @Month public var month: Int?
   @Day public var day: Int?
 
-  static let formatter: DateFormatter = {
+  public static let formatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateFormat = "YYYY-MM-dd"
+    formatter.dateFormat = "yyyy-MM-dd"
     formatter.timeZone = TimeZone(identifier: "UTC")
     return formatter
   }()
