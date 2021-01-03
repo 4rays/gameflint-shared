@@ -72,7 +72,7 @@ public extension Game {
   mutating func updatePlatforms() {
     let releasePlatforms = releases
       .flatMap(\.platforms)
-      .deduped()
+      .deduplicated()
 
     if releasePlatforms.isEmpty { return }
 
