@@ -6,6 +6,7 @@ public struct Profile: Codable, Equatable, Identifiable, Hashable  {
   public var firewood: Int
   public var displayName: String?
   public var avatarURL: String?
+  public var regions: [Region]
   public var createdAt: Date?
   public var updatedAt: Date?
 
@@ -15,6 +16,7 @@ public struct Profile: Codable, Equatable, Identifiable, Hashable  {
     firewood: Int = 0,
     displayName: String? = nil,
     avatarURL: String? = nil,
+    regions: [Region] = [],
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
@@ -23,8 +25,8 @@ public struct Profile: Codable, Equatable, Identifiable, Hashable  {
     self.firewood = firewood
     self.displayName = displayName
     self.avatarURL = avatarURL
+    self.regions = regions
     self.createdAt = createdAt
     self.updatedAt = updatedAt
   }
-
 }
