@@ -66,6 +66,7 @@ public enum APIRoutes {
     public enum Account: EndpointFactoryGroup {
       case games(Games)
       case sessions(PlaySessions)
+      case profile(Profile)
       case resendVerification
 
       public var make: EndpointFactory {
@@ -74,6 +75,8 @@ public enum APIRoutes {
           return games.make
         case .sessions(let sessions):
           return sessions.make
+        case .profile(let profile):
+          return profile.make
         case .resendVerification:
           return APIRoutes.resendVerification
         }
@@ -102,6 +105,15 @@ public enum APIRoutes {
 
         public var make: EndpointFactory {
           APIRoutes.playSessions
+        }
+      }
+
+      public enum Profile: EndpointFactoryGroup {
+        case get
+        case update
+
+        public var make: EndpointFactory {
+          APIRoutes.profile
         }
       }
     }
@@ -250,6 +262,10 @@ public extension APIRoutes {
 
   static var resendVerification: EndpointFactory {
     compose(component("resend-verification"), account)
+  }
+
+  static var profile: EndpointFactory {
+    compose(component("profile"), account)
   }
 }
 
