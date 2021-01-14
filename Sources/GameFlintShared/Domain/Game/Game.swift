@@ -18,6 +18,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var genres: [String]
   public var tags: [String]
   public var links: [String]
+  public var fireplace: Fireplace?
   public var createdAt: Date?
   public var updatedAt: Date?
 
@@ -36,6 +37,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     genres: [String] = [],
     tags: [String] = [],
     links: [String] = [],
+    fireplace: Fireplace? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
@@ -53,6 +55,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.genres = genres
     self.tags = tags
     self.links = links
+    self.fireplace = fireplace
     self.createdAt = createdAt
     self.updatedAt = updatedAt
 
