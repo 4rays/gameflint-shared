@@ -297,4 +297,8 @@ public extension APIRoutes {
   static var gameSearch: EndpointFactory {
     compose(component("search"), hearthGames)
   }
+
+  static var fireplace: EndpointFactory {
+    component("fireplace")
+  }
 }
