@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Fireplace: Codable, Equatable, Identifiable, Hashable {
+public struct Fireside: Codable, Equatable, Identifiable, Hashable {
   public var id: UUID
   public var firewood: Int
   public var createdAt: Date?
