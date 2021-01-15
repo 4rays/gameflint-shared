@@ -3,7 +3,7 @@ import Foundation
 public struct Profile: Codable, Equatable, Identifiable, Hashable {
   public var id: UUID
   public var username: String
-  public var firewood: Int
+  public var pellets: Int
   public var displayName: String?
   public var avatarURL: String?
   public var regions: [Region]
@@ -13,7 +13,7 @@ public struct Profile: Codable, Equatable, Identifiable, Hashable {
   public init(
     id: UUID,
     username: String,
-    firewood: Int = 0,
+    pellets: Int = 0,
     displayName: String? = nil,
     avatarURL: String? = nil,
     regions: [Region] = [],
@@ -22,7 +22,7 @@ public struct Profile: Codable, Equatable, Identifiable, Hashable {
   ) {
     self.id = id
     self.username = username
-    self.firewood = firewood
+    self.pellets = pellets
     self.displayName = displayName
     self.avatarURL = avatarURL
     self.regions = regions

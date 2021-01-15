@@ -2,20 +2,26 @@ import Foundation
 
 public struct Fireside: Codable, Equatable, Identifiable, Hashable {
   public var id: UUID
-  public var firewood: Int
+  public var burned: Int
+  public var burning: Int
+  public var total: Int
   public var createdAt: Date?
   public var updatedAt: Date?
   public var reviews: [Review]
 
   public init(
     id: UUID,
-    firewood: Int,
+    burned: Int = 0,
+    burning: Int = 0,
+    total: Int = 0,
     createdAt: Date? = nil,
     updatedAt: Date? = nil,
     reviews: [Review] = []
   ) {
     self.id = id
-    self.firewood = firewood
+    self.burned = burned
+    self.burning = burning
+    self.total = total
     self.createdAt = createdAt
     self.updatedAt = updatedAt
     self.reviews = reviews
