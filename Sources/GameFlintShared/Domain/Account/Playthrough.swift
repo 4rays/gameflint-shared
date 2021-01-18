@@ -12,7 +12,7 @@ public struct Playthrough: Codable, Equatable, Hashable, Identifiable {
   public var status: Status
   public var description: String?
 
-  public var sessions: [PlaySession]
+  public var sessions: [PlaySession]?
 
   public var createdAt: Date?
   public var updatedAt: Date?
@@ -34,7 +34,7 @@ public struct Playthrough: Codable, Equatable, Hashable, Identifiable {
     userCreated: Bool,
     status: Playthrough.Status,
     description: String? = nil,
-    sessions: [PlaySession] = [],
+    sessions: [PlaySession]? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {

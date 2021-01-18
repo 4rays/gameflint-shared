@@ -9,7 +9,7 @@ public struct PlaySession: Codable, Equatable, Hashable, Identifiable {
   public var description: String?
   public var createdAt: Date?
   public var updatedAt: Date?
-  public var sets: [Set]
+  public var sets: [Set]?
 
   public init(
     id: UUID,
@@ -18,7 +18,7 @@ public struct PlaySession: Codable, Equatable, Hashable, Identifiable {
     endedAt: Date? = nil,
     playTime: Int? = nil,
     description: String? = nil,
-    sets: [Set] = [],
+    sets: [Set]? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {

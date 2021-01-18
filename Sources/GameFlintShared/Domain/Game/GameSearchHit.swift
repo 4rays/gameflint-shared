@@ -6,8 +6,8 @@ public extension Game {
     public var name: String
     public var japaneseName: String
     public var coverHash: String?
-    public var platforms: [String]
-    public var tags: [String]
+    public var platforms: [String]?
+    public var tags: [String]?
     public var releasedAt: Date?
     public var releasedAtText: String?
 

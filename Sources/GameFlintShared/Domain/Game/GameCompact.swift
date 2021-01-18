@@ -6,8 +6,8 @@ public extension Game {
     public var name: String
     public var localizedNames: [LocalizedName]
     public var coverHash: String?
-    public var platforms: [String]
-    public var tags: [String]
+    public var platforms: [String]?
+    public var tags: [String]?
     public var earliestReleaseDate: Date?
 
     public init(
@@ -15,8 +15,8 @@ public extension Game {
       name: String,
       localizedNames: [LocalizedName] = [],
       coverHash: String? = nil,
-      platforms: [String] = [],
-      tags: [String] = [],
+      platforms: [String]? = nil,
+      tags: [String]? = nil,
       earliestReleaseDate: Date? = nil
     ) {
       self.id = id

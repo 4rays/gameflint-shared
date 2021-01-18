@@ -50,6 +50,12 @@ public extension Collection where Index == Int {
   }
 }
 
+public extension Optional where Wrapped: ExpressibleByArrayLiteral {
+  var unwrapped: Wrapped {
+    return self ?? []
+  }
+}
+
 extension Collection where Self.Element: Equatable {
   @inlinable public func doesNotContain(_ element: Element) -> Bool {
     !contains(element)

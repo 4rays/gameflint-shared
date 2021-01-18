@@ -5,19 +5,19 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var name: String
   public var localizedNames: [LocalizedName]
   public fileprivate(set) var earliestReleaseDate: Date?
-  public var releases: [Release] {
+  public var releases: [Release]? {
     didSet { updateEarliestReleaseDate() }
   }
-  public var platforms: [String]
-  public var companies: [GameCompany.Compact]
-  public var ageRatings: [AgeRating]
+  public var platforms: [String]?
+  public var companies: [GameCompany.Compact]?
+  public var ageRatings: [AgeRating]?
   public var openCriticMetadata: OpenCriticMetadata?
   public var metacriticMetadata: MetacriticMetadata?
   public var igdbMetadata: IGDBMetadata?
   public var coverHash: String?
-  public var genres: [String]
-  public var tags: [String]
-  public var links: [String]
+  public var genres: [String]?
+  public var tags: [String]?
+  public var links: [String]?
   public var fireside: Fireside?
   public var createdAt: Date?
   public var updatedAt: Date?
@@ -26,17 +26,17 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     id: UUID,
     name: String,
     localizedNames: [LocalizedName] = [],
-    releases: [Release] = [],
-    platforms: [String] = [],
-    companies: [GameCompany.Compact] = [],
-    ageRatings: [AgeRating] = [],
+    releases: [Release]? = nil,
+    platforms: [String]? = nil,
+    companies: [GameCompany.Compact]? = nil,
+    ageRatings: [AgeRating]? = nil,
     openCriticMetadata: OpenCriticMetadata? = nil,
     metacriticMetadata: MetacriticMetadata? = nil,
     igdbMetadata: IGDBMetadata? = nil,
     coverHash: String? = nil,
-    genres: [String] = [],
-    tags: [String] = [],
-    links: [String] = [],
+    genres: [String]? = nil,
+    tags: [String]? = nil,
+    links: [String]? = nil,
     fireside: Fireside? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
@@ -66,14 +66,16 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
 
 public extension Game {
   mutating func updateEarliestReleaseDate() {
-    earliestReleaseDate = releases
-      .filter { $0.date != nil }
+    earliestReleaseDate = releases.flatMap {
+      $0.filter { $0.date != nil }
       .sorted()
       .first?.date
+    }
   }
 
   mutating func updatePlatforms() {
     let releasePlatforms = releases
+      .unwrapped
       .flatMap(\.platforms)
       .deduplicated()
 
@@ -91,7 +93,7 @@ extension Game: Compactable {
       localizedNames: localizedNames,
       coverHash: coverHash,
       platforms: platforms,
-      tags: tags + genres,
+      tags: tags.unwrapped + genres.unwrapped,
       earliestReleaseDate: earliestReleaseDate
     )
   }
