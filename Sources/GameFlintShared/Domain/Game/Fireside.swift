@@ -7,7 +7,7 @@ public struct Fireside: Codable, Equatable, Identifiable, Hashable {
   public var total: Int
   public var createdAt: Date?
   public var updatedAt: Date?
-  public var reviews: [Review]
+  public var reviews: [Review]?
 
   public init(
     id: UUID,
@@ -16,7 +16,7 @@ public struct Fireside: Codable, Equatable, Identifiable, Hashable {
     total: Int = 0,
     createdAt: Date? = nil,
     updatedAt: Date? = nil,
-    reviews: [Review] = []
+    reviews: [Review]? = nil
   ) {
     self.id = id
     self.burned = burned
