@@ -67,3 +67,9 @@ extension Collection where Self.Element: Hashable {
     Set(self)
   }
 }
+
+extension Collection {
+  @inlinable public func nilIfEmpty() -> Self? {
+    isEmpty ? nil : self
+  }
+}
