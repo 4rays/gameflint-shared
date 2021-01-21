@@ -161,10 +161,12 @@ public enum APIRoutes {
         case find
         case upcoming
         case search
+        case fireside
+        case flint
 
         public var make: EndpointFactory {
           switch self {
-          case .all, .find:
+          case .all, .find, .fireside, .flint:
             return APIRoutes.hearthGames
           case .upcoming:
             return APIRoutes.upcomingGames
@@ -300,5 +302,9 @@ public extension APIRoutes {
 
   static var fireside: EndpointFactory {
     component("fireside")
+  }
+
+  static var flint: EndpointFactory {
+    component("flint")
   }
 }
