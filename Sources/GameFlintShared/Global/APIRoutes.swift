@@ -320,4 +320,8 @@ public extension APIRoutes {
   static var flintPath: EndpointFactory {
     component("flint")
   }
+
+  static func flint(_ id: UUID) -> EndpointFactory {
+    compose(flintPath, component(id.uuidString), games)
+  }
 }
