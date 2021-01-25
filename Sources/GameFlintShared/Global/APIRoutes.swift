@@ -64,6 +64,7 @@ public enum APIRoutes {
     }
 
     public enum Account: EndpointFactoryGroup {
+      case userGames(UserGames)
       case games(Games)
       case sessions(PlaySessions)
       case profile(Profile)
@@ -71,6 +72,8 @@ public enum APIRoutes {
 
       public var make: EndpointFactory {
         switch self {
+        case .userGames(let userGames):
+          return userGames.make
         case .games(let games):
           return games.make
         case .sessions(let sessions):
@@ -82,7 +85,7 @@ public enum APIRoutes {
         }
       }
 
-      public enum Games: EndpointFactoryGroup {
+      public enum UserGames: EndpointFactoryGroup {
         case all
         case filterByPlaythrough
         case update
@@ -114,6 +117,14 @@ public enum APIRoutes {
 
         public var make: EndpointFactory {
           APIRoutes.profile
+        }
+      }
+
+      public enum Games: EndpointFactoryGroup {
+        case flint
+
+        public var make: EndpointFactory {
+          APIRoutes.games
         }
       }
     }
@@ -148,7 +159,6 @@ public enum APIRoutes {
     public enum Hearth: EndpointFactoryGroup {
       case games(Games)
 
-
       public var make: EndpointFactory {
         switch self {
         case .games(let games):
@@ -162,12 +172,11 @@ public enum APIRoutes {
         case upcoming
         case search
         case fireside
-        case flint
 
         public var make: EndpointFactory {
           switch self {
-          case .all, .find, .fireside, .flint:
-            return APIRoutes.hearthGames
+          case .all, .find, .fireside:
+            return APIRoutes.games
           case .upcoming:
             return APIRoutes.upcomingGames
           case .search:
@@ -196,7 +205,7 @@ public extension APIRoutes {
     compose(component("v1"), api)
   }
 
-  static var games: EndpointFactory {
+  static var gamesPath: EndpointFactory {
     component("games")
   }
 
@@ -288,23 +297,27 @@ public extension APIRoutes {
 
 // MARK: - Hearth
 public extension APIRoutes {
-  static var hearthGames: EndpointFactory {
-    compose(games, v1)
+  static var games: EndpointFactory {
+    compose(gamesPath, v1)
   }
 
   static var upcomingGames: EndpointFactory {
-    compose(component("upcoming"), hearthGames)
+    compose(component("upcoming"), games)
   }
 
   static var gameSearch: EndpointFactory {
-    compose(component("search"), hearthGames)
+    compose(component("search"), games)
   }
 
-  static var fireside: EndpointFactory {
+  static var firesidePath: EndpointFactory {
     component("fireside")
   }
 
-  static var flint: EndpointFactory {
+  static func fireside(for id: UUID) -> EndpointFactory {
+    compose(firesidePath, component(id.uuidString), games)
+  }
+
+  static var flintPath: EndpointFactory {
     component("flint")
   }
 }
