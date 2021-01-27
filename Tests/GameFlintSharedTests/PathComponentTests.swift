@@ -15,4 +15,14 @@ final class PathComponentTests: XCTestCase {
     XCTAssertEqual(path3.last(2), ["reset-password", "verify"])
     XCTAssertEqual(path3.last(1), ["verify"])
   }
+
+  func testImportGamesPath() {
+    let path = APIRoutes.importGames(.init())
+    XCTAssertEqual(path.fullPath, "api/v1/admin/games/import")
+  }
+
+  func testUserGamesPath() {
+    let path = APIRoutes.userGames(.init())
+    XCTAssertEqual(path.fullPath, "api/v1/account/games")
+  }
 }

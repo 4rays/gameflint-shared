@@ -25,7 +25,7 @@ final class ReleaseDateTests: XCTestCase {
 
     release3.humanDate = earliestReleaseDate
 
-    game.releases[2] = release3
+    game.releases?[2] = release3
 
     XCTAssertEqual(game.earliestReleaseDate, try? earliestReleaseDate.toRawDate())
   }
@@ -41,7 +41,7 @@ final class ReleaseDateTests: XCTestCase {
 
     release3.humanDate = earliestReleaseDate
 
-    game.releases.append(release3)
+    game.releases?.append(release3)
 
     XCTAssertEqual(game.earliestReleaseDate, try? earliestReleaseDate.toRawDate())
   }

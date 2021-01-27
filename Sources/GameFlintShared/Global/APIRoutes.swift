@@ -260,7 +260,7 @@ public extension APIRoutes {
   }
 
   static var userGames: EndpointFactory {
-    compose(games, account)
+    compose(gamesPath, account)
   }
 
   static var userGamesByPlaythrough: EndpointFactory {
@@ -287,7 +287,7 @@ public extension APIRoutes {
   }
 
   static var adminGames: EndpointFactory {
-    compose(games, admin)
+    compose(gamesPath, admin)
   }
 
   static var importGames: EndpointFactory {
