@@ -14,6 +14,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var openCriticMetadata: OpenCriticMetadata?
   public var metacriticMetadata: MetacriticMetadata?
   public var igdbMetadata: IGDBMetadata?
+  public var description: LocalizedDescription?
   public var coverHash: String?
   public var genres: [String]?
   public var tags: [String]?
@@ -33,6 +34,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     openCriticMetadata: OpenCriticMetadata? = nil,
     metacriticMetadata: MetacriticMetadata? = nil,
     igdbMetadata: IGDBMetadata? = nil,
+    description: LocalizedDescription? = nil,
     coverHash: String? = nil,
     genres: [String]? = nil,
     tags: [String]? = nil,
@@ -51,6 +53,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.openCriticMetadata = openCriticMetadata
     self.metacriticMetadata = metacriticMetadata
     self.igdbMetadata = igdbMetadata
+    self.description = description
     self.coverHash = coverHash
     self.genres = genres
     self.tags = tags
