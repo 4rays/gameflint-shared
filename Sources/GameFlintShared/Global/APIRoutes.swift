@@ -317,11 +317,11 @@ public extension APIRoutes {
     compose(firesidePath, component(id.uuidString), games)
   }
 
-  static var flintPath: EndpointFactory {
-    component("flint")
+  static var flamePath: EndpointFactory {
+    component("flame")
   }
 
   static func flint(_ id: UUID) -> EndpointFactory {
-    compose(flintPath, component(id.uuidString), games)
+    compose(flamePath, component(id.uuidString), games)
   }
 }
