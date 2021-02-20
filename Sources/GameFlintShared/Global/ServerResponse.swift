@@ -50,7 +50,7 @@ public extension ResponseError {
       case .takenUsername:
         return "Username is Taken"
       case .gameAlreadyFlinted:
-        return "This game has been already flinted"
+        return "Game already Flamed Up"
       }
     }
   }
