@@ -34,6 +34,7 @@ public extension ResponseError {
     case unverifiedEmail
     case takenUsername
     case gameAlreadyFlinted
+    case notEnoughPellets
 
     public var name: String {
       switch self {
@@ -51,6 +52,8 @@ public extension ResponseError {
         return "Username is Taken"
       case .gameAlreadyFlinted:
         return "Game already Flamed Up"
+      case .notEnoughPellets:
+        return "Not Enough Pellets"
       }
     }
   }
