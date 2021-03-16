@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Flame: Codable, Equatable, Hashable {
+public struct Flare: Codable, Equatable, Hashable {
   public var gameID: UUID
   public var userID: UUID
   public var createdAt: Date
