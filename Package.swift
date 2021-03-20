@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "GameFlintShared",
+  name: "gameflint-shared",
   products: [
     .library(
       name: "GameFlintShared",
