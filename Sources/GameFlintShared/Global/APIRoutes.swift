@@ -121,7 +121,7 @@ public enum APIRoutes {
       }
 
       public enum Games: EndpointFactoryGroup {
-        case flameUp
+        case flareUp
 
         public var make: EndpointFactory {
           APIRoutes.games
@@ -321,7 +321,7 @@ public extension APIRoutes {
     component("flame")
   }
 
-  static func flameUp(_ id: UUID) -> EndpointFactory {
+  static func flareUp(_ id: UUID) -> EndpointFactory {
     compose(flamePath, component(id.uuidString), games)
   }
 }
