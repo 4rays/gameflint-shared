@@ -11,14 +11,12 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var platforms: [String]?
   public var companies: [GameCompany.Compact]?
   public var ageRatings: [AgeRating]?
-  public var openCriticMetadata: OpenCriticMetadata?
-  public var metacriticMetadata: MetacriticMetadata?
-  public var igdbMetadata: IGDBMetadata?
   public var description: LocalizedDescription?
   public var coverHash: String?
   public var genres: [String]?
   public var tags: [String]?
   public var links: [String]?
+  public var metadata: Metadata?
   public var fireside: Fireside?
   public var createdAt: Date?
   public var updatedAt: Date?
@@ -31,14 +29,12 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     platforms: [String]? = nil,
     companies: [GameCompany.Compact]? = nil,
     ageRatings: [AgeRating]? = nil,
-    openCriticMetadata: OpenCriticMetadata? = nil,
-    metacriticMetadata: MetacriticMetadata? = nil,
-    igdbMetadata: IGDBMetadata? = nil,
     description: LocalizedDescription? = nil,
     coverHash: String? = nil,
     genres: [String]? = nil,
     tags: [String]? = nil,
     links: [String]? = nil,
+    metadata: Metadata? = nil,
     fireside: Fireside? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
@@ -50,14 +46,12 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.platforms = platforms
     self.companies = companies
     self.ageRatings = ageRatings
-    self.openCriticMetadata = openCriticMetadata
-    self.metacriticMetadata = metacriticMetadata
-    self.igdbMetadata = igdbMetadata
     self.description = description
     self.coverHash = coverHash
     self.genres = genres
     self.tags = tags
     self.links = links
+    self.metadata = metadata
     self.fireside = fireside
     self.createdAt = createdAt
     self.updatedAt = updatedAt
