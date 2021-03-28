@@ -6,9 +6,9 @@ public struct Metadata: Codable, Equatable, Hashable {
   public var openCritic: OpenCritic?
 
   public init(
-    igdb: Metadata.IGDB?,
-    metacritic: Metadata.Metacritic?,
-    openCritic: Metadata.OpenCritic?
+    igdb: Metadata.IGDB? = nil,
+    metacritic: Metadata.Metacritic? = nil,
+    openCritic: Metadata.OpenCritic? = nil
   ) {
     self.igdb = igdb
     self.metacritic = metacritic
