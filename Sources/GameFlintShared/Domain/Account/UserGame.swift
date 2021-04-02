@@ -70,6 +70,7 @@ extension UserGame {
     case wishlisted
     case ready
     case playing
+    case paused
     case cleared
     case abandoned
   }
