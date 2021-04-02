@@ -5,6 +5,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var name: String
   public var localizedNames: [LocalizedName]
   public fileprivate(set) var earliestReleaseDate: Date?
+  public var announcedAt: Date?
   public var releases: [Release]? {
     didSet { updateEarliestReleaseDate() }
   }
@@ -25,6 +26,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     id: UUID,
     name: String,
     localizedNames: [LocalizedName] = [],
+    announcedAt: Date? = nil,
     releases: [Release]? = nil,
     platforms: [String]? = nil,
     companies: [GameCompany.Compact]? = nil,
@@ -42,6 +44,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.id = id
     self.name = name
     self.localizedNames = localizedNames
+    self.announcedAt = announcedAt
     self.releases = releases
     self.platforms = platforms
     self.companies = companies
