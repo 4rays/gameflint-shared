@@ -9,6 +9,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
     }
   }
   public private(set) var date: Date?
+  public var timeZone: String?
   public var platforms: [Platform]
   public var regions: [Region]
   public var createdAt: Date?
@@ -20,6 +21,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
     platforms: [Platform] = [],
     regions: [Region] = [],
     humanDate: ReleaseDate? = nil,
+    timeZone: String? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
@@ -27,6 +29,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
     self.isTentative = isTentative
     self.humanDate = humanDate
     self.date = try? humanDate?.toRawDate()
+    self.timeZone = timeZone
     self.platforms = platforms
     self.regions = regions
     self.createdAt = createdAt
