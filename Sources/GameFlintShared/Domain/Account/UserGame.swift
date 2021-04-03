@@ -5,6 +5,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
   public var gameID: UUID
   public var status: Status
   public var format: Format
+  public var playStyle: PlayStyle
   public var inLibrary: Bool
   public var userPlayTime: Int?
   public private(set) var lastPlayedAt: Date?
@@ -22,6 +23,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     gameID: UUID,
     status: Status = .interested,
     format: Format = .digital,
+    playStyle: PlayStyle = .casual,
     inLibrary: Bool = false,
     userPlayTime: Int? = nil,
     lastPlayedAt: Date? = nil,
@@ -41,6 +43,7 @@ public struct UserGame: Codable, Equatable, Hashable, Identifiable  {
     self.aggregatePlayTime = aggregatePlayTime
     self.completionRate = completionRate
     self.format = format
+    self.playStyle = playStyle
     self.inLibrary = inLibrary
     self.platform = platform
     self.gameInfo = gameInfo
@@ -73,5 +76,12 @@ extension UserGame {
     case paused
     case cleared
     case abandoned
+  }
+
+  public enum PlayStyle: String, Codable, Equatable, CaseIterable {
+    case casual
+    case completionist
+    case speedrunner
+    case competitive
   }
 }
