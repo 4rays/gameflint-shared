@@ -10,6 +10,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
   }
   public private(set) var date: Date?
   public var timeZone: String?
+  public var description: LocalizedDescription?
   public var platforms: [Platform]
   public var regions: [Region]
   public var createdAt: Date?
@@ -22,6 +23,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
     regions: [Region] = [],
     humanDate: ReleaseDate? = nil,
     timeZone: String? = nil,
+    description: LocalizedDescription? = nil
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
@@ -34,6 +36,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
     self.regions = regions
     self.createdAt = createdAt
     self.updatedAt = updatedAt
+    self.description = description
   }
 }
 
