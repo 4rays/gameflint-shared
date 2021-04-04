@@ -23,7 +23,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
     regions: [Region] = [],
     humanDate: ReleaseDate? = nil,
     timeZone: String? = nil,
-    description: LocalizedDescription? = nil
+    description: LocalizedDescription? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
