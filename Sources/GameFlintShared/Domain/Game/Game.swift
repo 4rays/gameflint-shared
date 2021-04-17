@@ -14,8 +14,8 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var ageRatings: [AgeRating]?
   public var description: String?
   public var coverHash: String?
-  public var genres: [Localized<Genre>]?
-  public var tags: [Localized<Tag>]?
+  public var genres: [Genre]?
+  public var tags: [Tag]?
   public var links: [String]?
   public var metadata: Metadata?
   public var fireside: Fireside?
@@ -33,8 +33,8 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     ageRatings: [AgeRating]? = nil,
     description: String? = nil,
     coverHash: String? = nil,
-    genres: [Localized<Genre>]? = nil,
-    tags: [Localized<Tag>]? = nil,
+    genres: [Genre]? = nil,
+    tags: [Tag]? = nil,
     links: [String]? = nil,
     metadata: Metadata? = nil,
     fireside: Fireside? = nil,
@@ -93,8 +93,8 @@ extension Game: Compactable {
       localizedNames: localizedNames,
       coverHash: coverHash,
       platforms: platforms,
-      tags: tags?.map(\.strings.first.value),
-      genres: genres?.map(\.strings.first.value),
+      tags: tags?.map(\.name),
+      genres: genres?.map(\.name),
       earliestReleaseDate: earliestReleaseDate
     )
   }

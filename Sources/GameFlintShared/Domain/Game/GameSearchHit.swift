@@ -34,8 +34,8 @@ public extension Game {
       self.japaneseName = game.japaneseName
       self.coverHash = game.coverHash
       self.platforms = game.platforms
-      self.tags = game.tags?.map(\.strings.first.value)
-      self.genres = game.genres?.map(\.strings.first.value)
+      self.tags = game.tags?.map(\.name)
+      self.genres = game.genres?.map(\.name)
       self.releasedAt = game.earliestReleaseDate
       self.releasedAtText = game.earliestReleaseDate.map {
         ReleaseDate.formatter.string(from: $0)

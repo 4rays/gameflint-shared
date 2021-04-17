@@ -2,27 +2,33 @@ import Foundation
 
 public struct Tag: Identifiable, Codable, Equatable, Hashable {
   public var id: UUID
+  public var slug: String
   public var name: String
 
   public init(
     id: UUID,
+    slug: String,
     name: String
   ) {
     self.id = id
+    self.slug = slug
     self.name = name
   }
 }
 
 public extension Tag {
   struct Patch: Codable, Equatable, Hashable {
-    public var name: String
-    public var localizedNames: [LocalizedString]
+    public var id: UUID? = nil
+    public var slug: String
+    public var localizedNames: NonEmptyArray<LocalizedString>
 
     public init(
-      name: String,
-      localizedNames: [LocalizedString]
+      id: UUID? = nil,
+      slug: String,
+      localizedNames: NonEmptyArray<LocalizedString>
     ) {
-      self.name = name
+      self.id = id
+      self.slug = slug
       self.localizedNames = localizedNames
     }
   }
