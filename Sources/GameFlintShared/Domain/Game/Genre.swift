@@ -31,5 +31,12 @@ public extension Genre {
       self.slug = slug
       self.localizedNames = localizedNames
     }
+
+    public init(
+      _ value: String
+    ) {
+      self.id = nil
+      self.slug = 
+    }
   }
 }
