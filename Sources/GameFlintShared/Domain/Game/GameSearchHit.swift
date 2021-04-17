@@ -8,6 +8,7 @@ public extension Game {
     public var coverHash: String?
     public var platforms: [String]?
     public var tags: [String]?
+    public var genres: [String]?
     public var releasedAt: Date?
     public var releasedAtText: String?
 
@@ -16,12 +17,13 @@ public extension Game {
         id: id,
         name: name,
         localizedNames: [
-          .init(language: "en", name: name),
-          .init(language: "jp", name: japaneseName)
+          .init(name, language: .en),
+                  .init(japaneseName, language: .jp)
         ],
         coverHash: coverHash,
         platforms: platforms,
         tags: tags,
+        genres: genres,
         earliestReleaseDate: releasedAt
       )
     }
@@ -32,7 +34,8 @@ public extension Game {
       self.japaneseName = game.japaneseName
       self.coverHash = game.coverHash
       self.platforms = game.platforms
-      self.tags = game.tags
+      self.tags = game.tags?.map(\.strings.first.value)
+      self.genres = game.genres?.map(\.strings.first.value)
       self.releasedAt = game.earliestReleaseDate
       self.releasedAtText = game.earliestReleaseDate.map {
         ReleaseDate.formatter.string(from: $0)

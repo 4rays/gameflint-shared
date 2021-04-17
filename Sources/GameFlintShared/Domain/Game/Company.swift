@@ -43,7 +43,7 @@ public struct Company: Codable, Hashable, Equatable, Identifiable {
   public var name: String
   public var website: String?
   public var country: Int?
-  public var localizedNames: [LocalizedName]
+  public var localizedNames: [LocalizedString]
   public var createdAt: Date?
   public var updatedAt: Date?
 
@@ -52,7 +52,7 @@ public struct Company: Codable, Hashable, Equatable, Identifiable {
     name: String,
     website: String? = nil,
     country: Int? = nil,
-    localizedNames: [LocalizedName] = [],
+    localizedNames: [LocalizedString] = [],
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {

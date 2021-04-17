@@ -10,7 +10,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
   }
   public private(set) var date: Date?
   public var timeZone: String?
-  public var description: LocalizedDescription?
+  public var description: LocalizedString?
   public var platforms: [Platform]
   public var regions: [Region]
   public var createdAt: Date?
@@ -23,7 +23,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
     regions: [Region] = [],
     humanDate: ReleaseDate? = nil,
     timeZone: String? = nil,
-    description: LocalizedDescription? = nil,
+    description: LocalizedString? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
@@ -48,5 +48,19 @@ extension Release {
     default:
       return false
     }
+  }
+}
+
+public extension Release {
+  struct Patch: Codable, Equatable, Hashable {
+    public var id: UUID?
+    public var isTentative: Bool
+    public var humanDate: ReleaseDate?
+    public var timeZone: String?
+    public var description: LocalizedString?
+    public var platforms: [Platform]
+    public var regions: [Region]
+    public var createdAt: Date?
+    public var updatedAt: Date?
   }
 }

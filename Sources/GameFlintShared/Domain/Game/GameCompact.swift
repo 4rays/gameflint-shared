@@ -4,19 +4,21 @@ public extension Game {
   struct Compact: Codable, Equatable, Identifiable, Hashable, Expandable {
     public var id: UUID
     public var name: String
-    public var localizedNames: [LocalizedName]
+    public var localizedNames: [LocalizedString]
     public var coverHash: String?
     public var platforms: [String]?
     public var tags: [String]?
+    public var genres: [String]?
     public var earliestReleaseDate: Date?
 
     public init(
       id: UUID,
       name: String,
-      localizedNames: [LocalizedName] = [],
+      localizedNames: [LocalizedString] = [],
       coverHash: String? = nil,
       platforms: [String]? = nil,
       tags: [String]? = nil,
+      genres: [String]? = nil,
       earliestReleaseDate: Date? = nil
     ) {
       self.id = id
@@ -25,6 +27,7 @@ public extension Game {
       self.coverHash = coverHash
       self.platforms = platforms
       self.tags = tags
+      self.genres = genres
       self.earliestReleaseDate = earliestReleaseDate
     }
 
