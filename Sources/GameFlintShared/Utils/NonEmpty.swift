@@ -157,3 +157,9 @@ extension NonEmpty where Collection: MutableCollection & RandomAccessCollection 
 }
 
 public typealias NonEmptyArray<Element> = NonEmpty<[Element]>
+
+public extension Swift.Collection {
+  var nonEmpty: NonEmpty<Self>? {
+    NonEmpty(rawValue: self)
+  }
+}

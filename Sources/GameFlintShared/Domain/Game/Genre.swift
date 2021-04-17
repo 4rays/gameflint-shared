@@ -36,7 +36,8 @@ public extension Genre {
       _ value: String
     ) {
       self.id = nil
-      self.slug = 
+      self.slug = value.slugify()
+      self.localizedNames = [LocalizedString(value, language: .en)].nonEmpty!
     }
   }
 }
