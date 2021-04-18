@@ -7,9 +7,9 @@ public extension Game {
     public var localizedNames: [LocalizedString]
     public var announcedAt: Date?
     public var releases: [Release]?
-    public var companies: [GameCompany.Compact]?
+    public var companies: [GameCompany.Patch]?
     public var ageRatings: [AgeRating]?
-    public var description: String?
+    public var description: [LocalizedString]?
     public var coverHash: String?
     public var genres: [Genre.Patch]?
     public var tags: [Tag.Patch]?
@@ -22,9 +22,9 @@ public extension Game {
       localizedNames: [LocalizedString] = [],
       announcedAt: Date? = nil,
       releases: [Release]? = nil,
-      companies: [GameCompany.Compact]? = nil,
+      companies: [GameCompany.Patch]? = nil,
       ageRatings: [AgeRating]? = nil,
-      description: String? = nil,
+      description: [LocalizedString]? = nil,
       coverHash: String? = nil,
       genres: [Genre.Patch]? = nil,
       tags: [Tag.Patch]? = nil,
