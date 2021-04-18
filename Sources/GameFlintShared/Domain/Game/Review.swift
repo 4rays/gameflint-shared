@@ -6,6 +6,7 @@ public struct Review:  Codable, Equatable, Identifiable, Hashable {
   public var rating: Rating
   public var profileID: UUID
   public var releaseID: UUID
+  public var language: Language
   public var createdAt: Date?
   public var updatedAt: Date?
 
@@ -15,6 +16,7 @@ public struct Review:  Codable, Equatable, Identifiable, Hashable {
     rating: Rating,
     profileID: UUID,
     releaseID: UUID,
+    language: Language = .en,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
@@ -23,6 +25,7 @@ public struct Review:  Codable, Equatable, Identifiable, Hashable {
     self.rating = rating
     self.profileID = profileID
     self.releaseID = releaseID
+    self.language = language
     self.createdAt = createdAt
     self.updatedAt = updatedAt
   }
