@@ -4,13 +4,13 @@ public struct Genre: Identifiable, Codable, Equatable, Hashable {
   public var id: UUID
   public var slug: String
   public var name: String
-  public var localizedNames: [LocalizedString]
+  public var localizedNames: [LocalizedString]?
 
   public init(
     id: UUID,
     slug: String,
     name: String,
-    localizedNames: [LocalizedString] = []
+    localizedNames: [LocalizedString]? = nil
   ) {
     self.id = id
     self.slug = slug
