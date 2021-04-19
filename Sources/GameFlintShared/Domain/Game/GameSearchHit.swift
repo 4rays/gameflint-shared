@@ -5,7 +5,7 @@ public extension Game {
     public var id: UUID
     public var name: String
     public var japaneseName: String
-    public var coverHash: String?
+    public var posterID: String?
     public var platforms: [String]?
     public var tags: [String]?
     public var genres: [String]?
@@ -20,7 +20,7 @@ public extension Game {
           .init(name, language: .en),
                   .init(japaneseName, language: .jp)
         ],
-        coverHash: coverHash,
+        posterID: posterID,
         platforms: platforms,
         tags: tags,
         genres: genres,
@@ -32,7 +32,7 @@ public extension Game {
       self.id = game.id
       self.name = game.name
       self.japaneseName = game.japaneseName
-      self.coverHash = game.coverHash
+      self.posterID = game.posterID
       self.platforms = game.platforms
       self.tags = game.tags?.map(\.name)
       self.genres = game.genres?.map(\.name)

@@ -4,7 +4,7 @@ public extension Metadata {
   struct IGDB: Codable, Equatable, Hashable {
     public var url: String
     public var id: Int
-    public var coverHash: String?
+    public var cover: String?
     public var updatedAt: Date
     public var aggregatedRating: Double?
 
@@ -12,12 +12,12 @@ public extension Metadata {
       url: String,
       id: Int,
       updatedAt: Date,
-      coverHash: String? = nil,
+      cover: String? = nil,
       aggregatedRating: Double? = nil
     ) {
       self.url = url
       self.id = id
-      self.coverHash = coverHash
+      self.cover = cover
       self.updatedAt = updatedAt
       self.aggregatedRating = aggregatedRating
     }

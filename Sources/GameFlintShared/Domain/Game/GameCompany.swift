@@ -17,26 +17,6 @@ public struct GameCompany: Codable, Hashable, Equatable {
 }
 
 extension GameCompany: Compactable {
-  public struct Patch: Codable, Equatable, Hashable {
-    public var company: Company.Patch
-    public var roles: [CompanyRole]
-
-    public init(
-      company: Company.Patch,
-      roles: [CompanyRole]
-    ) {
-      self.company = company
-      self.roles = roles
-    }
-
-    public var compact: Compact {
-      .init(
-        company: company.full,
-        roles: roles
-      )
-    }
-  }
-
   public struct Compact: Codable, Equatable, Hashable {
     public var company: Company
     public var roles: [CompanyRole]

@@ -3,18 +3,19 @@ import Foundation
 public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
   public var id: UUID
   public var isTentative: Bool
+  public private(set) var date: Date?
+  public var timeZone: String?
+  public var descriptions: [LocalizedString]?
+  public var platforms: [Platform]
+  public var regions: [Region]
+  public var createdAt: Date?
+  public var updatedAt: Date?
+
   public var humanDate: ReleaseDate? {
     didSet {
       date = try? humanDate?.toRawDate()
     }
   }
-  public private(set) var date: Date?
-  public var timeZone: String?
-  public var description: LocalizedString?
-  public var platforms: [Platform]
-  public var regions: [Region]
-  public var createdAt: Date?
-  public var updatedAt: Date?
 
   public init(
     id: UUID,
@@ -23,7 +24,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
     regions: [Region] = [],
     humanDate: ReleaseDate? = nil,
     timeZone: String? = nil,
-    description: LocalizedString? = nil,
+    descriptions: [LocalizedString]? = nil,
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
@@ -36,7 +37,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
     self.regions = regions
     self.createdAt = createdAt
     self.updatedAt = updatedAt
-    self.description = description
+    self.descriptions = descriptions
   }
 }
 
@@ -48,19 +49,5 @@ extension Release {
     default:
       return false
     }
-  }
-}
-
-public extension Release {
-  struct Patch: Codable, Equatable, Hashable {
-    public var id: UUID?
-    public var isTentative: Bool
-    public var humanDate: ReleaseDate?
-    public var timeZone: String?
-    public var description: LocalizedString?
-    public var platforms: [Platform]
-    public var regions: [Region]
-    public var createdAt: Date?
-    public var updatedAt: Date?
   }
 }

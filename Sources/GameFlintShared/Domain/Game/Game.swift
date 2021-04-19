@@ -12,8 +12,8 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var platforms: [String]?
   public var companies: [GameCompany.Compact]?
   public var ageRatings: [AgeRating]?
-  public var description: String?
-  public var coverHash: String?
+  public var descriptions: [LocalizedString]?
+  public var posterID: String?
   public var genres: [Genre]?
   public var tags: [Tag]?
   public var links: [String]?
@@ -31,8 +31,8 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     platforms: [String]? = nil,
     companies: [GameCompany.Compact]? = nil,
     ageRatings: [AgeRating]? = nil,
-    description: String? = nil,
-    coverHash: String? = nil,
+    descriptions: [LocalizedString]? = nil,
+    posterID: String? = nil,
     genres: [Genre]? = nil,
     tags: [Tag]? = nil,
     links: [String]? = nil,
@@ -49,8 +49,8 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.platforms = platforms
     self.companies = companies
     self.ageRatings = ageRatings
-    self.description = description
-    self.coverHash = coverHash
+    self.descriptions = descriptions
+    self.posterID = posterID
     self.genres = genres
     self.tags = tags
     self.links = links
@@ -91,7 +91,7 @@ extension Game: Compactable {
       id: id,
       name: name,
       localizedNames: localizedNames,
-      coverHash: coverHash,
+      posterID: posterID,
       platforms: platforms,
       tags: tags?.map(\.name),
       genres: genres?.map(\.name),
