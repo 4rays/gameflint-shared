@@ -63,7 +63,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     updatePlatforms()
   }
 }
-
+ 
 public extension Game {
   mutating func updateEarliestReleaseDate() {
     earliestReleaseDate = releases.flatMap {

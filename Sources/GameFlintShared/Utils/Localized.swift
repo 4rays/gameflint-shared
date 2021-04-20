@@ -30,4 +30,12 @@ extension Collection where Element == LocalizedString {
       $0.language == language
     })?.value
   }
+
+  public func filter(
+    by language: Language = .en
+  ) -> [LocalizedString] {
+    filter {
+      $0.language == language
+    }
+  }
 }
