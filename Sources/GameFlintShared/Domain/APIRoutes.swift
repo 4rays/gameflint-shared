@@ -209,6 +209,18 @@ public extension APIRoutes {
     component("games")
   }
 
+  static var tagsPath: EndpointFactory {
+    component("tags")
+  }
+
+  static var genresPath: EndpointFactory {
+    component("genres")
+  }
+
+  static var companiesPath: EndpointFactory {
+    component("companies")
+  }
+
   static var filters: EndpointFactory {
     component("filters")
   }
@@ -288,6 +300,18 @@ public extension APIRoutes {
 
   static var adminGames: EndpointFactory {
     compose(gamesPath, admin)
+  }
+
+  static var adminTags: EndpointFactory {
+    compose(tagsPath, admin)
+  }
+
+  static var adminGenres: EndpointFactory {
+    compose(genresPath, admin)
+  }
+
+  static var adminCompanies: EndpointFactory {
+    compose(companiesPath, admin)
   }
 
   static var importGames: EndpointFactory {
