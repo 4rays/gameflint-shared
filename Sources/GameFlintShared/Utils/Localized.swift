@@ -7,6 +7,15 @@ public enum Language: String, Hashable, Identifiable, CaseIterable, Codable {
   public var id: String {
     rawValue
   }
+
+  public var description: String {
+    switch self {
+    case .en:
+      return "English"
+    case .jp:
+      return "日本語"
+    }
+  }
 }
 
 public struct LocalizedString: Codable, Hashable {
