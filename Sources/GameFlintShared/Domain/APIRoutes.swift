@@ -131,11 +131,20 @@ public enum APIRoutes {
 
     public enum Admin: EndpointFactoryGroup {
       case games(Games)
+      case platforms(Platforms)
+      case genres(Genres)
+      case tags(Tags)
 
       public var make: EndpointFactory {
         switch self {
         case .games(let games):
           return games.make
+        case .platforms(let platforms):
+          return platforms.make
+        case .genres(let genres):
+          return genres.make
+        case .tags(let tags):
+          return tags.make
         }
       }
 
@@ -151,6 +160,45 @@ public enum APIRoutes {
             return APIRoutes.importGames
           case .create, .update, .delete:
             return APIRoutes.adminGames
+          }
+        }
+      }
+
+      public enum Platforms: EndpointFactoryGroup {
+        case create
+        case update
+        case delete
+
+        public var make: EndpointFactory {
+          switch self {
+          case .create, .update, .delete:
+            return APIRoutes.adminPlatforms
+          }
+        }
+      }
+
+      public enum Tags: EndpointFactoryGroup {
+        case create
+        case update
+        case delete
+
+        public var make: EndpointFactory {
+          switch self {
+          case .create, .update, .delete:
+            return APIRoutes.adminTags
+          }
+        }
+      }
+
+      public enum Genres: EndpointFactoryGroup {
+        case create
+        case update
+        case delete
+
+        public var make: EndpointFactory {
+          switch self {
+          case .create, .update, .delete:
+            return APIRoutes.adminGenres
           }
         }
       }
@@ -207,6 +255,10 @@ public extension APIRoutes {
 
   static var gamesPath: EndpointFactory {
     component("games")
+  }
+
+  static var platformsPath: EndpointFactory {
+    component("platforms")
   }
 
   static var tagsPath: EndpointFactory {
@@ -300,6 +352,10 @@ public extension APIRoutes {
 
   static var adminGames: EndpointFactory {
     compose(gamesPath, admin)
+  }
+
+  static var adminPlatforms: EndpointFactory {
+    compose(platformsPath, admin)
   }
 
   static var adminTags: EndpointFactory {
