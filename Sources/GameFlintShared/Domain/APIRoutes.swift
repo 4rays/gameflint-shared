@@ -127,6 +127,30 @@ public enum APIRoutes {
           APIRoutes.games
         }
       }
+
+      public enum Platforms: EndpointFactoryGroup {
+        case all
+
+        public var make: EndpointFactory {
+          APIRoutes.platforms
+        }
+      }
+
+      public enum Genres: EndpointFactoryGroup {
+        case all
+
+        public var make: EndpointFactory {
+          APIRoutes.genres
+        }
+      }
+
+      public enum Tags: EndpointFactoryGroup {
+        case all
+
+        public var make: EndpointFactory {
+          APIRoutes.tags
+        }
+      }
     }
 
     public enum Admin: EndpointFactoryGroup {
@@ -379,6 +403,18 @@ public extension APIRoutes {
 public extension APIRoutes {
   static var games: EndpointFactory {
     compose(gamesPath, v1)
+  }
+
+  static var platforms: EndpointFactory {
+    compose(platformsPath, v1)
+  }
+
+  static var genres: EndpointFactory {
+    compose(genresPath, v1)
+  }
+
+  static var tags: EndpointFactory {
+    compose(tagsPath, v1)
   }
 
   static var upcomingGames: EndpointFactory {
