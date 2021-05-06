@@ -127,30 +127,6 @@ public enum APIRoutes {
           APIRoutes.games
         }
       }
-
-      public enum Platforms: EndpointFactoryGroup {
-        case all
-
-        public var make: EndpointFactory {
-          APIRoutes.platforms
-        }
-      }
-
-      public enum Genres: EndpointFactoryGroup {
-        case all
-
-        public var make: EndpointFactory {
-          APIRoutes.genres
-        }
-      }
-
-      public enum Tags: EndpointFactoryGroup {
-        case all
-
-        public var make: EndpointFactory {
-          APIRoutes.tags
-        }
-      }
     }
 
     public enum Admin: EndpointFactoryGroup {
@@ -228,13 +204,22 @@ public enum APIRoutes {
       }
     }
 
-    public enum Hearth: EndpointFactoryGroup {
+    public enum Public: EndpointFactoryGroup {
       case games(Games)
+      case platforms(Platforms)
+      case genres(Genres)
+      case tags(Tags)
 
       public var make: EndpointFactory {
         switch self {
         case .games(let games):
           return games.make
+        case .platforms(let platforms):
+          return platforms.make
+        case .genres(let genres):
+          return genres.make
+        case .tags(let tags):
+          return tags.make
         }
       }
 
@@ -254,6 +239,30 @@ public enum APIRoutes {
           case .search:
             return APIRoutes.gameSearch
           }
+        }
+      }
+
+      public enum Platforms: EndpointFactoryGroup {
+        case all
+
+        public var make: EndpointFactory {
+          APIRoutes.platforms
+        }
+      }
+
+      public enum Genres: EndpointFactoryGroup {
+        case all
+
+        public var make: EndpointFactory {
+          APIRoutes.genres
+        }
+      }
+
+      public enum Tags: EndpointFactoryGroup {
+        case all
+
+        public var make: EndpointFactory {
+          APIRoutes.tags
         }
       }
     }
