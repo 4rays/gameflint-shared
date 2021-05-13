@@ -48,3 +48,24 @@ extension Collection where Element == LocalizedString {
     }
   }
 }
+
+extension Array where Element == LocalizedString {
+  public mutating func set(
+    _ name: String,
+    for language: Language = .en
+  ) {
+    let localized = LocalizedString(name, language: language)
+
+    if let index = firstIndex(where: { $0.language == language }) {
+      self[index] = localized
+    } else {
+      append(localized)
+    }
+  }
+
+  public mutating func insert(
+    _ localized: LocalizedString
+  ) {
+    set(localized.value, for: localized.language)
+  }
+}
