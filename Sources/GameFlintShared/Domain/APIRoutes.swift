@@ -206,6 +206,7 @@ public enum APIRoutes {
 
     public enum Public: EndpointFactoryGroup {
       case games(Games)
+      case companies(Companies)
       case platforms(Platforms)
       case genres(Genres)
       case tags(Tags)
@@ -214,6 +215,8 @@ public enum APIRoutes {
         switch self {
         case .games(let games):
           return games.make
+        case .companies(let companies):
+          return companies.make
         case .platforms(let platforms):
           return platforms.make
         case .genres(let genres):
@@ -242,27 +245,63 @@ public enum APIRoutes {
         }
       }
 
-      public enum Platforms: EndpointFactoryGroup {
+      public enum Companies: EndpointFactoryGroup {
         case all
+        case find
+        case search
 
         public var make: EndpointFactory {
-          APIRoutes.platforms
+          switch self {
+          case .all, .find:
+            return APIRoutes.companies
+          case .search:
+            return APIRoutes.companySearch
+          }
+        }
+      }
+
+      public enum Platforms: EndpointFactoryGroup {
+        case all
+        case find
+        case search
+
+        public var make: EndpointFactory {
+          switch self {
+          case .all, .find:
+            return APIRoutes.platforms
+          case .search:
+            return APIRoutes.platformSearch
+          }
         }
       }
 
       public enum Genres: EndpointFactoryGroup {
         case all
+        case find
+        case search
 
         public var make: EndpointFactory {
-          APIRoutes.genres
+          switch self {
+          case .all, .find:
+            return APIRoutes.genres
+          case .search:
+            return APIRoutes.genreSearch
+          }
         }
       }
 
       public enum Tags: EndpointFactoryGroup {
         case all
+        case find
+        case search
 
         public var make: EndpointFactory {
-          APIRoutes.tags
+          switch self {
+          case .all, .find:
+            return APIRoutes.tags
+          case .search:
+            return APIRoutes.tagSearch
+          }
         }
       }
     }
@@ -306,8 +345,12 @@ public extension APIRoutes {
     component("companies")
   }
 
-  static var filters: EndpointFactory {
+  static var filtersPath: EndpointFactory {
     component("filters")
+  }
+
+  static var searchPath: EndpointFactory {
+    component("search")
   }
 }
 
@@ -361,7 +404,7 @@ public extension APIRoutes {
   }
 
   static var userGamesByPlaythrough: EndpointFactory {
-    compose(component("playthroughs"), filters, userGames)
+    compose(component("playthroughs"), filtersPath, userGames)
   }
 
   static var playSessions: EndpointFactory {
@@ -414,16 +457,36 @@ public extension APIRoutes {
     compose(gamesPath, v1)
   }
 
+  static var companies: EndpointFactory {
+    compose(companiesPath, v1)
+  }
+
+  static var companySearch: EndpointFactory {
+    compose(searchPath, companies)
+  }
+
   static var platforms: EndpointFactory {
     compose(platformsPath, v1)
+  }
+
+  static var platformSearch: EndpointFactory {
+    compose(searchPath, platforms)
   }
 
   static var genres: EndpointFactory {
     compose(genresPath, v1)
   }
 
+  static var genreSearch: EndpointFactory {
+    compose(searchPath, genres)
+  }
+
   static var tags: EndpointFactory {
     compose(tagsPath, v1)
+  }
+
+  static var tagSearch: EndpointFactory {
+    compose(searchPath, tags)
   }
 
   static var upcomingGames: EndpointFactory {
@@ -431,7 +494,7 @@ public extension APIRoutes {
   }
 
   static var gameSearch: EndpointFactory {
-    compose(component("search"), games)
+    compose(searchPath, games)
   }
 
   static var firesidePath: EndpointFactory {
