@@ -352,6 +352,10 @@ public extension APIRoutes {
   static var searchPath: EndpointFactory {
     component("search")
   }
+
+  static var pagePath: EndpointFactory {
+    component("page")
+  }
 }
 
 // MARK: - Auth
