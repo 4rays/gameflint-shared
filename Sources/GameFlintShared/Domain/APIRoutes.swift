@@ -1,6 +1,6 @@
 import Foundation
 
-public typealias EndpointFactory = (Endpoint) -> Endpoint
+public typealias EndpointTransform = (Endpoint) -> Endpoint
 
 public struct Endpoint {
   public var components: [String]
@@ -19,501 +19,470 @@ public struct Endpoint {
   }
 }
 
-public protocol EndpointFactoryGroup {
-  var make: EndpointFactory { get }
+public protocol EndpointCollection {
+  var path: EndpointPath { get }
 }
 
-public extension EndpointFactoryGroup {
+public extension EndpointCollection {
   var endpoint: Endpoint {
-    make(.init())
+    path.transform(.init())
   }
 }
 
-public enum APIRoutes {
-  public enum V1 {
-    public enum Auth: EndpointFactoryGroup {
-      case signIn
-      case signUp
-      case refreshAccessToken
-      case verifyEmail
-      case resetPassword
-      case verifyPasswordToken
-      case changePassword
-      case siwa
+public struct APIRoutes {
+  public static var v1 = Self(version: .init(major: 1))
+  let version: Version
 
-      public var make: EndpointFactory {
+  public init(version: APIRoutes.Version = .init()) {
+    self.version = version
+  }
+
+  public var path: EndpointTransform {
+    .api / version.path
+  }
+}
+
+extension APIRoutes {
+  public struct Version {
+    let major: Int
+    let minor: Int?
+    let patch: Int?
+
+    public init(
+      major: Int = 1,
+      minor: Int? = nil,
+      patch: Int? = nil
+    ) {
+      self.major = major
+      self.minor = minor
+      self.patch = patch
+    }
+
+    public var path: String {
+      .v(self)
+    }
+  }
+
+  public enum Auth: EndpointCollection {
+    case signIn
+    case signUp
+    case refreshAccessToken
+    case verifyEmail
+    case resetPassword
+    case verifyPasswordToken
+    case changePassword
+    case siwa
+
+    public var path: EndpointPath {
+      switch self {
+      case .signIn: return .signIn
+      case .signUp: return .signUp
+      case .refreshAccessToken: return .refreshAccessToken
+      case .verifyEmail: return .verifyEmail
+      case .resetPassword: return .resetPassword
+      case .verifyPasswordToken: return .verifyPasswordToken
+      case .changePassword: return .changePassword
+      case .siwa: return .siwa
+      }
+    }
+  }
+
+  public enum Account: EndpointCollection {
+    case userGames(UserGames)
+    case games(Games)
+    case sessions(PlaySessions)
+    case profile(Profile)
+    case resendVerification
+
+    public var path: EndpointPath {
+      switch self {
+      case .userGames(let userGames): return userGames.path
+      case .games(let games): return games.path
+      case .sessions(let sessions): return sessions.path
+      case .profile(let profile): return profile.path
+      case .resendVerification: return .resendVerification
+      }
+    }
+
+    public enum UserGames: EndpointCollection {
+      case all
+      case filterByPlaythrough
+      case update
+      case delete
+
+      public var path: EndpointPath {
         switch self {
-        case .signIn:
-          return APIRoutes.signIn
-        case .signUp:
-          return APIRoutes.signUp
-        case .refreshAccessToken:
-          return APIRoutes.refreshAccessToken
-        case .verifyEmail:
-          return APIRoutes.verifyEmail
-        case .resetPassword:
-          return APIRoutes.resetPassword
-        case .verifyPasswordToken:
-          return APIRoutes.verifyPasswordToken
-        case .changePassword:
-          return APIRoutes.changePassword
-        case .siwa:
-          return APIRoutes.siwa
+        case .filterByPlaythrough: return .userGamesByPlaythrough
+        default: return .userGames
         }
       }
     }
 
-    public enum Account: EndpointFactoryGroup {
-      case userGames(UserGames)
-      case games(Games)
-      case sessions(PlaySessions)
-      case profile(Profile)
-      case resendVerification
+    public enum PlaySessions: EndpointCollection {
+      case all
+      case create
+      case delete
 
-      public var make: EndpointFactory {
+      public var path: EndpointPath { .playSessions }
+    }
+
+    public enum Profile: EndpointCollection {
+      case get
+      case update
+
+      public var path: EndpointPath { .profile }
+    }
+
+    public enum Games: EndpointCollection {
+      case flareUp
+
+      public var path: EndpointPath { .games }
+    }
+  }
+
+  public enum Admin: EndpointCollection {
+    case games(Games)
+    case platforms(Platforms)
+    case genres(Genres)
+    case tags(Tags)
+
+    public var path: EndpointPath {
+      switch self {
+      case .games(let games): return games.path
+      case .platforms(let platforms): return platforms.path
+      case .genres(let genres): return genres.path
+      case .tags(let tags): return tags.path
+      }
+    }
+
+    public enum Games: EndpointCollection {
+      case batchImport
+      case create
+      case update
+      case delete
+
+      public var path: EndpointPath {
         switch self {
-        case .userGames(let userGames):
-          return userGames.make
-        case .games(let games):
-          return games.make
-        case .sessions(let sessions):
-          return sessions.make
-        case .profile(let profile):
-          return profile.make
-        case .resendVerification:
-          return APIRoutes.resendVerification
-        }
-      }
-
-      public enum UserGames: EndpointFactoryGroup {
-        case all
-        case filterByPlaythrough
-        case update
-        case delete
-
-        public var make: EndpointFactory {
-          switch self {
-          case .filterByPlaythrough:
-            return APIRoutes.userGamesByPlaythrough
-          default:
-            return APIRoutes.userGames
-          }
-        }
-      }
-
-      public enum PlaySessions: EndpointFactoryGroup {
-        case all
-        case create
-        case delete
-
-        public var make: EndpointFactory {
-          APIRoutes.playSessions
-        }
-      }
-
-      public enum Profile: EndpointFactoryGroup {
-        case get
-        case update
-
-        public var make: EndpointFactory {
-          APIRoutes.profile
-        }
-      }
-
-      public enum Games: EndpointFactoryGroup {
-        case flareUp
-
-        public var make: EndpointFactory {
-          APIRoutes.games
+        case .batchImport: return .importGames
+        case .create, .update, .delete: return .adminGames
         }
       }
     }
 
-    public enum Admin: EndpointFactoryGroup {
-      case games(Games)
-      case platforms(Platforms)
-      case genres(Genres)
-      case tags(Tags)
+    public enum Platforms: EndpointCollection {
+      case create
+      case update
+      case delete
 
-      public var make: EndpointFactory {
+      public var path: EndpointPath  { .adminPlatforms }
+    }
+
+    public enum Tags: EndpointCollection {
+      case create
+      case update
+      case delete
+
+      public var path: EndpointPath { .adminTags }
+    }
+
+    public enum Genres: EndpointCollection {
+      case create
+      case update
+      case delete
+
+      public var path: EndpointPath { .adminGenres }
+    }
+  }
+
+  public enum Public: EndpointCollection {
+    case games(Games)
+    case companies(Companies)
+    case platforms(Platforms)
+    case genres(Genres)
+    case tags(Tags)
+
+    public var path: EndpointPath {
+      switch self {
+      case .games(let games): return games.path
+      case .companies(let companies): return companies.path
+      case .platforms(let platforms): return platforms.path
+      case .genres(let genres): return genres.path
+      case .tags(let tags): return tags.path
+      }
+    }
+
+    public enum Games: EndpointCollection {
+      case all
+      case find
+      case upcoming
+      case search
+      case fireside
+
+      public var path: EndpointPath {
         switch self {
-        case .games(let games):
-          return games.make
-        case .platforms(let platforms):
-          return platforms.make
-        case .genres(let genres):
-          return genres.make
-        case .tags(let tags):
-          return tags.make
-        }
-      }
-
-      public enum Games: EndpointFactoryGroup {
-        case batchImport
-        case create
-        case update
-        case delete
-
-        public var make: EndpointFactory {
-          switch self {
-          case .batchImport:
-            return APIRoutes.importGames
-          case .create, .update, .delete:
-            return APIRoutes.adminGames
-          }
-        }
-      }
-
-      public enum Platforms: EndpointFactoryGroup {
-        case create
-        case update
-        case delete
-
-        public var make: EndpointFactory {
-          switch self {
-          case .create, .update, .delete:
-            return APIRoutes.adminPlatforms
-          }
-        }
-      }
-
-      public enum Tags: EndpointFactoryGroup {
-        case create
-        case update
-        case delete
-
-        public var make: EndpointFactory {
-          switch self {
-          case .create, .update, .delete:
-            return APIRoutes.adminTags
-          }
-        }
-      }
-
-      public enum Genres: EndpointFactoryGroup {
-        case create
-        case update
-        case delete
-
-        public var make: EndpointFactory {
-          switch self {
-          case .create, .update, .delete:
-            return APIRoutes.adminGenres
-          }
+        case .all, .find, .fireside: return .games
+        case .upcoming: return .upcomingGames
+        case .search: return .gameSearch
         }
       }
     }
 
-    public enum Public: EndpointFactoryGroup {
-      case games(Games)
-      case companies(Companies)
-      case platforms(Platforms)
-      case genres(Genres)
-      case tags(Tags)
+    public enum Companies: EndpointCollection {
+      case all
+      case find
+      case search
 
-      public var make: EndpointFactory {
+      public var path: EndpointPath {
         switch self {
-        case .games(let games):
-          return games.make
-        case .companies(let companies):
-          return companies.make
-        case .platforms(let platforms):
-          return platforms.make
-        case .genres(let genres):
-          return genres.make
-        case .tags(let tags):
-          return tags.make
+        case .all, .find: return .companies
+        case .search: return .companySearch
         }
       }
+    }
 
-      public enum Games: EndpointFactoryGroup {
-        case all
-        case find
-        case upcoming
-        case search
-        case fireside
+    public enum Platforms: EndpointCollection {
+      case all
+      case find
+      case search
 
-        public var make: EndpointFactory {
-          switch self {
-          case .all, .find, .fireside:
-            return APIRoutes.games
-          case .upcoming:
-            return APIRoutes.upcomingGames
-          case .search:
-            return APIRoutes.gameSearch
-          }
+      public var path: EndpointPath {
+        switch self {
+        case .all, .find: return .platforms
+        case .search: return .platformSearch
         }
       }
+    }
 
-      public enum Companies: EndpointFactoryGroup {
-        case all
-        case find
-        case search
+    public enum Genres: EndpointCollection {
+      case all
+      case find
+      case search
 
-        public var make: EndpointFactory {
-          switch self {
-          case .all, .find:
-            return APIRoutes.companies
-          case .search:
-            return APIRoutes.companySearch
-          }
+      public var path: EndpointPath {
+        switch self {
+        case .all, .find: return .genres
+        case .search: return .genreSearch
         }
       }
+    }
 
-      public enum Platforms: EndpointFactoryGroup {
-        case all
-        case find
-        case search
+    public enum Tags: EndpointCollection {
+      case all
+      case find
+      case search
 
-        public var make: EndpointFactory {
-          switch self {
-          case .all, .find:
-            return APIRoutes.platforms
-          case .search:
-            return APIRoutes.platformSearch
-          }
+      public var path: EndpointPath {
+        switch self {
+        case .all, .find: return .tags
+        case .search: return .tagSearch
         }
       }
+    }
+  }
+}
 
-      public enum Genres: EndpointFactoryGroup {
-        case all
-        case find
-        case search
+public enum EndpointPath {
+  // MARK: - Auth
+  case auth
+  case signIn
+  case signUp
+  case refreshAccessToken
+  case verifyEmail
+  case resetPassword
+  case verifyPasswordToken
+  case changePassword
+  case siwa
 
-        public var make: EndpointFactory {
-          switch self {
-          case .all, .find:
-            return APIRoutes.genres
-          case .search:
-            return APIRoutes.genreSearch
-          }
-        }
-      }
+  // MARK: - Account
+  case account
+  case userGames
+  case userGamesByPlaythrough
+  case playSessions
+  case resendVerification
+  case profile
 
-      public enum Tags: EndpointFactoryGroup {
-        case all
-        case find
-        case search
+  // MARK: - Admin
+  case admin
+  case adminGames
+  case importGames
+  case adminPlatforms
+  case adminTags
+  case adminGenres
+  case adminCompanies
 
-        public var make: EndpointFactory {
-          switch self {
-          case .all, .find:
-            return APIRoutes.tags
-          case .search:
-            return APIRoutes.tagSearch
-          }
-        }
-      }
+  // MARK: - Public
+  case games
+  case companies
+  case tags
+  case genres
+  case platforms
+
+  case pagedCompanies
+  case pagedTags
+  case pagedGenres
+  case pagedPlatforms
+
+  case companySearch
+  case platformSearch
+  case genreSearch
+  case tagSearch
+  case gameSearch
+  case upcomingGames
+
+  case fireside(UUID)
+  case flareUp(UUID)
+
+  public var transform: EndpointTransform {
+    switch self {
+    case .auth                   : return String.auth.asPath
+    case .signIn                 : return .auth / .signIn
+    case .signUp                 : return .auth / .signUp
+    case .refreshAccessToken     : return .auth / .refreshAccessToken
+    case .verifyEmail            : return .auth / .verifyEmail
+    case .resetPassword          : return .auth / .resetPassword
+    case .verifyPasswordToken    : return .auth / .resetPassword / .verify
+    case .changePassword         : return .auth / .changePassword
+    case .siwa                   : return .auth / .siwa
+
+    case .account                : return String.account.asPath
+    case .userGames              : return .account / .games
+    case .userGamesByPlaythrough : return .account / .games / .filters / .playthroughs
+    case .playSessions           : return .account / .playSessions
+    case .resendVerification     : return .account / .resendVerification
+    case .profile                : return .account / .profile
+
+    case .admin                  : return String.admin.asPath
+    case .adminGames             : return .admin / .games
+    case .importGames            : return .admin / .games / .import
+    case .adminPlatforms         : return .admin / .platforms
+    case .adminTags              : return .admin / .tags
+    case .adminGenres            : return .admin / .genres
+    case .adminCompanies         : return .admin / .companies
+
+    case .games                  : return String.games.asPath
+    case .companies              : return String.companies.asPath
+    case .tags                   : return String.tags.asPath
+    case .genres                 : return String.genres.asPath
+    case .platforms              : return String.platforms.asPath
+
+    case .pagedCompanies         : return .companies / .page
+    case .pagedTags              : return .tags / .page
+    case .pagedGenres            : return .genres / .page
+    case .pagedPlatforms         : return .platforms / .page
+
+    case .companySearch          : return .companies / .search
+    case .platformSearch         : return .platforms / .search
+    case .genreSearch            : return .genres / .search
+    case .tagSearch              : return .tags / .search
+    case .gameSearch             : return .games / .search
+    case .upcomingGames          : return .games / .upcoming
+
+    case let .fireside(id)       : return String.games.asPath / id.uuidString / .fireside
+    case let .flareUp(id)        : return String.games.asPath / id.uuidString / .flame
     }
   }
 }
 
 public extension APIRoutes {
-  static func component(_ path: String) -> EndpointFactory {
+
+  func versioned(
+    _ endpoint: EndpointPath
+  ) -> EndpointTransform {
+    path / endpoint.transform
+  }
+
+  func versioned(
+    transform: @escaping EndpointTransform
+  ) -> EndpointTransform {
+    path / transform
+  }
+
+  func versioned<T>(
+    transform: @escaping (T) -> EndpointTransform
+  ) -> (T) -> EndpointTransform {
+    { path / transform($0) }
+  }
+}
+
+// Operators
+func /(
+  lhs: @escaping EndpointTransform,
+  rhs: @escaping EndpointTransform
+) -> EndpointTransform {
+  compose(rhs, lhs)
+}
+
+private func /(
+  lhs: String,
+  rhs: String
+) -> EndpointTransform {
+  compose(rhs.asPath, lhs.asPath)
+}
+
+private func /(
+  lhs: String,
+  rhs: @escaping EndpointTransform
+) -> EndpointTransform {
+  compose(rhs, lhs.asPath)
+}
+
+private func /(
+  lhs: @escaping EndpointTransform,
+  rhs: String
+) -> EndpointTransform {
+  compose(rhs.asPath, lhs)
+}
+
+// Paths
+public extension String {
+  var asPath: EndpointTransform {
     { endpoint in
       var new = endpoint
-      new.components.append(path)
+      new.components.append(self)
       return new
     }
   }
 
-  static var api: EndpointFactory {
-    component("api")
+  static func v(_ version: APIRoutes.Version) -> String {
+    var path = "v\(version.major)"
+
+    if let minor = version.minor {
+      path.append(".\(minor)")
+    }
+
+    if let patch = version.patch {
+      path.append(".\(patch)")
+    }
+
+    return path
   }
 
-  static var v1: EndpointFactory {
-    compose(component("v1"), api)
-  }
-
-  static var gamesPath: EndpointFactory {
-    component("games")
-  }
-
-  static var platformsPath: EndpointFactory {
-    component("platforms")
-  }
-
-  static var tagsPath: EndpointFactory {
-    component("tags")
-  }
-
-  static var genresPath: EndpointFactory {
-    component("genres")
-  }
-
-  static var companiesPath: EndpointFactory {
-    component("companies")
-  }
-
-  static var filtersPath: EndpointFactory {
-    component("filters")
-  }
-
-  static var searchPath: EndpointFactory {
-    component("search")
-  }
-
-  static var pagePath: EndpointFactory {
-    component("page")
-  }
-}
-
-// MARK: - Auth
-public extension APIRoutes {
-  static var auth: EndpointFactory {
-    compose(component("auth"), v1)
-  }
-
-  static var signIn: EndpointFactory {
-    compose(component("sign-in"), auth)
-  }
-
-  static var signUp: EndpointFactory {
-    compose(component("sign-up"), auth)
-  }
-
-  static var refreshAccessToken: EndpointFactory {
-    compose(component("refresh-access"), auth)
-  }
-
-  static var verifyEmail: EndpointFactory {
-    compose(component("verify-email"), auth)
-  }
-
-  static var resetPassword: EndpointFactory {
-    compose(component("reset-password"), auth)
-  }
-
-  static var verifyPasswordToken: EndpointFactory {
-    compose(component("verify"), resetPassword)
-  }
-
-  static var changePassword: EndpointFactory {
-    compose(component("change-password"), auth)
-  }
-
-  static var siwa: EndpointFactory {
-    compose(component("siwa"), auth)
-  }
-}
-
-// MARK: - Account
-public extension APIRoutes {
-  static var account: EndpointFactory {
-    compose(component("account"), v1)
-  }
-
-  static var userGames: EndpointFactory {
-    compose(gamesPath, account)
-  }
-
-  static var userGamesByPlaythrough: EndpointFactory {
-    compose(component("playthroughs"), filtersPath, userGames)
-  }
-
-  static var playSessions: EndpointFactory {
-    compose(component("play-sessions"), account)
-  }
-
-  static var resendVerification: EndpointFactory {
-    compose(component("resend-verification"), account)
-  }
-
-  static var profile: EndpointFactory {
-    compose(component("profile"), account)
-  }
-}
-
-// MARK: - Admin
-public extension APIRoutes {
-  static var admin: EndpointFactory {
-    compose(component("admin"), v1)
-  }
-
-  static var adminGames: EndpointFactory {
-    compose(gamesPath, admin)
-  }
-
-  static var adminPlatforms: EndpointFactory {
-    compose(platformsPath, admin)
-  }
-
-  static var adminTags: EndpointFactory {
-    compose(tagsPath, admin)
-  }
-
-  static var adminGenres: EndpointFactory {
-    compose(genresPath, admin)
-  }
-
-  static var adminCompanies: EndpointFactory {
-    compose(companiesPath, admin)
-  }
-
-  static var importGames: EndpointFactory {
-    compose(component("import"), adminGames)
-  }
-}
-
-// MARK: - Hearth
-public extension APIRoutes {
-  static var games: EndpointFactory {
-    compose(gamesPath, v1)
-  }
-
-  static var companies: EndpointFactory {
-    compose(companiesPath, v1)
-  }
-
-  static var companySearch: EndpointFactory {
-    compose(searchPath, companies)
-  }
-
-  static var platforms: EndpointFactory {
-    compose(platformsPath, v1)
-  }
-
-  static var platformSearch: EndpointFactory {
-    compose(searchPath, platforms)
-  }
-
-  static var genres: EndpointFactory {
-    compose(genresPath, v1)
-  }
-
-  static var genreSearch: EndpointFactory {
-    compose(searchPath, genres)
-  }
-
-  static var tags: EndpointFactory {
-    compose(tagsPath, v1)
-  }
-
-  static var tagSearch: EndpointFactory {
-    compose(searchPath, tags)
-  }
-
-  static var upcomingGames: EndpointFactory {
-    compose(component("upcoming"), games)
-  }
-
-  static var gameSearch: EndpointFactory {
-    compose(searchPath, games)
-  }
-
-  static var firesidePath: EndpointFactory {
-    component("fireside")
-  }
-
-  static func fireside(for id: UUID) -> EndpointFactory {
-    compose(firesidePath, component(id.uuidString), games)
-  }
-
-  static var flamePath: EndpointFactory {
-    component("flame")
-  }
-
-  static func flareUp(_ id: UUID) -> EndpointFactory {
-    compose(flamePath, component(id.uuidString), games)
-  }
+  static let account = "account"
+  static let admin = "admin"
+  static let api = "api"
+  static let auth = "auth"
+  static let changePassword = "change-password"
+  static let companies = "companies"
+  static let `import` = "import"
+  static let filters = "filters"
+  static let fireside = "fireside"
+  static let flame = "flame"
+  static let games = "games"
+  static let genres = "genres"
+  static let page = "page"
+  static let profile = "profile"
+  static let platforms = "platforms"
+  static let playSessions = "play-sessions"
+  static let playthroughs = "playthroughs"
+  static let refreshAccessToken = "refresh-access"
+  static let resendVerification = "resend-verification"
+  static let resetPassword = "reset-password"
+  static let search = "search"
+  static let signIn = "sign-in"
+  static let signUp = "sign-up"
+  static let siwa = "siwa"
+  static let tags = "tags"
+  static let upcoming = "upcoming"
+  static let verify = "verify"
+  static let verifyEmail = "verify-email"
 }
