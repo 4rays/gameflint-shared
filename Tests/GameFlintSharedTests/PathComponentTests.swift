@@ -3,7 +3,7 @@ import XCTest
 
 final class PathComponentTests: XCTestCase {
   func testPathComponents() {
-    let path1 = APIRoutes.v1.versioned(.signIn)(.init())
+    let path1 = APIRoutes.v1.auth(.signIn)(.init())
     let path2 = APIRoutes.v1.path(.init())
     let path3 = APIRoutes.Auth.verifyPasswordToken.endpoint
 
@@ -17,12 +17,12 @@ final class PathComponentTests: XCTestCase {
   }
 
   func testImportGamesPath() {
-    let path = APIRoutes.v1.versioned(.importGames)(.init())
+    let path = APIRoutes.v1.admin(.games(.import))(.init())
     XCTAssertEqual(path.fullPath, "api/v1/admin/games/import")
   }
 
   func testUserGamesPath() {
-    let path = APIRoutes.v1.versioned(.userGames)(.init())
+    let path = APIRoutes.v1.account(.userGames(.all))(.init())
     XCTAssertEqual(path.fullPath, "api/v1/account/games")
   }
 
@@ -35,5 +35,11 @@ final class PathComponentTests: XCTestCase {
     let endpoint = composed(Endpoint())
 
     XCTAssertEqual(endpoint.fullPath, "path/to/endpoint")
+  }
+
+  func testFlareUpgamePath() {
+    let id = UUID()
+    let endpoint = APIRoutes.v1.account(.games(.flareUp(id)))(.init())
+    XCTAssertEqual(endpoint.fullPath, "api/v1/games/\(id)/flare")
   }
 }

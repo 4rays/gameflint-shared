@@ -40,6 +40,43 @@ public struct APIRoutes {
   public var path: EndpointTransform {
     .api / version.path
   }
+
+  public func auth(_ endpoint: Auth) -> EndpointTransform {
+    versioned(endpoint.path)
+  }
+
+  public func account(_ endpoint: Account) -> EndpointTransform {
+    versioned(endpoint.path)
+  }
+
+  public func admin(_ endpoint: Admin) -> EndpointTransform {
+    versioned(endpoint.path)
+  }
+
+  public func catalog(_ endpoint: Catalog) -> EndpointTransform {
+    versioned(endpoint.path)
+  }
+}
+
+
+extension APIRoutes {
+  func versioned(
+    _ endpoint: EndpointPath
+  ) -> EndpointTransform {
+    path / endpoint.transform
+  }
+
+  public func versioned(
+    transform: @escaping EndpointTransform
+  ) -> EndpointTransform {
+    path / transform
+  }
+
+  public func versioned<T>(
+    transform: @escaping (T) -> EndpointTransform
+  ) -> (T) -> EndpointTransform {
+    { path / transform($0) }
+  }
 }
 
 extension APIRoutes {
@@ -134,9 +171,13 @@ extension APIRoutes {
     }
 
     public enum Games: EndpointCollection {
-      case flareUp
+      case flareUp(UUID)
 
-      public var path: EndpointPath { .games }
+      public var path: EndpointPath {
+        switch self {
+        case .flareUp(let id): return .flareUp(id)
+        }
+      }
     }
   }
 
@@ -156,14 +197,14 @@ extension APIRoutes {
     }
 
     public enum Games: EndpointCollection {
-      case batchImport
+      case `import`
       case create
       case update
       case delete
 
       public var path: EndpointPath {
         switch self {
-        case .batchImport: return .importGames
+        case .import: return .importGames
         case .create, .update, .delete: return .adminGames
         }
       }
@@ -194,7 +235,7 @@ extension APIRoutes {
     }
   }
 
-  public enum Public: EndpointCollection {
+  public enum Catalog: EndpointCollection {
     case games(Games)
     case companies(Companies)
     case platforms(Platforms)
@@ -216,11 +257,12 @@ extension APIRoutes {
       case find
       case upcoming
       case search
-      case fireside
+      case fireside(UUID)
 
       public var path: EndpointPath {
         switch self {
-        case .all, .find, .fireside: return .games
+        case .all, .find: return .games
+        case .fireside(let id): return .fireside(id)
         case .upcoming: return .upcomingGames
         case .search: return .gameSearch
         }
@@ -310,7 +352,7 @@ public enum EndpointPath {
   case adminGenres
   case adminCompanies
 
-  // MARK: - Public
+  // MARK: - Catalog
   case games
   case companies
   case tags
@@ -378,29 +420,8 @@ public enum EndpointPath {
     case .upcomingGames          : return .games / .upcoming
 
     case let .fireside(id)       : return String.games.asPath / id.uuidString / .fireside
-    case let .flareUp(id)        : return String.games.asPath / id.uuidString / .flame
+    case let .flareUp(id)        : return String.games.asPath / id.uuidString / .flare
     }
-  }
-}
-
-public extension APIRoutes {
-
-  func versioned(
-    _ endpoint: EndpointPath
-  ) -> EndpointTransform {
-    path / endpoint.transform
-  }
-
-  func versioned(
-    transform: @escaping EndpointTransform
-  ) -> EndpointTransform {
-    path / transform
-  }
-
-  func versioned<T>(
-    transform: @escaping (T) -> EndpointTransform
-  ) -> (T) -> EndpointTransform {
-    { path / transform($0) }
   }
 }
 
@@ -466,7 +487,7 @@ public extension String {
   static let `import` = "import"
   static let filters = "filters"
   static let fireside = "fireside"
-  static let flame = "flame"
+  static let flare = "flare"
   static let games = "games"
   static let genres = "genres"
   static let page = "page"
