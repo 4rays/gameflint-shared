@@ -143,6 +143,7 @@ extension APIRoutes {
 
     public enum UserGames: EndpointCollection {
       case all
+      case allPaged
       case filterByPlaythrough
       case update
       case delete
@@ -150,6 +151,7 @@ extension APIRoutes {
       public var path: EndpointPath {
         switch self {
         case .filterByPlaythrough: return .userGamesByPlaythrough
+        case .allPaged: return .userGamesPaged
         default: return .userGames
         }
       }
@@ -157,10 +159,16 @@ extension APIRoutes {
 
     public enum PlaySessions: EndpointCollection {
       case all
+      case allPaged
       case create
       case delete
 
-      public var path: EndpointPath { .playSessions }
+      public var path: EndpointPath {
+        switch self {
+        case .allPaged: return .playSessionsPaged
+        default: return .playSessions
+        }
+      }
     }
 
     public enum Profile: EndpointCollection {
@@ -254,14 +262,15 @@ extension APIRoutes {
 
     public enum Games: EndpointCollection {
       case all
-      case find
+      case find(UUID)
       case upcoming
       case search
       case fireside(UUID)
 
       public var path: EndpointPath {
         switch self {
-        case .all, .find: return .games
+        case .all: return .games
+        case .find(let id): return .findGame(id)
         case .fireside(let id): return .fireside(id)
         case .upcoming: return .upcomingGames
         case .search: return .gameSearch
@@ -271,12 +280,14 @@ extension APIRoutes {
 
     public enum Companies: EndpointCollection {
       case all
+      case allPaged
       case find
       case search
 
       public var path: EndpointPath {
         switch self {
         case .all, .find: return .companies
+        case .allPaged: return .pagedCompanies
         case .search: return .companySearch
         }
       }
@@ -284,12 +295,14 @@ extension APIRoutes {
 
     public enum Platforms: EndpointCollection {
       case all
+      case allPaged
       case find
       case search
 
       public var path: EndpointPath {
         switch self {
         case .all, .find: return .platforms
+        case .allPaged: return .pagedPlatforms
         case .search: return .platformSearch
         }
       }
@@ -297,12 +310,14 @@ extension APIRoutes {
 
     public enum Genres: EndpointCollection {
       case all
+      case allPaged
       case find
       case search
 
       public var path: EndpointPath {
         switch self {
         case .all, .find: return .genres
+        case .allPaged: return .pagedGenres
         case .search: return .genreSearch
         }
       }
@@ -310,12 +325,14 @@ extension APIRoutes {
 
     public enum Tags: EndpointCollection {
       case all
+      case allPaged
       case find
       case search
 
       public var path: EndpointPath {
         switch self {
         case .all, .find: return .tags
+        case .allPaged: return .pagedTags
         case .search: return .tagSearch
         }
       }
@@ -338,8 +355,10 @@ public enum EndpointPath {
   // MARK: - Account
   case account
   case userGames
+  case userGamesPaged
   case userGamesByPlaythrough
   case playSessions
+  case playSessionsPaged
   case resendVerification
   case profile
 
@@ -354,73 +373,97 @@ public enum EndpointPath {
 
   // MARK: - Catalog
   case games
-  case companies
-  case tags
-  case genres
-  case platforms
-
-  case pagedCompanies
-  case pagedTags
-  case pagedGenres
-  case pagedPlatforms
-
-  case companySearch
-  case platformSearch
-  case genreSearch
-  case tagSearch
   case gameSearch
   case upcomingGames
-
+  case findGame(UUID)
   case fireside(UUID)
   case flareUp(UUID)
 
+  case companies
+  case pagedCompanies
+  case companySearch
+  case findCompany(UUID)
+
+  case tags
+  case pagedTags
+  case tagSearch
+  case findTag(UUID)
+
+  case genres
+  case pagedGenres
+  case genreSearch
+  case findGenre(UUID)
+
+  case platforms
+  case pagedPlatforms
+  case platformSearch
+  case findPlatform(UUID)
+
+  var games: EndpointTransform { String.games.asPath }
+  var companies: EndpointTransform { String.companies.asPath }
+  var platforms: EndpointTransform { String.platforms.asPath }
+  var genres: EndpointTransform { String.genres.asPath }
+  var tags: EndpointTransform { String.tags.asPath }
+
+  var auth: EndpointTransform { String.auth.asPath }
+  var account: EndpointTransform { String.account.asPath }
+  var admin: EndpointTransform { String.admin.asPath }
+
   public var transform: EndpointTransform {
     switch self {
-    case .auth                   : return String.auth.asPath
-    case .signIn                 : return .auth / .signIn
-    case .signUp                 : return .auth / .signUp
-    case .refreshAccessToken     : return .auth / .refreshAccessToken
-    case .verifyEmail            : return .auth / .verifyEmail
-    case .resetPassword          : return .auth / .resetPassword
-    case .verifyPasswordToken    : return .auth / .resetPassword / .verify
-    case .changePassword         : return .auth / .changePassword
-    case .siwa                   : return .auth / .siwa
+    case .auth                   : return auth
+    case .signIn                 : return auth / .signIn
+    case .signUp                 : return auth / .signUp
+    case .refreshAccessToken     : return auth / .refreshAccessToken
+    case .verifyEmail            : return auth / .verifyEmail
+    case .resetPassword          : return auth / .resetPassword
+    case .verifyPasswordToken    : return auth / .resetPassword / .verify
+    case .changePassword         : return auth / .changePassword
+    case .siwa                   : return auth / .siwa
 
-    case .account                : return String.account.asPath
-    case .userGames              : return .account / .games
-    case .userGamesByPlaythrough : return .account / .games / .filters / .playthroughs
-    case .playSessions           : return .account / .playSessions
-    case .resendVerification     : return .account / .resendVerification
-    case .profile                : return .account / .profile
+    case .account                : return account
+    case .userGames              : return account / .games
+    case .userGamesPaged         : return account / .games / .page
+    case .userGamesByPlaythrough : return account / .games / .filters / .playthroughs
+    case .playSessions           : return account / .playSessions
+    case .playSessionsPaged      : return account / .playSessions / .page
+    case .resendVerification     : return account / .resendVerification
+    case .profile                : return account / .profile
 
-    case .admin                  : return String.admin.asPath
-    case .adminGames             : return .admin / .games
-    case .importGames            : return .admin / .games / .import
-    case .adminPlatforms         : return .admin / .platforms
-    case .adminTags              : return .admin / .tags
-    case .adminGenres            : return .admin / .genres
-    case .adminCompanies         : return .admin / .companies
+    case .admin                  : return admin
+    case .adminGames             : return admin / .games
+    case .importGames            : return admin / .games / .import
+    case .adminPlatforms         : return admin / .platforms
+    case .adminTags              : return admin / .tags
+    case .adminGenres            : return admin / .genres
+    case .adminCompanies         : return admin / .companies
 
-    case .games                  : return String.games.asPath
-    case .companies              : return String.companies.asPath
-    case .tags                   : return String.tags.asPath
-    case .genres                 : return String.genres.asPath
-    case .platforms              : return String.platforms.asPath
+    case .games                  : return games
+    case .gameSearch             : return games / .search
+    case .upcomingGames          : return games / .upcoming
+    case let .findGame(id)       : return games / id.uuidString
+    case let .fireside(id)       : return games / id.uuidString / .fireside
+    case let .flareUp(id)        : return games / id.uuidString / .flare
 
-    case .pagedCompanies         : return .companies / .page
-    case .pagedTags              : return .tags / .page
-    case .pagedGenres            : return .genres / .page
-    case .pagedPlatforms         : return .platforms / .page
+    case .companies              : return companies
+    case .pagedCompanies         : return companies / .page
+    case .companySearch          : return companies / .search
+    case let .findCompany(id)    : return companies / id.uuidString
 
-    case .companySearch          : return .companies / .search
-    case .platformSearch         : return .platforms / .search
-    case .genreSearch            : return .genres / .search
-    case .tagSearch              : return .tags / .search
-    case .gameSearch             : return .games / .search
-    case .upcomingGames          : return .games / .upcoming
+    case .tags                   : return tags
+    case .tagSearch              : return tags / .search
+    case .pagedTags              : return tags / .page
+    case let .findTag(id)        : return tags / id.uuidString
 
-    case let .fireside(id)       : return String.games.asPath / id.uuidString / .fireside
-    case let .flareUp(id)        : return String.games.asPath / id.uuidString / .flare
+    case .genres                 : return genres
+    case .pagedGenres            : return genres / .page
+    case .genreSearch            : return genres / .search
+    case let .findGenre(id)      : return genres / id.uuidString
+
+    case .platforms              : return platforms
+    case .pagedPlatforms         : return platforms / .page
+    case .platformSearch         : return platforms / .search
+    case let .findPlatform(id)   : return platforms / id.uuidString
     }
   }
 }
