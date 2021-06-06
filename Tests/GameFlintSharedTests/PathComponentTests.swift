@@ -42,4 +42,11 @@ final class PathComponentTests: XCTestCase {
     let endpoint = APIRoutes.v1.account(.games(.flareUp(id)))(.init())
     XCTAssertEqual(endpoint.fullPath, "api/v1/games/\(id)/flare")
   }
+
+  func testRemoveLast() {
+    let endpoint = EndpointPath.pagedTags(1).transform(.init())
+    let truncatedPath = endpoint.removeLast(2)
+    XCTAssertEqual(endpoint.fullPath, "tags/page/1")
+    XCTAssertEqual(truncatedPath.joined(separator: "/"), "tags")
+  }
 }

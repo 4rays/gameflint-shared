@@ -17,6 +17,11 @@ public struct Endpoint {
     guard n > 0 else { return [] }
     return components[(components.endIndex - n)..<components.endIndex]
   }
+
+  public func removeLast(_ n: Int = 1) -> ArraySlice<String> {
+    guard n > 0 else { return ArraySlice(components) }
+    return components[components.startIndex..<(components.endIndex - n)]
+  }
 }
 
 public protocol EndpointCollection {
@@ -57,7 +62,6 @@ public struct APIRoutes {
     versioned(endpoint.path)
   }
 }
-
 
 extension APIRoutes {
   func versioned(
@@ -280,14 +284,14 @@ extension APIRoutes {
 
     public enum Companies: EndpointCollection {
       case all
-      case allPaged
+      case allPaged(Int)
       case find
       case search
 
       public var path: EndpointPath {
         switch self {
         case .all, .find: return .companies
-        case .allPaged: return .pagedCompanies
+        case .allPaged(let page): return .pagedCompanies(page)
         case .search: return .companySearch
         }
       }
@@ -295,14 +299,14 @@ extension APIRoutes {
 
     public enum Platforms: EndpointCollection {
       case all
-      case allPaged
+      case allPaged(Int)
       case find
       case search
 
       public var path: EndpointPath {
         switch self {
         case .all, .find: return .platforms
-        case .allPaged: return .pagedPlatforms
+        case .allPaged(let page): return .pagedPlatforms(page)
         case .search: return .platformSearch
         }
       }
@@ -310,14 +314,14 @@ extension APIRoutes {
 
     public enum Genres: EndpointCollection {
       case all
-      case allPaged
+      case allPaged(Int)
       case find
       case search
 
       public var path: EndpointPath {
         switch self {
         case .all, .find: return .genres
-        case .allPaged: return .pagedGenres
+        case .allPaged(let page): return .pagedGenres(page)
         case .search: return .genreSearch
         }
       }
@@ -325,14 +329,14 @@ extension APIRoutes {
 
     public enum Tags: EndpointCollection {
       case all
-      case allPaged
+      case allPaged(Int)
       case find
       case search
 
       public var path: EndpointPath {
         switch self {
         case .all, .find: return .tags
-        case .allPaged: return .pagedTags
+        case .allPaged(let page): return .pagedTags(page)
         case .search: return .tagSearch
         }
       }
@@ -380,90 +384,92 @@ public enum EndpointPath {
   case flareUp(UUID)
 
   case companies
-  case pagedCompanies
+  case pagedCompanies(Int)
   case companySearch
   case findCompany(UUID)
 
   case tags
-  case pagedTags
+  case pagedTags(Int)
   case tagSearch
   case findTag(UUID)
 
   case genres
-  case pagedGenres
+  case pagedGenres(Int)
   case genreSearch
   case findGenre(UUID)
 
   case platforms
-  case pagedPlatforms
+  case pagedPlatforms(Int)
   case platformSearch
   case findPlatform(UUID)
 
-  var games: EndpointTransform { String.games.asPath }
-  var companies: EndpointTransform { String.companies.asPath }
-  var platforms: EndpointTransform { String.platforms.asPath }
-  var genres: EndpointTransform { String.genres.asPath }
-  var tags: EndpointTransform { String.tags.asPath }
+  public var games: EndpointTransform { String.games.asPath }
+  public var companies: EndpointTransform { String.companies.asPath }
+  public var platforms: EndpointTransform { String.platforms.asPath }
+  public var genres: EndpointTransform { String.genres.asPath }
+  public var tags: EndpointTransform { String.tags.asPath }
 
-  var auth: EndpointTransform { String.auth.asPath }
-  var account: EndpointTransform { String.account.asPath }
-  var admin: EndpointTransform { String.admin.asPath }
+  public var auth: EndpointTransform { String.auth.asPath }
+  public var account: EndpointTransform { String.account.asPath }
+  public var admin: EndpointTransform { String.admin.asPath }
+
+  public var idParameter: String { ":id" }
 
   public var transform: EndpointTransform {
     switch self {
-    case .auth                   : return auth
-    case .signIn                 : return auth / .signIn
-    case .signUp                 : return auth / .signUp
-    case .refreshAccessToken     : return auth / .refreshAccessToken
-    case .verifyEmail            : return auth / .verifyEmail
-    case .resetPassword          : return auth / .resetPassword
-    case .verifyPasswordToken    : return auth / .resetPassword / .verify
-    case .changePassword         : return auth / .changePassword
-    case .siwa                   : return auth / .siwa
+    case .auth                    : return auth
+    case .signIn                  : return auth / .signIn
+    case .signUp                  : return auth / .signUp
+    case .refreshAccessToken      : return auth / .refreshAccessToken
+    case .verifyEmail             : return auth / .verifyEmail
+    case .resetPassword           : return auth / .resetPassword
+    case .verifyPasswordToken     : return auth / .resetPassword / .verify
+    case .changePassword          : return auth / .changePassword
+    case .siwa                    : return auth / .siwa
 
-    case .account                : return account
-    case .userGames              : return account / .games
-    case .userGamesPaged         : return account / .games / .page
-    case .userGamesByPlaythrough : return account / .games / .filters / .playthroughs
-    case .playSessions           : return account / .playSessions
-    case .playSessionsPaged      : return account / .playSessions / .page
-    case .resendVerification     : return account / .resendVerification
-    case .profile                : return account / .profile
+    case .account                 : return account
+    case .userGames               : return account / .games
+    case .userGamesPaged          : return account / .games / .page
+    case .userGamesByPlaythrough  : return account / .games / .filters / .playthroughs
+    case .playSessions            : return account / .playSessions
+    case .playSessionsPaged       : return account / .playSessions / .page
+    case .resendVerification      : return account / .resendVerification
+    case .profile                 : return account / .profile
 
-    case .admin                  : return admin
-    case .adminGames             : return admin / .games
-    case .importGames            : return admin / .games / .import
-    case .adminPlatforms         : return admin / .platforms
-    case .adminTags              : return admin / .tags
-    case .adminGenres            : return admin / .genres
-    case .adminCompanies         : return admin / .companies
+    case .admin                   : return admin
+    case .adminGames              : return admin / .games
+    case .importGames             : return admin / .games / .import
+    case .adminPlatforms          : return admin / .platforms
+    case .adminTags               : return admin / .tags
+    case .adminGenres             : return admin / .genres
+    case .adminCompanies          : return admin / .companies
 
-    case .games                  : return games
-    case .gameSearch             : return games / .search
-    case .upcomingGames          : return games / .upcoming
-    case let .findGame(id)       : return games / id.uuidString
-    case let .fireside(id)       : return games / id.uuidString / .fireside
-    case let .flareUp(id)        : return games / id.uuidString / .flare
+    case .games                   : return games
+    case .gameSearch              : return games / .search
+    case .upcomingGames           : return games / .upcoming
+    case .findGame(let id)        : return games / id.uuidString
+    case .fireside(let id)        : return games / id.uuidString / .fireside
+    case .flareUp(let id)         : return games / id.uuidString / .flare
 
-    case .companies              : return companies
-    case .pagedCompanies         : return companies / .page
-    case .companySearch          : return companies / .search
-    case let .findCompany(id)    : return companies / id.uuidString
+    case .companies               : return companies
+    case .pagedCompanies(let page): return companies / .page / String(page)
+    case .companySearch           : return companies / .search
+    case .findCompany(let id)     : return companies / id.uuidString
 
-    case .tags                   : return tags
-    case .tagSearch              : return tags / .search
-    case .pagedTags              : return tags / .page
-    case let .findTag(id)        : return tags / id.uuidString
+    case .tags                    : return tags
+    case .tagSearch               : return tags / .search
+    case .pagedTags(let page)     : return tags / .page / String(page)
+    case .findTag(let id)         : return tags / id.uuidString
 
-    case .genres                 : return genres
-    case .pagedGenres            : return genres / .page
-    case .genreSearch            : return genres / .search
-    case let .findGenre(id)      : return genres / id.uuidString
+    case .genres                  : return genres
+    case .pagedGenres(let page)   : return genres / .page / String(page)
+    case .genreSearch             : return genres / .search
+    case .findGenre(let id)       : return genres / id.uuidString
 
-    case .platforms              : return platforms
-    case .pagedPlatforms         : return platforms / .page
-    case .platformSearch         : return platforms / .search
-    case let .findPlatform(id)   : return platforms / id.uuidString
+    case .platforms               : return platforms
+    case .pagedPlatforms(let page): return platforms / .page / String(page)
+    case .platformSearch          : return platforms / .search
+    case .findPlatform(let id)    : return platforms / id.uuidString
     }
   }
 }
@@ -476,21 +482,21 @@ func /(
   compose(rhs, lhs)
 }
 
-private func /(
+public func /(
   lhs: String,
   rhs: String
 ) -> EndpointTransform {
   compose(rhs.asPath, lhs.asPath)
 }
 
-private func /(
+public func /(
   lhs: String,
   rhs: @escaping EndpointTransform
 ) -> EndpointTransform {
   compose(rhs, lhs.asPath)
 }
 
-private func /(
+public func /(
   lhs: @escaping EndpointTransform,
   rhs: String
 ) -> EndpointTransform {
