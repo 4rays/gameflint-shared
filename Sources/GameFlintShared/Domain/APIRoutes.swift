@@ -12,16 +12,6 @@ public struct Endpoint {
   public var fullPath: String {
     components.joined(separator: "/")
   }
-
-  public func last(_ n: Int) -> ArraySlice<String> {
-    guard n > 0 else { return [] }
-    return components[(components.endIndex - n)..<components.endIndex]
-  }
-
-  public func removeLast(_ n: Int = 1) -> ArraySlice<String> {
-    guard n > 0 else { return ArraySlice(components) }
-    return components[components.startIndex..<(components.endIndex - n)]
-  }
 }
 
 public protocol EndpointCollection {
@@ -412,8 +402,6 @@ public enum EndpointPath {
   public var auth: EndpointTransform { String.auth.asPath }
   public var account: EndpointTransform { String.account.asPath }
   public var admin: EndpointTransform { String.admin.asPath }
-
-  public var idParameter: String { ":id" }
 
   public var transform: EndpointTransform {
     switch self {
