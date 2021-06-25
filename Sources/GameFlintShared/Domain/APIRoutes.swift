@@ -256,6 +256,7 @@ extension APIRoutes {
 
     public enum Games: EndpointCollection {
       case all
+      case allPaged(Int)
       case find(UUID)
       case upcoming
       case search
@@ -264,6 +265,7 @@ extension APIRoutes {
       public var path: EndpointPath {
         switch self {
         case .all: return .games
+        case .allPaged(let page): return .pagedGames(page)
         case .find(let id): return .findGame(id)
         case .fireside(let id): return .fireside(id)
         case .upcoming: return .upcomingGames
@@ -367,6 +369,7 @@ public enum EndpointPath {
 
   // MARK: - Catalog
   case games
+  case pagedGames(Int)
   case gameSearch
   case upcomingGames
   case findGame(UUID)
@@ -433,6 +436,7 @@ public enum EndpointPath {
     case .adminCompanies          : return admin / .companies
 
     case .games                   : return games
+    case .pagedGames(let page)   : return games / .page / String(page)
     case .gameSearch              : return games / .search
     case .upcomingGames           : return games / .upcoming
     case .findGame(let id)        : return games / id.uuidString
