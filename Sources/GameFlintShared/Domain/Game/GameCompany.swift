@@ -17,7 +17,7 @@ public struct GameCompany: Codable, Hashable, Equatable {
 }
 
 extension GameCompany: Compactable {
-  public struct Compact: Codable, Equatable, Hashable {
+  public struct Compact: Codable, Equatable, Hashable, Identifiable {
     public var company: Company
     public var roles: [CompanyRole]
 
@@ -27,6 +27,10 @@ extension GameCompany: Compactable {
     ) {
       self.company = company
       self.roles = roles
+    }
+
+    public var id: Company.ID {
+      company.id
     }
   }
 
