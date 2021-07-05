@@ -25,6 +25,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public init(
     id: UUID,
     name: String,
+    earliestReleaseDate: Date? = nil,
     localizedNames: [LocalizedString] = [],
     announcedAt: Date? = nil,
     releases: [Release]? = nil,
@@ -43,6 +44,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   ) {
     self.id = id
     self.name = name
+    self.earliestReleaseDate = earliestReleaseDate
     self.localizedNames = localizedNames
     self.announcedAt = announcedAt
     self.releases = releases
@@ -59,8 +61,10 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.createdAt = createdAt
     self.updatedAt = updatedAt
 
-    updateEarliestReleaseDate()
-    updatePlatforms()
+    if !releases.unwrapped.isEmpty {
+      updateEarliestReleaseDate()
+      updatePlatforms()
+    }
   }
 }
  
