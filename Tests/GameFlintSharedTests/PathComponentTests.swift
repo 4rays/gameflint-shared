@@ -10,10 +10,6 @@ final class PathComponentTests: XCTestCase {
     XCTAssertEqual(path1.fullPath, "api/v1/auth/sign-in")
     XCTAssertEqual(path2.fullPath, "api/v1")
     XCTAssertEqual(path3.fullPath, "auth/reset-password/verify")
-
-    XCTAssertEqual(path3.last(3), ["auth", "reset-password", "verify"])
-    XCTAssertEqual(path3.last(2), ["reset-password", "verify"])
-    XCTAssertEqual(path3.last(1), ["verify"])
   }
 
   func testImportGamesPath() {
@@ -41,12 +37,5 @@ final class PathComponentTests: XCTestCase {
     let id = UUID()
     let endpoint = APIRoutes.v1.account(.games(.flareUp(id)))(.init())
     XCTAssertEqual(endpoint.fullPath, "api/v1/games/\(id)/flare")
-  }
-
-  func testRemoveLast() {
-    let endpoint = EndpointPath.pagedTags(1).transform(.init())
-    let truncatedPath = endpoint.removeLast(2)
-    XCTAssertEqual(endpoint.fullPath, "tags/page/1")
-    XCTAssertEqual(truncatedPath.joined(separator: "/"), "tags")
   }
 }
