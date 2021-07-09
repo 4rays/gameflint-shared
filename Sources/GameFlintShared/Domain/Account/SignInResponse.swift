@@ -1,11 +1,11 @@
 import Foundation
 
 public struct SignInResponse: Codable, Equatable, Hashable {
-  public var token: AccessToken
+  public var token: AuthTokens
   public var profile: Profile
 
   public init(
-    token: AccessToken,
+    token: AuthTokens,
     profile: Profile
   ) {
     self.token = token
