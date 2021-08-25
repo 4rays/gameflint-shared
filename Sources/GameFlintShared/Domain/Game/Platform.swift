@@ -23,4 +23,15 @@ public struct Platform: Codable, Equatable, Hashable, Identifiable {
     self.createdAt = createdAt
     self.updatedAt = updatedAt
   }
+
+  public init(
+    _ name: String
+  ) {
+    self.id = .init()
+    self.name = name
+    self.abbreviation = name
+    self.localizedNames = [LocalizedString(name, language: .en)]
+    self.createdAt = Date()
+    self.updatedAt = nil
+  }
 }
