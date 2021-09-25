@@ -2,6 +2,7 @@ import Foundation
 
 public typealias EndpointTransform = (Endpoint) -> Endpoint
 
+// MARK: - Endpoint
 public struct Endpoint {
   public var components: [String]
 
@@ -14,6 +15,7 @@ public struct Endpoint {
   }
 }
 
+// MARK: - Endpoint Collection
 public protocol EndpointCollection {
   var path: EndpointPath { get }
 }
@@ -24,6 +26,7 @@ public extension EndpointCollection {
   }
 }
 
+// MARK: - APIRoutes
 public struct APIRoutes {
   public static var v1 = Self(version: .init(major: 1))
   let version: Version
@@ -94,6 +97,7 @@ extension APIRoutes {
     }
   }
 
+ // MARK: - Auth
   public enum Auth: EndpointCollection {
     case signIn
     case signUp
@@ -118,6 +122,7 @@ extension APIRoutes {
     }
   }
 
+  // MARK: - Account
   public enum Account: EndpointCollection {
     case userGames(UserGames)
     case games(Games)
@@ -183,11 +188,13 @@ extension APIRoutes {
     }
   }
 
+  // MARK: - Admin
   public enum Admin: EndpointCollection {
     case games(Games)
     case platforms(Platforms)
     case genres(Genres)
     case tags(Tags)
+    case releases(Releases)
 
     public var path: EndpointPath {
       switch self {
@@ -195,6 +202,7 @@ extension APIRoutes {
       case .platforms(let platforms): return platforms.path
       case .genres(let genres): return genres.path
       case .tags(let tags): return tags.path
+      case .releases(let releases): return releases.path
       }
     }
 
@@ -234,6 +242,22 @@ extension APIRoutes {
       case delete
 
       public var path: EndpointPath { .adminGenres }
+    }
+
+    public enum Releases: EndpointCollection {
+      case create(gameID: UUID)
+      case update(gameID: UUID)
+      case delete(id: Release.ID, gameID: Game.ID)
+
+      public var path: EndpointPath {
+        switch self {
+        case .create(let gameID),
+            .update(let gameID):
+          return .adminReleases(gameID)
+        case let .delete(id, gameID):
+          return .deletRelease(id: id, gameID: gameID)
+        }
+      }
     }
   }
 
@@ -336,6 +360,7 @@ extension APIRoutes {
   }
 }
 
+// MARK: - Endpoint Path
 public enum EndpointPath {
   // MARK: - Auth
   case auth
@@ -366,6 +391,8 @@ public enum EndpointPath {
   case adminTags
   case adminGenres
   case adminCompanies
+  case adminReleases(Game.ID)
+  case deletRelease(id: Release.ID, gameID: Game.ID)
 
   // MARK: - Catalog
   case games
@@ -406,6 +433,7 @@ public enum EndpointPath {
   public var account: EndpointTransform { String.account.asPath }
   public var admin: EndpointTransform { String.admin.asPath }
 
+  // MARK: - Endpoint Transform
   public var transform: EndpointTransform {
     switch self {
     case .auth                    : return auth
@@ -434,9 +462,14 @@ public enum EndpointPath {
     case .adminTags               : return admin / .tags
     case .adminGenres             : return admin / .genres
     case .adminCompanies          : return admin / .companies
+    case .adminReleases(let id)   : return admin / .games / id.uuidString / .releases
+    case .deletRelease(
+      id: let id,
+      gameID: let gameID
+    )                             : return admin / .games / gameID.uuidString / .releases / id.uuidString
 
     case .games                   : return games
-    case .pagedGames(let page)   : return games / .page / String(page)
+    case .pagedGames(let page)    : return games / .page / String(page)
     case .gameSearch              : return games / .search
     case .upcomingGames           : return games / .upcoming
     case .findGame(let id)        : return games / id.uuidString
@@ -536,6 +569,7 @@ public extension String {
   static let platforms = "platforms"
   static let playSessions = "play-sessions"
   static let playthroughs = "playthroughs"
+  static let releases = "releases"
   static let refreshAccessToken = "refresh-access"
   static let resendVerification = "resend-verification"
   static let resetPassword = "reset-password"
