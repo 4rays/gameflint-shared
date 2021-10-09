@@ -31,6 +31,20 @@ public struct ReleaseDate:
     self.day = day
   }
 
+  public init(
+    date: Date = Date()
+  ) {
+    let components = Calendar.current.dateComponents(
+      [.year, .quarter, .month, .day],
+      from: date
+    )
+
+    self.year = components.year ?? 2000
+    self.quarter = components.quarter
+    self.month = components.month
+    self.day = components.day
+  }
+
   public var description: String {
     let coalescingDay = day ?? 1
     let coalescingMonth = month ?? quarter.flatMap(month(from:)) ?? 1
@@ -44,6 +58,10 @@ public struct ReleaseDate:
     default:
       return false
     }
+  }
+
+  public static func now() -> Self {
+    .init()
   }
 }
 
