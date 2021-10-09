@@ -35,14 +35,14 @@ public struct ReleaseDate:
     date: Date = Date()
   ) {
     let components = Calendar.current.dateComponents(
-      [.year, .quarter, .month, .day],
+      [.year, .month, .day],
       from: date
     )
 
     self.year = components.year ?? 2000
-    self.quarter = components.quarter
-    self.month = components.month
-    self.day = components.day
+    self.month = components.month ?? 1
+    self.day = components.day ?? 1
+    self.quarter = nil
   }
 
   public var description: String {
