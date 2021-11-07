@@ -73,3 +73,32 @@ extension Collection {
     isEmpty ? nil : self
   }
 }
+
+// Difference
+extension Collection where Element: Identifiable, Element.ID == UUID {
+  public func delta<Other>(from otherCollection: Other) -> ([Element], [Element])
+  where Other: Collection, Other.Element == Element {
+    (
+      new(referencing: otherCollection),
+      obsoleted(referencing: otherCollection)
+    )
+  }
+
+  public func new<Other>(referencing otherCollection: Other) -> [Element]
+  where Other: Collection, Other.Element == Element {
+    let identifiers = map(\.id).toSet()
+
+    return otherCollection.filter {
+      identifiers.doesNotContain($0.id)
+    }
+  }
+
+  public func obsoleted<Other>(referencing otherCollection: Other) -> [Element]
+  where Other: Collection, Other.Element == Element {
+    let referenceIdentifiers = otherCollection.map(\.id).toSet()
+
+    return filter {
+      referenceIdentifiers.doesNotContain($0.id)
+    }
+  }
+}
