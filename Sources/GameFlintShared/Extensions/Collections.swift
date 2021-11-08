@@ -74,7 +74,7 @@ extension Collection {
   }
 }
 
-// Difference
+// Collection Delta
 extension Collection where Element: Identifiable, Element.ID == UUID {
   public func delta<Other>(from otherCollection: Other) -> ([Element], [Element])
   where Other: Collection, Other.Element == Element {
@@ -102,3 +102,32 @@ extension Collection where Element: Identifiable, Element.ID == UUID {
     }
   }
 }
+
+extension Collection where Element: Hashable {
+  public func delta<Other>(from otherCollection: Other) -> ([Element], [Element])
+  where Other: Collection, Other.Element == Element {
+    (
+      new(referencing: otherCollection),
+      obsoleted(referencing: otherCollection)
+    )
+  }
+
+  public func new<Other>(referencing otherCollection: Other) -> [Element]
+  where Other: Collection, Other.Element == Element {
+    let identifiers = toSet()
+
+    return otherCollection.filter {
+      identifiers.doesNotContain($0)
+    }
+  }
+
+  public func obsoleted<Other>(referencing otherCollection: Other) -> [Element]
+  where Other: Collection, Other.Element == Element {
+    let referenceIdentifiers = otherCollection.toSet()
+
+    return filter {
+      referenceIdentifiers.doesNotContain($0)
+    }
+  }
+}
+
