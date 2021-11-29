@@ -28,7 +28,7 @@ final class PathComponentTests: XCTestCase {
     let transform3 = "endpoint".asPath
 
     let composed = transform1 / transform2 / transform3
-    let endpoint = composed(Endpoint())
+    let endpoint = composed(ResourcePath())
 
     XCTAssertEqual(endpoint.fullPath, "path/to/endpoint")
   }
