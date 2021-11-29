@@ -23,7 +23,7 @@ extension URLPath {
   public static var profile: Self = accountRoot / .profile
 
   // MARK: - Admin
-  public static var adminRoot: Self = adminRoot
+  public static var adminRoot: Self = .root(.admin)
   public static var adminGames: Self = adminRoot / .games
   public static var importGames: Self = adminGames / .importPath
   public static var adminPlatforms: Self = adminRoot / .platforms
