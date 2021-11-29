@@ -1,0 +1,25 @@
+name: Test
+
+on: 
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    container:
+      image: swiftlang/swift:nightly-5.5-bionic
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 'Checkout'
+      uses: actions/checkout@v2
+    - name: 'Run Test'
+      run: | 
+        swift package resolve
+        swift test --enable-code-coverage
+    - name: 'Code Coverage'
+      uses: mattpolzin/swift-codecov-action@0.6.1
