@@ -4,25 +4,22 @@ public struct URLPath {
   public var fragments: [String]
 }
 
-extension URLPath {
+extension URLPath: ExpressibleByStringLiteral {
   public init(_ fragments: [String] = []) {
     self.fragments = fragments
   }
 
+  public init(_ string: String) {
+    self.fragments = [string]
+  }
+
+
+  public init(stringLiteral value: String) {
+    self.fragments = [value]
+  }
+
   public var fullPath: String {
     fragments.joined(separator: "/")
-  }
-
-  public static func root(_ string: String) -> Self {
-    .init([string])
-  }
-
-  public func parameter(_ value: String) -> Self {
-    self / .segment(value)
-  }
-
-  public func parameter(_ value: CustomStringConvertible) -> Self {
-    parameter(value.description)
   }
 }
 
