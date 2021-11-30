@@ -10,12 +10,12 @@ extension URLPath: ExpressibleByStringLiteral {
   }
 
   public init(_ string: String) {
-    self.fragments = [string]
+    self.fragments = string.components(separatedBy: "/")
   }
 
 
   public init(stringLiteral value: String) {
-    self.fragments = [value]
+    self.fragments = value.components(separatedBy: "/")
   }
 
   public var fullPath: String {
