@@ -13,7 +13,6 @@ extension URLPath: ExpressibleByStringLiteral {
     self.fragments = string.components(separatedBy: "/")
   }
 
-
   public init(stringLiteral value: String) {
     self.fragments = value.components(separatedBy: "/")
   }
