@@ -69,7 +69,7 @@ extension URLPath {
   // MARK: - Platform
   public static var platformsRoot: Self = .init(.platforms)
   public static var platformSearch: Self = platformsRoot / .search
-  public static func pagedPlatforms(page: Int) -> Self { platformsRoot / page }
+  public static func pagedPlatforms(page: Int) -> Self { platformsRoot / .page / page }
   public static func findPlatform(with id: Platform.ID) -> Self { platformsRoot / id }
 
   public func apiVersion(_ version: APIVersion) -> Self {
