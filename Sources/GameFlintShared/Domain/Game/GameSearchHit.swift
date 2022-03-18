@@ -17,8 +17,8 @@ public extension Game {
         id: id,
         name: name,
         localizedNames: [
-          .init(name, language: .en),
-          .init(japaneseName, language: .jp)
+          .en: name,
+          .jp: japaneseName
         ],
         posterID: posterID,
         platforms: platforms,

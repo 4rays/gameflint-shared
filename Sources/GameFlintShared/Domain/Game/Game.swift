@@ -3,7 +3,7 @@ import Foundation
 public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var id: UUID
   public var name: String
-  public var localizedNames: [LocalizedString]
+  public var localizedNames: [Language: String]
   public fileprivate(set) var earliestReleaseDate: Date?
   public var announcedAt: Date?
   public var releases: [Release]? {
@@ -12,7 +12,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var platforms: [String]?
   public var companies: [GameCompany.Compact]?
   public var ageRatings: [AgeRating]?
-  public var descriptions: [LocalizedString]?
+  public var descriptions: [Language: String]
   public var posterID: String?
   public var genres: [Genre]?
   public var tags: [Tag]?
@@ -26,13 +26,13 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     id: UUID,
     name: String,
     earliestReleaseDate: Date? = nil,
-    localizedNames: [LocalizedString] = [],
+    localizedNames: [Language: String] = [:],
     announcedAt: Date? = nil,
     releases: [Release]? = nil,
     platforms: [String]? = nil,
     companies: [GameCompany.Compact]? = nil,
     ageRatings: [AgeRating]? = nil,
-    descriptions: [LocalizedString]? = nil,
+    descriptions: [Language: String] = [:],
     posterID: String? = nil,
     genres: [Genre]? = nil,
     tags: [Tag]? = nil,
@@ -104,8 +104,7 @@ extension Game: Compactable {
   }
 
   public var japaneseName: String {
-    localizedNames
-      .first(where: { $0.language == .jp })?.value ?? name
+    localizedNames[.jp] ?? name
   }
 }
 

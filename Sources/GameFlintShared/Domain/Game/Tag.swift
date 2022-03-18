@@ -4,7 +4,7 @@ public struct Tag: Identifiable, Codable, Equatable, Hashable {
   public var id: UUID
   public var slug: String
   public var name: String
-  public var localizedNames: [LocalizedString]?
+  public var localizedNames: [Language: String]
   public var createdAt: Date?
   public var updatedAt: Date?
 
@@ -12,7 +12,7 @@ public struct Tag: Identifiable, Codable, Equatable, Hashable {
     id: UUID,
     slug: String,
     name: String,
-    localizedNames: [LocalizedString]? = nil,
+    localizedNames: [Language: String] = [:],
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
@@ -30,7 +30,7 @@ public struct Tag: Identifiable, Codable, Equatable, Hashable {
     self.id = .init()
     self.name = name
     self.slug = name.slugify()
-    self.localizedNames = [LocalizedString(name, language: .en)]
+    self.localizedNames = [.en: name]
     self.createdAt = Date()
     self.updatedAt = nil
   }
