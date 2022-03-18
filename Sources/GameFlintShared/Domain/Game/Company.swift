@@ -3,7 +3,7 @@ import Foundation
 public struct Company: Codable, Hashable, Equatable, Identifiable {
   public var id: UUID
   public var name: String
-  public var localizedNames: [LocalizedString]?
+  public var localizedNames: [Language: String]
   public var website: String?
   public var country: Int?
   public var createdAt: Date?
@@ -12,7 +12,7 @@ public struct Company: Codable, Hashable, Equatable, Identifiable {
   public init(
     id: UUID,
     name: String,
-    localizedNames: [LocalizedString]? = nil,
+    localizedNames: [Language: String] = [:],
     website: String? = nil,
     country: Int? = nil,
     createdAt: Date? = nil,

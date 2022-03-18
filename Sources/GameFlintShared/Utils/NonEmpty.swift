@@ -4,8 +4,6 @@
 public struct NonEmpty<Collection: Swift.Collection>: Swift.Collection {
   public typealias Element = Collection.Element
   public typealias Index = Collection.Index
-  public typealias Iterator = Collection.Iterator
-  public typealias SubSequence = Collection.SubSequence
 
   public internal(set) var rawValue: Collection
 
@@ -14,16 +12,8 @@ public struct NonEmpty<Collection: Swift.Collection>: Swift.Collection {
     self.rawValue = rawValue
   }
 
-  public init?(_ rawValue: Collection) {
-    self.init(rawValue: rawValue)
-  }
-
   public subscript<Subject>(dynamicMember keyPath: KeyPath<Collection, Subject>) -> Subject {
     self.rawValue[keyPath: keyPath]
-  }
-
-  public func makeIterator() -> Iterator {
-    self.rawValue.makeIterator()
   }
 
   public var startIndex: Index { self.rawValue.startIndex }
@@ -31,8 +21,6 @@ public struct NonEmpty<Collection: Swift.Collection>: Swift.Collection {
   public var endIndex: Index { self.rawValue.endIndex }
 
   public subscript(position: Index) -> Element { self.rawValue[position] }
-
-  public subscript(bounds: Range<Index>) -> SubSequence { self.rawValue[bounds] }
 
   public func index(after i: Index) -> Index {
     self.rawValue.index(after: i)
@@ -100,13 +88,24 @@ extension NonEmpty: Comparable where Collection: Comparable {
 
 extension NonEmpty: Encodable where Collection: Encodable {
   public func encode(to encoder: Encoder) throws {
-    try self.rawValue.encode(to: encoder)
+    do {
+      var container = encoder.singleValueContainer()
+      try container.encode(self.rawValue)
+    } catch {
+      try self.rawValue.encode(to: encoder)
+    }
   }
 }
 
 extension NonEmpty: Decodable where Collection: Decodable {
   public init(from decoder: Decoder) throws {
-    let collection = try Collection(from: decoder)
+    let collection: Collection
+    do {
+      collection = try decoder.singleValueContainer().decode(Collection.self)
+    } catch {
+      collection = try Collection(from: decoder)
+    }
+
     guard !collection.isEmpty else {
       throw DecodingError.dataCorrupted(
         .init(codingPath: decoder.codingPath, debugDescription: "Non-empty collection expected")
@@ -142,8 +141,7 @@ extension NonEmpty: BidirectionalCollection where Collection: BidirectionalColle
 
 extension NonEmpty: MutableCollection where Collection: MutableCollection {
   public subscript(position: Index) -> Element {
-    get { self.rawValue[position] }
-    set { self.rawValue[position] = newValue }
+    _read { yield self.rawValue[position] }
     _modify { yield &self.rawValue[position] }
   }
 }

@@ -4,7 +4,7 @@ public extension Game {
   struct Compact: Codable, Equatable, Identifiable, Hashable, Expandable {
     public var id: UUID
     public var name: String
-    public var localizedNames: [LocalizedString]
+    public var localizedNames: [Language: String]
     public var posterID: String?
     public var platforms: [String]?
     public var tags: [String]?
@@ -14,7 +14,7 @@ public extension Game {
     public init(
       id: UUID,
       name: String,
-      localizedNames: [LocalizedString] = [],
+      localizedNames: [Language: String] = [:],
       posterID: String? = nil,
       platforms: [String]? = nil,
       tags: [String]? = nil,

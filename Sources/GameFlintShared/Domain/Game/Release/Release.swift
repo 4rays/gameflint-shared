@@ -5,7 +5,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
   public var isTentative: Bool
   public private(set) var date: Date?
   public var timeZone: String?
-  public var descriptions: [LocalizedString]?
+  public var descriptions: [Language: String]
   public var platforms: [Platform]
   public var regions: [Region]
   public var createdAt: Date?
@@ -24,7 +24,7 @@ public struct Release: Codable, Hashable, Equatable, Comparable, Identifiable {
     regions: [Region] = [],
     humanDate: ReleaseDate? = nil,
     timeZone: String? = nil,
-    descriptions: [LocalizedString]? = nil,
+    descriptions: [Language: String] = [:],
     createdAt: Date? = nil,
     updatedAt: Date? = nil
   ) {
