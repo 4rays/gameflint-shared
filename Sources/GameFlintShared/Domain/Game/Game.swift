@@ -9,7 +9,6 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var releases: [Release]? {
     didSet { updateEarliestReleaseDate() }
   }
-  public var platforms: [String]?
   public var companies: [GameCompany.Compact]?
   public var ageRatings: [AgeRating]?
   public var descriptions: [Language: String]
@@ -29,7 +28,6 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     localizedNames: [Language: String] = [:],
     announcedAt: Date? = nil,
     releases: [Release]? = nil,
-    platforms: [String]? = nil,
     companies: [GameCompany.Compact]? = nil,
     ageRatings: [AgeRating]? = nil,
     descriptions: [Language: String] = [:],
@@ -48,7 +46,6 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.localizedNames = localizedNames
     self.announcedAt = announcedAt
     self.releases = releases
-    self.platforms = platforms
     self.companies = companies
     self.ageRatings = ageRatings
     self.descriptions = descriptions
@@ -63,7 +60,6 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
 
     if !releases.unwrapped.isEmpty {
       updateEarliestReleaseDate()
-      updatePlatforms()
     }
   }
 }
@@ -77,15 +73,11 @@ public extension Game {
     }
   }
 
-  mutating func updatePlatforms() {
-    let releasePlatforms = releases
+  var platforms: [Platform] {
+    releases
       .unwrapped
       .flatMap(\.platforms)
       .deduplicated()
-
-    if releasePlatforms.isEmpty { return }
-
-    platforms = releasePlatforms.map(\.abbreviation)
   }
 }
 
@@ -96,7 +88,6 @@ extension Game: Compactable {
       name: name,
       localizedNames: localizedNames,
       posterID: posterID,
-      platforms: platforms,
       tags: tags?.map(\.localizedNames).languageGrouped,
       genres: genres?.map(\.localizedNames).languageGrouped,
       earliestReleaseDate: earliestReleaseDate

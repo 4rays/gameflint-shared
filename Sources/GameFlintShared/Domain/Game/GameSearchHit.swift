@@ -33,7 +33,7 @@ public extension Game {
       self.name = game.name
       self.japaneseName = game.japaneseName
       self.posterID = game.posterID
-      self.platforms = game.platforms
+      self.platforms = game.platforms.map(\.abbreviation)
       self.tags = game.tags?.map(\.localizedNames).languageGrouped
       self.genres = game.genres?.map(\.localizedNames).languageGrouped
       self.releasedAt = game.earliestReleaseDate
