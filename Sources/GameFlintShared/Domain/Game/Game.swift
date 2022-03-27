@@ -97,8 +97,8 @@ extension Game: Compactable {
       localizedNames: localizedNames,
       posterID: posterID,
       platforms: platforms,
-      tags: tags?.map(\.name),
-      genres: genres?.map(\.name),
+      tags: tags?.map(\.localizedNames).languageGrouped,
+      genres: genres?.map(\.localizedNames).languageGrouped,
       earliestReleaseDate: earliestReleaseDate
     )
   }

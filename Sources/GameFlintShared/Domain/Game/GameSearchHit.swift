@@ -7,8 +7,8 @@ public extension Game {
     public var japaneseName: String
     public var posterID: String?
     public var platforms: [String]?
-    public var tags: [String]?
-    public var genres: [String]?
+    public var tags: [Language: [String]]?
+    public var genres: [Language: [String]]?
     public var releasedAt: Date?
     public var releasedAtText: String?
 
@@ -34,8 +34,8 @@ public extension Game {
       self.japaneseName = game.japaneseName
       self.posterID = game.posterID
       self.platforms = game.platforms
-      self.tags = game.tags?.map(\.name)
-      self.genres = game.genres?.map(\.name)
+      self.tags = game.tags?.map(\.localizedNames).languageGrouped
+      self.genres = game.genres?.map(\.localizedNames).languageGrouped
       self.releasedAt = game.earliestReleaseDate
       self.releasedAtText = game.earliestReleaseDate.map {
         ReleaseDate.formatter.string(from: $0)

@@ -7,8 +7,8 @@ public extension Game {
     public var localizedNames: [Language: String]
     public var posterID: String?
     public var platforms: [String]?
-    public var tags: [String]?
-    public var genres: [String]?
+    public var tags: [Language: [String]]?
+    public var genres: [Language: [String]]?
     public var earliestReleaseDate: Date?
 
     public init(
@@ -17,8 +17,8 @@ public extension Game {
       localizedNames: [Language: String] = [:],
       posterID: String? = nil,
       platforms: [String]? = nil,
-      tags: [String]? = nil,
-      genres: [String]? = nil,
+      tags: [Language: [String]]? = nil,
+      genres: [Language: [String]]? = nil,
       earliestReleaseDate: Date? = nil
     ) {
       self.id = id
