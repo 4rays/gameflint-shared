@@ -49,7 +49,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.companies = companies
     self.ageRatings = ageRatings
     self.descriptions = descriptions
-    self.artwork = artworkela
+    self.artwork = artwork
     self.genres = genres
     self.tags = tags
     self.links = links
