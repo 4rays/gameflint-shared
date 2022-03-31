@@ -12,7 +12,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
   public var companies: [GameCompany.Compact]?
   public var ageRatings: [AgeRating]?
   public var descriptions: [Language: String]
-  public var posterID: String?
+  public var artwork: [LocalizedArtwork]?
   public var genres: [Genre]?
   public var tags: [Tag]?
   public var links: [String]?
@@ -31,7 +31,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     companies: [GameCompany.Compact]? = nil,
     ageRatings: [AgeRating]? = nil,
     descriptions: [Language: String] = [:],
-    posterID: String? = nil,
+    artwork: [LocalizedArtwork]? = nil,
     genres: [Genre]? = nil,
     tags: [Tag]? = nil,
     links: [String]? = nil,
@@ -49,7 +49,7 @@ public struct Game: Codable, Equatable, Identifiable, Hashable {
     self.companies = companies
     self.ageRatings = ageRatings
     self.descriptions = descriptions
-    self.posterID = posterID
+    self.artwork = artwork
     self.genres = genres
     self.tags = tags
     self.links = links
@@ -87,7 +87,7 @@ extension Game: Compactable {
       id: id,
       name: name,
       localizedNames: localizedNames,
-      posterID: posterID,
+      artwork: artwork?.filter { $0.type != .screenshot },
       tags: tags?.map(\.localizedNames).languageGrouped,
       genres: genres?.map(\.localizedNames).languageGrouped,
       earliestReleaseDate: earliestReleaseDate
