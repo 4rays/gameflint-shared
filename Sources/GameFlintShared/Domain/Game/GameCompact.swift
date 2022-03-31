@@ -5,7 +5,7 @@ public extension Game {
     public var id: UUID
     public var name: String
     public var localizedNames: [Language: String]
-    public var posterID: String?
+    public var artwork: [LocalizedArtwork]?
     public var platforms: [String]?
     public var tags: [Language: [String]]?
     public var genres: [Language: [String]]?
@@ -15,7 +15,7 @@ public extension Game {
       id: UUID,
       name: String,
       localizedNames: [Language: String] = [:],
-      posterID: String? = nil,
+      artwork: [LocalizedArtwork]? = nil,
       platforms: [String]? = nil,
       tags: [Language: [String]]? = nil,
       genres: [Language: [String]]? = nil,
@@ -24,7 +24,7 @@ public extension Game {
       self.id = id
       self.name = name
       self.localizedNames = localizedNames
-      self.posterID = posterID
+      self.artwork = artwork
       self.platforms = platforms
       self.tags = tags
       self.genres = genres
@@ -36,7 +36,7 @@ public extension Game {
         id: id,
         name: name,
         localizedNames: localizedNames,
-        posterID: posterID
+        artwork: artwork
       )
     }
   }

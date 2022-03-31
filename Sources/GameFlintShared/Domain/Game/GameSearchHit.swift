@@ -5,7 +5,7 @@ public extension Game {
     public var id: UUID
     public var name: String
     public var japaneseName: String
-    public var posterID: String?
+    public var artwork: [LocalizedArtwork]?
     public var platforms: [String]?
     public var tags: [Language: [String]]?
     public var genres: [Language: [String]]?
@@ -20,7 +20,7 @@ public extension Game {
           .en: name,
           .jp: japaneseName
         ],
-        posterID: posterID,
+        artwork: artwork,
         platforms: platforms,
         tags: tags,
         genres: genres,
@@ -32,7 +32,7 @@ public extension Game {
       self.id = game.id
       self.name = game.name
       self.japaneseName = game.japaneseName
-      self.posterID = game.posterID
+      self.artwork = game.artwork?.filter { $0.type != .screenshot }
       self.platforms = game.platforms.map(\.abbreviation)
       self.tags = game.tags?.map(\.localizedNames).languageGrouped
       self.genres = game.genres?.map(\.localizedNames).languageGrouped
