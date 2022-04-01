@@ -85,3 +85,17 @@ public enum ArtworkType: String, Codable, Hashable {
     }
   }
 }
+
+extension Sequence where Element == LocalizedArtwork {
+  public var firstCover: LocalizedArtwork? {
+    first(where: { $0.type == .cover })
+  }
+
+  public var firstIcon: LocalizedArtwork? {
+    first(where: { $0.type == .icon })
+  }
+
+  public var screenshots: [LocalizedArtwork]? {
+    filter { $0.type == .screenshot }
+  }
+}

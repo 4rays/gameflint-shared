@@ -79,18 +79,6 @@ public extension Game {
       .flatMap(\.platforms)
       .deduplicated()
   }
-
-  var firstCover: LocalizedArtwork? {
-    artwork?.first(where: { $0.type == .cover })
-  }
-
-  var firstIcon: LocalizedArtwork? {
-    artwork?.first(where: { $0.type == .icon })
-  }
-
-  var screenshots: [LocalizedArtwork]? {
-    artwork?.filter { $0.type == .screenshot }
-  }
 }
 
 extension Game: Compactable {
