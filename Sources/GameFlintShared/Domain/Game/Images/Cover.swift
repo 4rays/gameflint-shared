@@ -3,17 +3,62 @@ import Foundation
 public struct LocalizedArtwork: Identifiable, Codable, Hashable {
   var fileName: String
   var type: ArtworkType
-  var width: Float?
-  var height: Float?
+  var width: Int?
+  var height: Int?
+
+  public init(
+    _ fileName: String,
+    type: ArtworkType,
+    width: Int? = nil,
+    height: Int? = nil
+  ) {
+    self.fileName = fileName
+    self.type = type
+    self.width = width
+    self.height = height
+  }
 
   public var id: String {
     [type.rawValue, fileName , region.rawValue].joined(separator: "-")
   }
 
-  var region: Region {
+  public var region: Region {
     let components = fileName.split(separator: "-")
     guard components.count == 2 else { return .worldwide }
     return Region(rawValue: String(components[1])) ?? .worldwide
+  }
+
+  public var aspectRatio: Double? {
+    guard
+      let width = width,
+      let height = height,
+      height > 0
+    else { return nil }
+    return Double(width) / Double(height)
+  }
+
+  public static func cover(
+    _ fileName: String,
+    width: Int? = nil,
+    height: Int? = nil
+  ) -> Self {
+    .init(fileName, type: .cover, width: width, height: height)
+  }
+
+  public static func screenshot(
+    _ fileName: String,
+    width: Int? = nil,
+    height: Int? = nil
+  ) -> Self {
+    .init(fileName, type: .screenshot, width: width, height: height)
+  }
+
+  public static func icon(
+    _ fileName: String,
+    width: Int? = nil,
+    height: Int? = nil
+  ) -> Self {
+    .init(fileName, type: .icon, width: width, height: height)
   }
 }
 
