@@ -1,10 +1,10 @@
 import Foundation
 
 public struct LocalizedArtwork: Identifiable, Codable, Hashable {
-  var fileName: String
-  var type: ArtworkType
-  var width: Int?
-  var height: Int?
+  public var fileName: String
+  public var type: ArtworkType
+  public var width: Int?
+  public var height: Int?
 
   public init(
     _ fileName: String,
