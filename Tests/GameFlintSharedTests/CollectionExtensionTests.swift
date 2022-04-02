@@ -26,4 +26,14 @@ final class CollectionExtensionTests: XCTestCase {
     XCTAssertEqual(delta.0, [person3])
     XCTAssertEqual(delta.1, [person1])
   }
+
+  func testGroupByKey() {
+    let input = [
+      ["A": 100, "B": 200],
+      [:],
+      ["A": 300, "C": 400]
+    ]
+
+    XCTAssertEqual(groupByKey(input)["A"], [100, 300])
+  }
 }

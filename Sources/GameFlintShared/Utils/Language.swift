@@ -19,20 +19,8 @@ public enum Language: String, Hashable, Identifiable, CaseIterable, Codable, Cod
 }
 
 extension Array where Element == Dictionary<Language, String> {
+  @available(*, deprecated, message: "Use groupByKey(:) instead.")
   public var languageGrouped: [Language: [String]] {
-    reduce([:]) { partialResult, dictionary in
-      var newPartialResult = partialResult
-
-      for key in dictionary.keys {
-        newPartialResult[key] = newPartialResult[key] ?? []
-        
-        if let value = dictionary[key],
-           newPartialResult[key]!.contains(value) == false {
-          newPartialResult[key]!.append(value)
-        }
-      }
-
-      return newPartialResult
-    }
+    groupByKey(self)
   }
 }

@@ -131,3 +131,18 @@ extension Collection where Element: Hashable {
   }
 }
 
+public func groupByKey<K, V>(_ input: [[K: V]]) -> [K: [V]] {
+  input
+    .map {
+      Dictionary(
+        uniqueKeysWithValues: $0.map { key, value in
+          (key, [value])
+        }
+      )
+    }
+    .reduce([:]) { partialResult, item in
+      var newPartialResult = partialResult
+      newPartialResult.merge(item, uniquingKeysWith: +)
+      return newPartialResult
+    }
+}
