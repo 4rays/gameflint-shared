@@ -74,7 +74,7 @@ public enum ArtworkType: String, Codable, Hashable {
   case icon
   case screenshot
 
-  var availableSizes: [ArtworkSize] {
+  public var availableSizes: [ArtworkSize] {
     switch self {
     case .cover:
       return [.full, .maxWidth512]
