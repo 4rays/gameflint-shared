@@ -88,8 +88,8 @@ extension Game: Compactable {
       name: name,
       localizedNames: localizedNames,
       artwork: artwork?.filter { $0.type != .screenshot },
-      tags: tags?.map(\.localizedNames).languageGrouped,
-      genres: genres?.map(\.localizedNames).languageGrouped,
+      tags: (tags?.map(\.localizedNames)).map(groupByKey),
+      genres: (genres?.map(\.localizedNames)).map(groupByKey),
       earliestReleaseDate: earliestReleaseDate
     )
   }

@@ -34,8 +34,8 @@ public extension Game {
       self.japaneseName = game.japaneseName
       self.artwork = game.artwork?.filter { $0.type != .screenshot }
       self.platforms = game.platforms.map(\.abbreviation)
-      self.tags = game.tags?.map(\.localizedNames).languageGrouped
-      self.genres = game.genres?.map(\.localizedNames).languageGrouped
+      self.tags = (game.tags?.map(\.localizedNames)).map(groupByKey)
+      self.genres = (game.genres?.map(\.localizedNames)).map(groupByKey)
       self.releasedAt = game.earliestReleaseDate
       self.releasedAtText = game.earliestReleaseDate.map {
         ReleaseDate.formatter.string(from: $0)
