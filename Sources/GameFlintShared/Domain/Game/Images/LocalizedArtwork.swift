@@ -67,6 +67,22 @@ public enum ArtworkSize: String, Codable, Hashable {
   case maxWidth512 = "max-512"
   case maxWidth256 = "max-256"
   case maxWidth128 = "max-128"
+
+  public maxWidth: Double {
+    switch self {
+    case .full:
+      return .infinity
+
+    case .maxWidth512:
+      return 512
+
+    case .maxWidth256:
+      return 256
+
+    case .maxWidth128:
+      return 128
+    }
+  }
 }
 
 public enum ArtworkType: String, Codable, Hashable {
