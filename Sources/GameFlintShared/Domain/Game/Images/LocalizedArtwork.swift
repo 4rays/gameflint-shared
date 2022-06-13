@@ -111,7 +111,15 @@ extension Sequence where Element == LocalizedArtwork {
     first(where: { $0.type == .icon })
   }
 
-  public var screenshots: [LocalizedArtwork]? {
+  public var covers: [LocalizedArtwork] {
+    filter { $0.type == .cover }
+  }
+
+  public var icons: [LocalizedArtwork] {
+    filter { $0.type == .icon }
+  }
+
+  public var screenshots: [LocalizedArtwork] {
     filter { $0.type == .screenshot }
   }
 }
