@@ -111,15 +111,19 @@ extension Sequence where Element == LocalizedArtwork {
     first(where: { $0.type == .icon })
   }
 
+  public func filtered(by type: ArtworkType) -> [LocalizedArtwork] {
+    filter { $0.type == type }
+  }
+
   public var covers: [LocalizedArtwork] {
-    filter { $0.type == .cover }
+    filtered(by: .cover)
   }
 
   public var icons: [LocalizedArtwork] {
-    filter { $0.type == .icon }
+    filtered(by: .icon)
   }
 
   public var screenshots: [LocalizedArtwork] {
-    filter { $0.type == .screenshot }
+    filtered(by: .screenshot)
   }
 }
