@@ -19,7 +19,7 @@ public struct LocalizedArtwork: Identifiable, Codable, Hashable {
   }
 
   public var id: String {
-    [type.rawValue, fileName , region.rawValue].joined(separator: "-")
+    [type.rawValue, fileName].joined(separator: "-")
   }
 
   public var region: Region {
