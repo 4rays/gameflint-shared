@@ -3,6 +3,19 @@
 
 import PackageDescription
 
+var dependencies: [PackageDescription.Package.Dependency] = []
+var targetDependencies: [PackageDescription.Target.Dependency] = []
+
+#if os(Linux)
+dependencies.append(
+  .package(url: "https://github.com/apple/swift-crypto.git", from: "2.1.0")
+)
+
+targetDependencies.append(
+  .product(name: "Crypto", package: "swift-crypto")
+)
+#endif
+
 let package = Package(
   name: "gameflint-shared",
   platforms: [
@@ -17,10 +30,11 @@ let package = Package(
       targets: ["GameFlintShared"]
     ),
   ],
+  dependencies: dependencies,
   targets: [
     .target(
       name: "GameFlintShared",
-      dependencies: []
+      dependencies: targetDependencies
     ),
     .testTarget(
       name: "GameFlintSharedTests",
