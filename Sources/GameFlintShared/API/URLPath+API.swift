@@ -73,7 +73,6 @@ extension URLPath {
   public static func findPlatform(with id: Platform.ID) -> Self { platformsRoot / id }
 
   public func apiVersion(_ version: APIVersion) -> Self {
-    let api = .init(.api) / .v(version)
-    return api / self.fragments
+    .init(.v(version)) / fragments
   }
 }
