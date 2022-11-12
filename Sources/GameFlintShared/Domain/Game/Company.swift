@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Company: Codable, Hashable, Equatable, Identifiable {
+public struct Company: Codable, Hashable, Identifiable {
   public var id: UUID
   public var name: String
   public var localizedNames: [Language: String]

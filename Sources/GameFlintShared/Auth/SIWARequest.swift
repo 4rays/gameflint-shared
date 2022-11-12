@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SIWARequest: Codable, Equatable, Hashable {
+public struct SIWARequest: Codable, Hashable {
   public var firstName: String?
   public var lastName: String?
   public var email: String

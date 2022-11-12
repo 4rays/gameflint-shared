@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Platform: Codable, Equatable, Hashable, Identifiable {
+public struct Platform: Codable, Hashable, Identifiable {
   public var id: UUID
   public var name: String
   public var abbreviation: String

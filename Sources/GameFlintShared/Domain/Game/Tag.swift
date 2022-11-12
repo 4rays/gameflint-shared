@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Tag: Identifiable, Codable, Equatable, Hashable {
+public struct Tag: Identifiable, Codable, Hashable {
   public var id: UUID
   public var slug: String
   public var name: String

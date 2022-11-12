@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Playthrough: Codable, Equatable, Hashable, Identifiable {
+public struct Playthrough: Codable, Hashable, Identifiable {
   public var id: UUID
   public var userPlayTime: Int?
   public private(set) var aggregatePlayTime: Int

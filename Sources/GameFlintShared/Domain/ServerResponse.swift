@@ -10,7 +10,7 @@ public struct ServerResponse: Codable, Equatable {
   }
 }
 
-public struct ResponseError: Error, Codable, Equatable, Hashable {
+public struct ResponseError: Error, Codable, Hashable {
   public var code: Code
   public var message: String
 
@@ -26,7 +26,7 @@ public struct ResponseError: Error, Codable, Equatable, Hashable {
 }
 
 public extension ResponseError {
-  enum Code: Int, Codable, Equatable, Hashable {
+  enum Code: Int, Codable, Hashable {
     case internalServerError = 900
     case invalidCredentials = 910
     case invalidSession

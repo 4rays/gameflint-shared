@@ -1,7 +1,7 @@
 import Foundation
 
 public extension Metadata {
-  struct IGDB: Codable, Equatable, Hashable {
+  struct IGDB: Codable, Hashable {
     public var url: String
     public var id: Int
     public var cover: String?

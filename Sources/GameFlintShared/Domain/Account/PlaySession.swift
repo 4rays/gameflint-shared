@@ -1,6 +1,6 @@
 import Foundation
 
-public struct PlaySession: Codable, Equatable, Hashable, Identifiable {
+public struct PlaySession: Codable, Hashable, Identifiable {
   public var id: UUID
   public var playthroughID: UUID
   public var playTime: Int?
@@ -35,7 +35,7 @@ public struct PlaySession: Codable, Equatable, Hashable, Identifiable {
 }
 
 public extension PlaySession {
-  struct Set: Codable, Equatable, Hashable {
+  struct Set: Codable, Hashable {
     public var startedAt: Date
     public var endedAt: Date?
 

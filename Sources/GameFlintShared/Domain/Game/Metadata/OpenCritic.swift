@@ -1,5 +1,5 @@
 public extension Metadata {
-  struct OpenCritic: Codable, Equatable, Hashable {
+  struct OpenCritic: Codable, Hashable {
     public var criticAverage: Float
     public var recommendedBy: Float?
     public var url: String?

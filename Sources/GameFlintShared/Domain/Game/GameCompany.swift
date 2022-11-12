@@ -1,6 +1,6 @@
 import Foundation
 
-public struct GameCompany: Codable, Hashable, Equatable {
+public struct GameCompany: Codable, Hashable {
   public var gameID: UUID
   public var company: Company
   public var roles: [CompanyRole]
@@ -17,7 +17,7 @@ public struct GameCompany: Codable, Hashable, Equatable {
 }
 
 extension GameCompany: Compactable {
-  public struct Compact: Codable, Equatable, Hashable, Identifiable {
+  public struct Compact: Codable, Hashable, Identifiable {
     public var company: Company
     public var roles: [CompanyRole]
 
