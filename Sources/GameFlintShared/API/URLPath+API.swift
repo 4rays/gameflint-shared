@@ -14,11 +14,11 @@ extension URLPath {
   // MARK: - User Account
   public static var accountRoot: Self = .init(.account)
   public static var userGames: Self = accountRoot / .games
-  public static var userGamesPaged: Self = userGames / .page
+  public static var userGamesPaginated: Self = userGames / .page
   public static var userGamesByPlaythrough: Self = userGames / .filters / .playthroughs
 
   public static var playSessions: Self = accountRoot / .playSessions
-  public static var playSessionsPaged: Self = playSessions / .page
+  public static var playSessionsPaginated: Self = playSessions / .page
   public static var resendVerification: Self = accountRoot / .resendVerification
   public static var profile: Self = accountRoot / .profile
 
@@ -35,7 +35,7 @@ extension URLPath {
     adminGames / id / .releases
   }
 
-  public static func deletRelease(with id: Release.ID, gameID: Game.ID) -> Self {
+  public static func deleteRelease(with id: Release.ID, gameID: Game.ID) -> Self {
     adminGames / gameID / .releases / id
   }
 
@@ -43,7 +43,7 @@ extension URLPath {
   public static var gamesRoot: Self = .init(.games)
   public static var gameSearch: Self = gamesRoot / .search
   public static var upcomingGames: Self = gamesRoot / .upcoming
-  public static func pagedGames(page: Int) -> Self { gamesRoot / .page / page }
+  public static func gamesPaginated(page: Int) -> Self { gamesRoot / .page / page }
   public static func findGame(with id: Game.ID) -> Self { gamesRoot / id }
   public static func fireside(with id: Game.ID) -> Self { gamesRoot / id / .fireside }
   public static func flareUp(with id: Game.ID) -> Self { gamesRoot / id / .flare }
@@ -52,24 +52,24 @@ extension URLPath {
   public static var companiesRoot: Self = .init(.companies)
   public static var companySearch: Self = companiesRoot / .search
   public static func findCompany(with id: Company.ID) -> Self { companiesRoot / id }
-  public static func pagedCompanies(page: Int) -> Self { companiesRoot / .page / page }
+  public static func companiesPaginated(page: Int) -> Self { companiesRoot / .page / page }
 
   // MARK: - Tags
   public static var tagsRoot: Self = .init(.tags)
   public static var tagSearch: Self = tagsRoot / .search
-  public static func pagedTags(page: Int) -> Self { tagsRoot / .page / page }
+  public static func tagsPaginated(page: Int) -> Self { tagsRoot / .page / page }
   public static func findTag(with id: Tag.ID) -> Self { tagsRoot / id }
 
   // MARK: - Genres
   public static var genresRoot: Self = .init(.genres)
   public static var genreSearch: Self = genresRoot / .search
-  public static func pagedGenres(page: Int) -> Self { genresRoot / .page / page }
+  public static func genresPaginated(page: Int) -> Self { genresRoot / .page / page }
   public static func findGenre(with id: Genre.ID) -> Self { genresRoot / id }
 
   // MARK: - Platform
   public static var platformsRoot: Self = .init(.platforms)
   public static var platformSearch: Self = platformsRoot / .search
-  public static func pagedPlatforms(page: Int) -> Self { platformsRoot / .page / page }
+  public static func platformsPaginated(page: Int) -> Self { platformsRoot / .page / page }
   public static func findPlatform(with id: Platform.ID) -> Self { platformsRoot / id }
 
   public func apiVersion(_ version: APIVersion) -> Self {

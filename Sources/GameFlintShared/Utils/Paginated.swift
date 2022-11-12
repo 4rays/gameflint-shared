@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Paged<T>: Codable, Hashable where T: Codable & Equatable & Hashable {
+public struct Paginated<T>: Codable, Hashable where T: Codable & Equatable & Hashable {
   public let items: [T]
   public let metadata: Metadata
 
@@ -13,7 +13,7 @@ public struct Paged<T>: Codable, Hashable where T: Codable & Equatable & Hashabl
   }
 }
 
-extension Paged {
+extension Paginated {
   public struct Metadata: Codable, Hashable {
     public let page: Int
     public let per: Int
