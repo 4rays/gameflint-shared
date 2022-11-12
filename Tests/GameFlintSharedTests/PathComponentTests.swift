@@ -5,12 +5,12 @@ final class PathComponentTests: XCTestCase {
   func testPathComponents() {
     XCTAssertEqual(
       URLPath.signIn.apiVersion(.v1).fullPath,
-      "api/v1/auth/sign-in"
+      "v1/auth/sign-in"
     )
 
     XCTAssertEqual(
       URLPath().apiVersion(.v1).fullPath,
-      "api/v1"
+      "v1"
     )
 
     XCTAssertEqual(
@@ -22,14 +22,14 @@ final class PathComponentTests: XCTestCase {
   func testImportGamesPath() {
     XCTAssertEqual(
       URLPath.importGames.apiVersion(.v1).fullPath,
-      "api/v1/admin/games/import"
+      "v1/admin/games/import"
     )
   }
 
   func testUserGamesPath() {
     XCTAssertEqual(
       URLPath.userGames.apiVersion(.v1).fullPath,
-      "api/v1/account/games"
+      "v1/account/games"
     )
   }
 
@@ -38,11 +38,11 @@ final class PathComponentTests: XCTestCase {
     XCTAssertEqual(composed.fullPath, "path/to/endpoint")
   }
 
-  func testFlareUpgamePath() {
+  func testFlareUpGamePath() {
     let id = UUID()
     XCTAssertEqual(
       URLPath.flareUp(with: id).apiVersion(.v1).fullPath,
-      "api/v1/games/\(id)/flare"
+      "v1/games/\(id)/flare"
     )
   }
 }
