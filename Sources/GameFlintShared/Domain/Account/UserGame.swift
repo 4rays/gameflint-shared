@@ -4,12 +4,12 @@ public struct UserGame: Codable, Hashable, Identifiable  {
   public var id: UUID
   public var gameID: UUID
   public var status: Status
-  public var format: Format
-  public var playStyle: PlayStyle
-  public var inLibrary: Bool
+  public var format: Format?
+  public var playStyle: PlayStyle?
+  public var inLibrary: Bool?
   public var userPlayTime: Int?
   public private(set) var lastPlayedAt: Date?
-  public private(set) var aggregatePlayTime: Int
+  public private(set) var aggregatePlayTime: Int?
   public var completionRate: Float?
   public var platform: Platform?
   public var gameInfo: Game.Compact?
@@ -19,15 +19,15 @@ public struct UserGame: Codable, Hashable, Identifiable  {
   public var playthroughs: [Playthrough]
 
   public init(
-  id: UUID,
+    id: UUID = .init(),
     gameID: UUID,
     status: Status = .interested,
-    format: Format = .digital,
-    playStyle: PlayStyle = .casual,
-    inLibrary: Bool = false,
+    format: Format? = nil,
+    playStyle: PlayStyle? = nil,
+    inLibrary: Bool? = nil,
     userPlayTime: Int? = nil,
     lastPlayedAt: Date? = nil,
-    aggregatePlayTime: Int = 0,
+    aggregatePlayTime: Int? = nil,
     completionRate: Float? = nil,
     platform: Platform? = nil,
     playthroughs: [Playthrough] = [],
@@ -83,5 +83,38 @@ extension UserGame {
     case completionist
     case speedrunner
     case competitive
+  }
+}
+
+extension UserGame {
+  public struct UpsertPayload: Codable, Hashable {
+    public var gameID: UUID
+    public var status: Status?
+    public var format: Format?
+    public var playStyle: PlayStyle?
+    public var inLibrary: Bool?
+    public var userPlayTime: Int?
+    public var completionRate: Float?
+    public var platform: Platform?
+
+    public init(
+      gameID: UUID,
+      status: UserGame.Status? = nil,
+      format: UserGame.Format? = nil,
+      playStyle: UserGame.PlayStyle? = nil,
+      inLibrary: Bool? = nil,
+      userPlayTime: Int? = nil,
+      completionRate: Float? = nil,
+      platform: Platform? = nil
+    ) {
+      self.gameID = gameID
+      self.status = status
+      self.format = format
+      self.playStyle = playStyle
+      self.inLibrary = inLibrary
+      self.userPlayTime = userPlayTime
+      self.completionRate = completionRate
+      self.platform = platform
+    }
   }
 }
