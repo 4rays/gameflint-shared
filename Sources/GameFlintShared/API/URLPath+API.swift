@@ -18,6 +18,9 @@ extension URLPath {
   public static var userGamesByPlaythrough: Self = userGames / .filters / .playthroughs
 
   public static var playSessions: Self = accountRoot / .playSessions
+  public static func playSession(id: PlaySession.ID) -> Self { playSessions / id }
+  public static func playSessions(page: Int) -> Self { playSessions / .page / page }
+
   public static var playSessionsPaginated: Self = playSessions / .page
   public static var resendVerification: Self = accountRoot / .resendVerification
   public static var profile: Self = accountRoot / .profile
