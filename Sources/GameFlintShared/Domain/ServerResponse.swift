@@ -33,25 +33,32 @@ public extension ResponseError {
     case takenEmail
     case unverifiedEmail
     case takenUsername
-    case gameAlreadyFlinted
+    case gameAlreadyFlared
     case notEnoughPellets
 
     public var name: String {
       switch self {
       case .internalServerError:
         return "Internal Server Error"
+
       case .invalidCredentials:
         return "Invalid Credentials"
+
       case .invalidSession:
         return "Invalid Session"
+
       case .takenEmail:
         return "Email is Taken"
+
       case .unverifiedEmail:
         return "Email is Unverified"
+
       case .takenUsername:
         return "Username is Taken"
-      case .gameAlreadyFlinted:
-        return "Game already Flamed Up"
+
+      case .gameAlreadyFlared:
+        return "Game already Flared"
+
       case .notEnoughPellets:
         return "Not Enough Pellets"
       }

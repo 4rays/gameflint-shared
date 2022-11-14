@@ -38,11 +38,11 @@ final class PathComponentTests: XCTestCase {
     XCTAssertEqual(composed.fullPath, "path/to/endpoint")
   }
 
-  func testFlareUpGamePath() {
+  func testFlarePath() {
     let id = UUID()
     XCTAssertEqual(
-      URLPath.flareUp(with: id).apiVersion(.v1).fullPath,
-      "v1/games/\(id)/flare"
+      URLPath.flare(with: id).apiVersion(.v1).fullPath,
+      "v1/games/\(id)/fireside/flare"
     )
   }
 }

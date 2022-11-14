@@ -79,4 +79,24 @@ extension PlaySession {
       self.sets = sets
     }
   }
+
+  // Unused
+  public struct UpdatePayload: Codable, Hashable {
+    public var playTime: Int?
+    public var endedAt: Date?
+    public var description: String?
+    public var sets: [Set]?
+
+    public init(
+      endedAt: Date? = nil,
+      playTime: Int? = nil,
+      description: String? = nil,
+      sets: [Set]? = nil
+    ) {
+      self.endedAt = endedAt
+      self.description = description
+      self.playTime = playTime
+      self.sets = sets
+    }
+  }
 }
