@@ -1,13 +1,13 @@
 import Foundation
 
 public enum ExternalService: Codable, Hashable {
-  case steam
-  case gog
-  case xbox
-  case playStore
   case appStore
   case epic
+  case gog
   case oculus
+  case playStore
   case psn
+  case steam
   case twitch
+  case xbox
 }
