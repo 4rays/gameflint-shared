@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ExternalService: Codable, Hashable {
+public enum ExternalService: Codable, Hashable, Sendable {
   case appStore
   case epic
   case gog

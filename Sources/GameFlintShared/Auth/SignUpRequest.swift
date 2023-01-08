@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SignUpRequest: Codable, Equatable {
+public struct SignUpRequest: Codable, Equatable, Sendable {
   public var username: String
   public var email: String
   public var password: String

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Flare: Codable, Hashable {
+public struct Flare: Codable, Hashable, Sendable {
   public var gameID: UUID
   public var userID: UUID
   public var createdAt: Date

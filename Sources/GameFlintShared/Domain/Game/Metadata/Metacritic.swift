@@ -1,5 +1,5 @@
 extension Metadata {
-  public struct Metacritic: Codable, Hashable {
+  public struct Metacritic: Codable, Hashable, Sendable {
     public var metaScore: Float
     public var userScore: Float?
     public var url: String?

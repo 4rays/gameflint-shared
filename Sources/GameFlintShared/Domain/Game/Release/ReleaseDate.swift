@@ -1,12 +1,6 @@
 import Foundation
 
-public struct ReleaseDate:
-  Codable,
-  Hashable,
-  Equatable,
-  CustomStringConvertible,
-  Comparable {
-
+public struct ReleaseDate: Codable, Hashable, CustomStringConvertible, Comparable, Sendable {
   @Year public var year: Int
   @Quarter public var quarter: Int?
   @Month public var month: Int?

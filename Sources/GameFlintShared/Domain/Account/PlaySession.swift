@@ -1,6 +1,6 @@
 import Foundation
 
-public struct PlaySession: Codable, Hashable, Identifiable {
+public struct PlaySession: Codable, Hashable, Identifiable, Sendable {
   public var id: UUID
   public var playthroughID: UUID
   public var playTime: Int?

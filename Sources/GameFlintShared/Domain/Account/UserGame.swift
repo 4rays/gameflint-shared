@@ -1,6 +1,6 @@
 import Foundation
 
-public struct UserGame: Codable, Hashable, Identifiable  {
+public struct UserGame: Codable, Hashable, Identifiable, Sendable {
   public var id: UUID
   public var gameID: UUID
   public var status: Status

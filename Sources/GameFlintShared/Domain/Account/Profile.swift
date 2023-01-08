@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Profile: Codable, Equatable, Identifiable, Hashable {
+public struct Profile: Codable, Identifiable, Hashable, Sendable {
   public var id: UUID
   public var username: String
   public var pellets: Int

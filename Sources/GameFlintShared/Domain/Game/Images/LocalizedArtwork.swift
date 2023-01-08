@@ -1,6 +1,6 @@
 import Foundation
 
-public struct LocalizedArtwork: Identifiable, Codable, Hashable {
+public struct LocalizedArtwork: Identifiable, Codable, Hashable, Sendable {
   public var fileName: String
   public var type: ArtworkType
   public var width: Int?

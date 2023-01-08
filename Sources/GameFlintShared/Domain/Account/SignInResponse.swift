@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SignInResponse: Codable, Hashable {
+public struct SignInResponse: Codable, Hashable, Sendable {
   public var token: AuthTokens
   public var profile: Profile
 

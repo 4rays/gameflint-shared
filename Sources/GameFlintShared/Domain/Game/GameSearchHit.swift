@@ -1,7 +1,7 @@
 import Foundation
 
 public extension Game {
-  struct SearchHit: Codable, Equatable, Identifiable, Hashable, Expandable {
+  struct SearchHit: Codable, Identifiable, Hashable, Expandable, Sendable {
     public var id: UUID
     public var name: String
     public var japaneseName: String

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Genre: Identifiable, Codable, Hashable {
+public struct Genre: Identifiable, Codable, Hashable, Sendable {
   public var id: UUID
   public var slug: String
   public var name: String
