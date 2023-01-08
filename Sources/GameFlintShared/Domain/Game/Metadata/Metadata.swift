@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Metadata: Codable, Hashable {
+public struct Metadata: Codable, Hashable, Sendable {
   public var igdb: IGDB?
   public var metacritic: Metacritic?
   public var openCritic: OpenCritic?

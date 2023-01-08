@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Review:  Codable, Equatable, Identifiable, Hashable {
+public struct Review:  Codable, Identifiable, Hashable, Sendable {
   public var id: UUID
   public var text: String
   public var rating: Rating

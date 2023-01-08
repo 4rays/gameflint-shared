@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Fireside: Codable, Equatable, Identifiable, Hashable {
+public struct Fireside: Codable, Identifiable, Hashable, Sendable {
   public var id: UUID
   public var burned: Int
   public var burning: Int

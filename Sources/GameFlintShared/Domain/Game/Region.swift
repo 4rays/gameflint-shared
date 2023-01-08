@@ -1,4 +1,4 @@
-public enum Region: String, Codable, Equatable, CaseIterable  {
+public enum Region: String, Codable, Equatable, CaseIterable, Sendable {
   case europe = "eu"
   case northAmerica = "na"
   case australia = "au"

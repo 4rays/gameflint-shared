@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ProfileUpdate: Codable, Hashable {
+public struct ProfileUpdate: Codable, Hashable, Sendable {
   public var username: String?
   public var displayName: String?
   public var avatarURL: String?

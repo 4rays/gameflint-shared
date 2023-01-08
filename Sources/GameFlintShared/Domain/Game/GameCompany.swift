@@ -1,6 +1,6 @@
 import Foundation
 
-public struct GameCompany: Codable, Hashable {
+public struct GameCompany: Codable, Hashable, Sendable {
   public var gameID: UUID
   public var company: Company
   public var roles: [CompanyRole]

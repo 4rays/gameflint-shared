@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AuthTokens: Codable, Hashable {
+public struct AuthTokens: Codable, Hashable, Sendable {
   public var access: String
   public var refresh: String
 

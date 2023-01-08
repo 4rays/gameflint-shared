@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ChangePasswordRequest: Codable, Equatable {
+public struct ChangePasswordRequest: Codable, Equatable, Sendable {
   public let password: String
   public let passwordConfirmation: String
   public let passwordToken: String

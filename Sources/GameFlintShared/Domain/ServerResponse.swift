@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ServerResponse: Codable, Equatable {
+public struct ServerResponse: Codable, Equatable, Sendable {
   public var error: ResponseError?
   public var success: Bool
 
@@ -10,7 +10,7 @@ public struct ServerResponse: Codable, Equatable {
   }
 }
 
-public struct ResponseError: Error, Codable, Hashable {
+public struct ResponseError: Error, Codable, Hashable, Sendable {
   public var code: Code
   public var message: String
 
@@ -26,7 +26,7 @@ public struct ResponseError: Error, Codable, Hashable {
 }
 
 public extension ResponseError {
-  enum Code: Int, Codable, Hashable {
+  enum Code: Int, Codable, Hashable, Sendable {
     case internalServerError = 900
     case invalidCredentials = 910
     case invalidSession

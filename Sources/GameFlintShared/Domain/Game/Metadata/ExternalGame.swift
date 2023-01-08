@@ -1,7 +1,7 @@
 import Foundation
 
 extension Metadata.IGDB {
-  public struct ExternalGame: Codable, Hashable {
+  public struct ExternalGame: Codable, Hashable, Sendable {
     public var externalID: String
     public var igdbID: Int
     public var category: Int

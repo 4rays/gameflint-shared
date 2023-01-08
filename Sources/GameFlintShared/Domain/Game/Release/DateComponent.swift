@@ -1,6 +1,6 @@
 import Foundation
 
-protocol DateUnit: Codable, Hashable {
+protocol DateUnit: Codable, Hashable, Sendable {
   var value: Int { get set }
   init(wrappedValue: Int)
 }
