@@ -1,6 +1,13 @@
 import Foundation
 
-public enum Language: String, Hashable, Identifiable, CaseIterable, Codable, CodingKeyRepresentable {
+public enum Language:
+  String,
+  Hashable,
+  Identifiable,
+  CaseIterable,
+  Codable,
+  CodingKeyRepresentable,
+  Sendable {
   case en
   case jp
 

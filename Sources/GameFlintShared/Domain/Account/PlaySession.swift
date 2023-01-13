@@ -35,7 +35,7 @@ public struct PlaySession: Codable, Hashable, Identifiable, Sendable {
 }
 
 public extension PlaySession {
-  struct Set: Codable, Hashable {
+  struct Set: Codable, Hashable, Sendable {
     public var startedAt: Date
     public var endedAt: Date?
 

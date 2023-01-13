@@ -17,7 +17,7 @@ public struct Playthrough: Codable, Hashable, Identifiable, Sendable {
   public var createdAt: Date?
   public var updatedAt: Date?
 
-  public enum Status: String, Codable, Equatable, CaseIterable {
+  public enum Status: String, Codable, Equatable, CaseIterable, Sendable {
     case active
     case completed
     case paused

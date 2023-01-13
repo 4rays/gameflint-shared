@@ -50,7 +50,7 @@ public struct Year: DateUnit {
 }
 
 @propertyWrapper
-public struct Quarter: OptionalDateUnit {
+public struct Quarter: OptionalDateUnit, Sendable {
   var value: Int?
   static var range: ClosedRange<Int> = 1...4
 
@@ -65,7 +65,7 @@ public struct Quarter: OptionalDateUnit {
 }
 
 @propertyWrapper
-public struct Month: OptionalDateUnit {
+public struct Month: OptionalDateUnit, Sendable {
   var value: Int?
   static var range: ClosedRange<Int> = 1...12
 
@@ -80,7 +80,7 @@ public struct Month: OptionalDateUnit {
 }
 
 @propertyWrapper
-public struct Day: OptionalDateUnit {
+public struct Day: OptionalDateUnit, Sendable {
   var value: Int?
   static var range: ClosedRange<Int> = 1...31
 

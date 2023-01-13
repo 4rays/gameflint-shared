@@ -63,12 +63,12 @@ public struct UserGame: Codable, Hashable, Identifiable, Sendable {
 }
 
 extension UserGame {
-  public enum Format: String, Codable, Equatable, CaseIterable {
+  public enum Format: String, Codable, Equatable, CaseIterable, Sendable {
     case physical
     case digital
   }
 
-  public enum Status: String, Codable, Equatable, CaseIterable {
+  public enum Status: String, Codable, Equatable, CaseIterable, Sendable {
     case interested
     case wishlisted
     case ready
@@ -78,7 +78,7 @@ extension UserGame {
     case abandoned
   }
 
-  public enum PlayStyle: String, Codable, Equatable, CaseIterable {
+  public enum PlayStyle: String, Codable, Equatable, CaseIterable, Sendable {
     case casual
     case completionist
     case speedrunner
@@ -87,7 +87,7 @@ extension UserGame {
 }
 
 extension UserGame {
-  public struct UpsertPayload: Codable, Hashable {
+  public struct UpsertPayload: Codable, Hashable, Sendable {
     public var gameID: UUID
     public var status: Status?
     public var format: Format?

@@ -17,7 +17,7 @@ public struct GameCompany: Codable, Hashable, Sendable {
 }
 
 extension GameCompany: Compactable {
-  public struct Compact: Codable, Hashable, Identifiable {
+  public struct Compact: Codable, Hashable, Identifiable, Sendable {
     public var company: Company
     public var roles: [CompanyRole]
 

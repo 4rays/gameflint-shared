@@ -85,7 +85,7 @@ public enum ArtworkSize: String, Codable, Hashable {
   }
 }
 
-public enum ArtworkType: String, Codable, Hashable {
+public enum ArtworkType: String, Codable, Hashable, Sendable {
   case cover
   case icon
   case screenshot
