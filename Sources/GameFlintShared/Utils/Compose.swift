@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - Compose
-public func compose<A: Sendable>(
+@Sendable public func compose<A: Sendable>(
   _ f: @escaping @Sendable (A) -> A,
   _ g: @escaping @Sendable (A) -> A
 ) -> (A) -> A {
@@ -10,7 +10,7 @@ public func compose<A: Sendable>(
   }
 }
 
-public func compose<A: Sendable>(
+@Sendable public func compose<A: Sendable>(
   _ f: @escaping @Sendable (A) -> A,
   _ g: @escaping @Sendable (A) -> A,
   _ h: @escaping @Sendable (A) -> A
@@ -20,7 +20,7 @@ public func compose<A: Sendable>(
   }
 }
 
-public func compose<A: Sendable>(
+@Sendable public func compose<A: Sendable>(
   _ f: @escaping @Sendable (A) -> A,
   _ g: @escaping @Sendable (A) -> A,
   _ h: @escaping @Sendable (A) -> A,
@@ -31,7 +31,7 @@ public func compose<A: Sendable>(
   }
 }
 
-public func compose<A: Sendable>(
+@Sendable public func compose<A: Sendable>(
   _ f: @escaping @Sendable (A) throws -> A,
   _ g: @escaping @Sendable (A) throws -> A
 ) -> (A) throws -> A {
@@ -40,7 +40,7 @@ public func compose<A: Sendable>(
   }
 }
 
-public func compose<A: Sendable>(
+@Sendable public func compose<A: Sendable>(
   _ f: @escaping @Sendable (A) throws -> A,
   _ g: @escaping @Sendable (A) throws -> A,
   _ h: @escaping @Sendable (A) throws -> A
@@ -50,7 +50,7 @@ public func compose<A: Sendable>(
   }
 }
 
-public func compose<A: Sendable>(
+@Sendable public func compose<A: Sendable>(
   _ f: @escaping @Sendable (A) throws -> A,
   _ g: @escaping @Sendable (A) throws -> A,
   _ h: @escaping @Sendable (A) throws -> A,
@@ -62,7 +62,7 @@ public func compose<A: Sendable>(
 }
 
 // MARK: - Pipe
-public func pipe<A: Sendable>(
+@Sendable public func pipe<A: Sendable>(
   _ f: @escaping @Sendable (A) -> A,
   _ g: @escaping @Sendable (A) -> A
 ) -> (A) -> A {
@@ -71,7 +71,7 @@ public func pipe<A: Sendable>(
   }
 }
 
-public func pipe<A: Sendable>(
+@Sendable public func pipe<A: Sendable>(
   _ f: @escaping @Sendable (A) -> A,
   _ g: @escaping @Sendable (A) -> A,
   _ h: @escaping @Sendable (A) -> A
@@ -81,7 +81,7 @@ public func pipe<A: Sendable>(
   }
 }
 
-public func pipe<A: Sendable>(
+@Sendable public func pipe<A: Sendable>(
   _ f: @escaping @Sendable (A) -> A,
   _ g: @escaping @Sendable (A) -> A,
   _ h: @escaping @Sendable (A) -> A,
@@ -92,7 +92,7 @@ public func pipe<A: Sendable>(
   }
 }
 
-public func pipe<A: Sendable>(
+@Sendable public func pipe<A: Sendable>(
   _ f: @escaping @Sendable (A) throws -> A,
   _ g: @escaping @Sendable (A) throws -> A
 ) -> (A) throws -> A {
@@ -101,7 +101,7 @@ public func pipe<A: Sendable>(
   }
 }
 
-public func pipe<A: Sendable>(
+@Sendable public func pipe<A: Sendable>(
   _ f: @escaping @Sendable (A) throws -> A,
   _ g: @escaping @Sendable (A) throws -> A,
   _ h: @escaping @Sendable (A) throws -> A
@@ -111,7 +111,7 @@ public func pipe<A: Sendable>(
   }
 }
 
-public func pipe<A: Sendable>(
+@Sendable public func pipe<A: Sendable>(
   _ f: @escaping @Sendable (A) throws -> A,
   _ g: @escaping @Sendable (A) throws -> A,
   _ h: @escaping @Sendable (A) throws -> A,
