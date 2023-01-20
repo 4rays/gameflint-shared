@@ -1,5 +1,5 @@
 import XCTest
-@testable import GameFlintShared
+@testable import GameflintShared
 
 final class ReleaseDateTests: XCTestCase {
   func testEarliestReleaseDateInit() {
