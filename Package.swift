@@ -26,19 +26,19 @@ let package = Package(
   ],
   products: [
     .library(
-      name: "GameFlintShared",
-      targets: ["GameFlintShared"]
+      name: "GameflintShared",
+      targets: ["GameflintShared"]
     ),
   ],
   dependencies: dependencies,
   targets: [
     .target(
-      name: "GameFlintShared",
+      name: "GameflintShared",
       dependencies: targetDependencies
     ),
     .testTarget(
-      name: "GameFlintSharedTests",
-      dependencies: ["GameFlintShared"]
+      name: "GameflintSharedTests",
+      dependencies: ["GameflintShared"]
     ),
   ]
 )
