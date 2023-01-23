@@ -61,9 +61,24 @@ public struct Release: Codable, Hashable, Comparable, Identifiable, Sendable {
     switch date {
     case .official(let date):
       return date
+
     default:
       return nil
     }
+  }
+
+  public var tentativeDate: ReleaseDate? {
+    switch date {
+    case .tentative(let date):
+      return date
+
+    default:
+      return nil
+    }
+  }
+
+  public var isTentative: Bool {
+    tentativeDate != nil
   }
 }
 
