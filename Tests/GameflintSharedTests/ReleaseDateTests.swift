@@ -5,50 +5,101 @@ final class ReleaseDateTests: XCTestCase {
   func testEarliestReleaseDateInit() {
     let earliestReleaseDate = ReleaseDate(year: 2017, month: 1, day: 30)
 
-    let release1 = Release(id: .init(), humanDate: earliestReleaseDate)
-    let release2 = Release(id: .init(), humanDate: .init(year: 2020, month: 12, day: 30))
-    let release3 = Release(id: .init(), humanDate: .init(year: 2022))
+    let release1 = Release(
+      id: .init(),
+      isTentative: false,
+      date: earliestReleaseDate
+    )
+    
+    let release3 = Release(
+      id: .init(),
+      isTentative: false,
+      date: .init(year: 2022)
+    )
+
+    let release2 = Release(
+      id: .init(),
+      isTentative: false,
+      date: .init(year: 2020,
+      month: 12,
+      day: 30)
+    )
 
     let game = Game(id: UUID(), name: "Game", releases: [release1, release3, release2])
 
-    XCTAssertEqual(game.earliestReleaseDate, try? earliestReleaseDate.toRawDate())
+    XCTAssertEqual(game.earliestReleaseDate, try? earliestReleaseDate.toUTCDate())
   }
 
   func testEarliestReleaseDateUpdate() {
     let earliestReleaseDate = ReleaseDate(year: 2016, month: 1, day: 30)
 
-    let release1 = Release(id: .init(), humanDate: .init(year: 2017, month: 1, day: 30))
-    let release2 = Release(id: .init(), humanDate: .init(year: 2020, month: 12, day: 30))
-    var release3 = Release(id: .init(), humanDate: .init(year: 2022))
+    let release1 = Release(
+      id: .init(),
+      isTentative: false,
+      date: .init(year: 2017, month: 1, day: 30)
+    )
 
-    var game = Game(id: UUID(), name: "Game", releases: [release1, release3, release2])
+    let release2 = Release(
+      id: .init(),
+      isTentative: false,
+      date: .init(year: 2020, month: 12, day: 30)
+    )
+    
+    var release3 = Release(
+      id: .init(),
+      isTentative: false,
+      date: .init(year: 2022)
+    )
 
-    release3.humanDate = earliestReleaseDate
+    var game = Game(
+      id: UUID(),
+      name: "Game",
+      releases: [
+        release1,
+        release3,
+        release2
+      ]
+    )
+
+    release3 = Release(id: .init(), isTentative: false, date: earliestReleaseDate)
 
     game.releases?[2] = release3
 
-    XCTAssertEqual(game.earliestReleaseDate, try? earliestReleaseDate.toRawDate())
+    XCTAssertEqual(game.earliestReleaseDate, try? earliestReleaseDate.toUTCDate())
   }
 
   func testEarliestReleaseDateAppend() {
     let earliestReleaseDate = ReleaseDate(year: 2016, month: 1, day: 30)
 
-    let release1 = Release(id: .init(), humanDate: .init(year: 2017, month: 1, day: 30))
-    let release2 = Release(id: .init(), humanDate: .init(year: 2020, month: 12, day: 30))
-    var release3 = Release(id: .init(), humanDate: .init(year: 2022))
+    let release1 = Release(
+      id: .init(),
+      isTentative: false,
+      date: .init(year: 2017, month: 1, day: 30)
+    )
+  
+    let release2 = Release(
+      id: .init(),
+      isTentative: false,
+      date: .init(year: 2020, month: 12, day: 30)
+    )
+  
+    var release3 = Release(
+      id: .init(),
+      isTentative: false,
+      date: .init(year: 2022)
+    )
 
     var game = Game(id: UUID(), name: "Game", releases: [release1, release2])
-
-    release3.humanDate = earliestReleaseDate
+    release3 = Release(id: .init(), isTentative: false, date: earliestReleaseDate)
 
     game.releases?.append(release3)
 
-    XCTAssertEqual(game.earliestReleaseDate, try? earliestReleaseDate.toRawDate())
+    XCTAssertEqual(game.earliestReleaseDate, try? earliestReleaseDate.toUTCDate())
   }
 
   func testReleaseDateConversion() {
-    let date1 = try? ReleaseDate(year: 2016).toRawDate()
-    let date2 = try? ReleaseDate(year: 2016, month: 1, day: 1).toRawDate()
+    let date1 = try? ReleaseDate(year: 2016).toUTCDate()
+    let date2 = try? ReleaseDate(year: 2016, month: 1, day: 1).toUTCDate()
 
     let expectedDate = Date(timeIntervalSince1970: 1451606400)
 

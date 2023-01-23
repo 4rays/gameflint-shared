@@ -9,6 +9,7 @@ public extension Game {
     public var platforms: [String]?
     public var tags: [Language: [String]]?
     public var genres: [Language: [String]]?
+		// TODO: Are both of these both needed?
     public var releasedAt: Date?
     public var releasedAtText: String?
 
@@ -38,7 +39,7 @@ public extension Game {
       self.genres = (game.genres?.map(\.localizedNames)).map(groupByKey)
       self.releasedAt = game.earliestReleaseDate
       self.releasedAtText = game.earliestReleaseDate.map {
-        ReleaseDate.formatter.string(from: $0)
+        ReleaseDate.formatterUTC.string(from: $0)
       }
     }
 

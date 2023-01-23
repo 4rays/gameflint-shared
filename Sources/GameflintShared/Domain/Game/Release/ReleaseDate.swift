@@ -6,10 +6,10 @@ public struct ReleaseDate: Codable, Hashable, CustomStringConvertible, Comparabl
   @Month public var month: Int?
   @Day public var day: Int?
 
-  public static let formatter: DateFormatter = {
+  public static let formatterUTC: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd"
-    formatter.timeZone = TimeZone(identifier: "UTC")
+    formatter.timeZone = .utc
     return formatter
   }()
 
@@ -29,7 +29,7 @@ public struct ReleaseDate: Codable, Hashable, CustomStringConvertible, Comparabl
     date: Date = Date()
   ) {
     let components = Calendar.current.dateComponents(
-      [.year, .month, .day],
+      in: .utc ?? .current,
       from: date
     )
 
@@ -46,7 +46,7 @@ public struct ReleaseDate: Codable, Hashable, CustomStringConvertible, Comparabl
   }
 
   public static func < (lhs: ReleaseDate, rhs: ReleaseDate) -> Bool {
-    switch (try? lhs.toRawDate(), try? rhs.toRawDate()) {
+    switch (try? lhs.toUTCDate(), try? rhs.toUTCDate()) {
     case let (.some(lhd), .some(rhd)):
       return lhd < rhd
     default:
@@ -60,8 +60,8 @@ public struct ReleaseDate: Codable, Hashable, CustomStringConvertible, Comparabl
 }
 
 public extension ReleaseDate {
-  func toRawDate() throws -> Date {
-    try ReleaseDate.formatter.date(from: description).unwrap(
+  func toUTCDate() throws -> Date {
+    try ReleaseDate.formatterUTC.date(from: description).unwrap(
       error: DataError.Data.invalidReleaseDate
     )
   }
