@@ -96,9 +96,6 @@ extension Release.Date {
 
     case (.official, .tentative):
       return false
-
-    default:
-      return false
     }
   }
 }

@@ -66,7 +66,11 @@ public struct Game: Codable, Identifiable, Hashable, Sendable {
  
 public extension Game {
   mutating func updateEarliestReleaseDate() {
-    earliestReleaseDate = releases.flatMap {
+    earliestReleaseDate = getEarliestReleaseDate()
+  }
+
+  func getEarliestReleaseDate() -> Date? {
+    releases.flatMap {
       $0.filter { $0.officialDate != nil }
         .sorted()
         .first?.officialDate
