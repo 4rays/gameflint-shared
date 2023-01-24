@@ -1,6 +1,6 @@
-# GameFlintShared
+# GameflintShared
 
-Domain types and helpers for GameFlint.
+Domain types and helpers for Gameflint.
 
 ## Games
 
