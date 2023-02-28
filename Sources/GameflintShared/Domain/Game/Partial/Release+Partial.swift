@@ -4,13 +4,14 @@ extension Release {
   public struct Partial: Codable, Hashable, Sendable {
     public var date: Release.Date?
     public var descriptions: [Language: String]
-    public var platforms: [Platform]
+public var platforms: [Platform.Partial]
+
     public var regions: [Region]
 
     public init(
       date: Release.Date? = nil,
       descriptions: [Language: String] = [:],
-      platforms: [Platform] = [],
+      platforms: [Platform.Partial] = [],
       regions: [Region] = []
     ) {
       self.date = date
@@ -20,7 +21,7 @@ extension Release {
     }
 
     public init(
-      platforms: [Platform] = [],
+      platforms: [Platform.Partial] = [],
       regions: [Region] = [],
       isTentative: Bool,
       date: ReleaseDate? = nil,
