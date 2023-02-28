@@ -32,31 +32,6 @@ public struct Release: Codable, Hashable, Comparable, Identifiable, Sendable {
     self.descriptions = descriptions
   }
 
-  public init(
-    id: UUID,
-    platforms: [Platform] = [],
-    regions: [Region] = [],
-    isTentative: Bool,
-    date: ReleaseDate? = nil,
-    descriptions: [Language: String] = [:],
-    createdAt: Foundation.Date? = nil,
-    updatedAt: Foundation.Date? = nil
-  ) {
-    self.id = id
-    self.platforms = platforms
-    self.regions = regions
-    self.createdAt = createdAt
-    self.updatedAt = updatedAt
-    self.descriptions = descriptions
-
-    if isTentative,
-      let tentativeDate = date {
-      self.date = .tentative(tentativeDate)
-    } else if let officialDate = try? date?.toUTCDate() {
-      self.date = .official(officialDate)
-    }
-  }
-
   public var officialDate: Foundation.Date? {
     switch date {
     case .official(let date):

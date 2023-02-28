@@ -23,15 +23,4 @@ public struct Platform: Codable, Hashable, Identifiable, Sendable {
     self.createdAt = createdAt
     self.updatedAt = updatedAt
   }
-
-  public init(
-    _ name: String
-  ) {
-    self.id = .init()
-    self.name = name
-    self.abbreviation = name
-    self.localizedNames = [.en: name]
-    self.createdAt = Date()
-    self.updatedAt = nil
-  }
 }
