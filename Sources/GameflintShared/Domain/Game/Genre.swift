@@ -23,15 +23,4 @@ public struct Genre: Identifiable, Codable, Hashable, Sendable {
     self.createdAt = createdAt
     self.updatedAt = updatedAt
   }
-
-  public init(
-    _ name: String
-  ) {
-    self.id = .init()
-    self.name = name
-    self.slug = name.slugify()
-    self.localizedNames = [.en: name]
-    self.createdAt = Date()
-    self.updatedAt = nil
-  }
 }

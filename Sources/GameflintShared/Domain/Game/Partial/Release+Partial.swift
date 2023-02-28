@@ -1,4 +1,4 @@
-import Foundation 
+import Foundation
 
 extension Release {
   public struct Partial: Codable, Hashable, Sendable {
@@ -17,6 +17,26 @@ extension Release {
       self.descriptions = descriptions
       self.platforms = platforms
       self.regions = regions
+    }
+
+    public init(
+      platforms: [Platform] = [],
+      regions: [Region] = [],
+      isTentative: Bool,
+      date: ReleaseDate? = nil,
+      descriptions: [Language: String] = [:]
+    ) {
+      self.platforms = platforms
+      self.regions = regions
+      self.descriptions = descriptions
+
+      if isTentative,
+        let tentativeDate = date
+      {
+        self.date = .tentative(tentativeDate)
+      } else if let officialDate = try? date?.toUTCDate() {
+        self.date = .official(officialDate)
+      }
     }
   }
 }
