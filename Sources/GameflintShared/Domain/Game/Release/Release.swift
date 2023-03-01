@@ -58,7 +58,7 @@ public struct Release: Codable, Hashable, Comparable, Identifiable, Sendable {
 }
 
 extension Release.Date {
-  public static func < (lhs: Release.Date, rhs: Release.Date) -> Bool {
+  public static func < (lhs: Self, rhs: Self) -> Bool {
     switch (lhs, rhs) {
     case let (.official(lhsDate), .official(rhsDate)):
       return lhsDate < rhsDate
@@ -76,7 +76,7 @@ extension Release.Date {
 }
 
 extension Release {
-  public static func < (lhs: Release, rhs: Release) -> Bool {
+  public static func < (lhs: Self, rhs: Self) -> Bool {
     switch (lhs.date, rhs.date) {
     case let (.some(lhd), .some(rhd)):
       return lhd < rhd
