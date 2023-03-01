@@ -48,7 +48,7 @@ extension Game {
 }
 
 extension Game.Partial {
-  public var getEarliestReleaseDate: Date? {
+  public var earliestReleaseDate: Date? {
     releases.flatMap {
       $0.filter { $0.officialDate != nil }
         .sorted()
