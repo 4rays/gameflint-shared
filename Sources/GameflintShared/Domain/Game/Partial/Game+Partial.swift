@@ -46,3 +46,20 @@ extension Game {
     }
   }
 }
+
+extension Game.Partial {
+  public var getEarliestReleaseDate: Date? {
+    releases.flatMap {
+      $0.filter { $0.officialDate != nil }
+        .sorted()
+        .first?.officialDate
+    }
+  }
+
+  public var platforms: [Platform.Partial] {
+    releases
+      .unwrapped
+      .flatMap(\.platforms)
+      .deduplicated()
+  }
+}
