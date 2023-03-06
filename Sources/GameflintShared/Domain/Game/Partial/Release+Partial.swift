@@ -7,6 +7,14 @@ extension Release {
     public var platforms: [Platform.Partial]
     public var regions: [Region]
 
+    enum CodingKeys: String, CodingKey {
+      case officialDate
+      case tentativeDate
+      case platforms
+      case regions
+      case descriptions
+    }
+
     public init(
       date: Release.Date? = nil,
       descriptions: [Language: String] = [:],
@@ -76,6 +84,47 @@ extension Release.Partial {
 
     default:
       return false
+    }
+  }
+}
+
+extension Release.Partial {
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(platforms, forKey: .platforms)
+    try container.encode(regions, forKey: .regions)
+    try container.encode(descriptions, forKey: .descriptions)
+
+    switch date {
+    case .official(let date):
+      try container.encode(date, forKey: .officialDate)
+
+    case .tentative(let date):
+      try container.encode(date, forKey: .tentativeDate)
+
+    case .none:
+      break
+    }
+  }
+
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    platforms = try container.decode([Platform.Partial].self, forKey: .platforms)
+    regions = try container.decode([Region].self, forKey: .regions)
+    descriptions = try container.decode([Language: String].self, forKey: .descriptions)
+
+    if let officialDate = try container.decodeIfPresent(
+        Foundation.Date.self,
+        forKey: .officialDate
+      ) {
+      date = .official(officialDate)
+    } else if let tentativeDate = try container.decodeIfPresent(
+        ReleaseDate.self,
+        forKey: .tentativeDate
+      ) {
+      date = .tentative(tentativeDate)
+    } else {
+      date = nil
     }
   }
 }
