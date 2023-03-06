@@ -14,6 +14,17 @@ public struct Release: Codable, Hashable, Comparable, Identifiable, Sendable {
     case tentative(ReleaseDate)
   }
 
+  enum CodingKeys: String, CodingKey {
+    case id
+    case officialDate
+    case tentativeDate
+    case platforms
+    case regions
+    case descriptions
+    case createdAt
+    case updatedAt
+  }
+
   public init(
     id: UUID,
     platforms: [Platform] = [],
@@ -86,6 +97,53 @@ extension Release {
 
     default:
       return false
+    }
+  }
+}
+
+extension Release {
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(id, forKey: .id)
+    try container.encode(platforms, forKey: .platforms)
+    try container.encode(regions, forKey: .regions)
+    try container.encode(descriptions, forKey: .descriptions)
+    try container.encode(createdAt, forKey: .createdAt)
+    try container.encode(updatedAt, forKey: .updatedAt)
+
+    switch date {
+    case .official(let date):
+      try container.encode(date, forKey: .officialDate)
+
+    case .tentative(let date):
+      try container.encode(date, forKey: .tentativeDate)
+
+    case .none:
+      break
+    }
+  }
+
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    id = try container.decode(UUID.self, forKey: .id)
+    platforms = try container.decode([Platform].self, forKey: .platforms)
+    regions = try container.decode([Region].self, forKey: .regions)
+    descriptions = try container.decode([Language: String].self, forKey: .descriptions)
+    createdAt = try container.decodeIfPresent(Foundation.Date.self, forKey: .createdAt)
+    updatedAt = try container.decodeIfPresent(Foundation.Date.self, forKey: .updatedAt)
+
+    if let officialDate = try container.decodeIfPresent(
+        Foundation.Date.self,
+        forKey: .officialDate
+      ) {
+      date = .official(officialDate)
+    } else if let tentativeDate = try container.decodeIfPresent(
+        ReleaseDate.self,
+        forKey: .tentativeDate
+      ) {
+      date = .tentative(tentativeDate)
+    } else {
+      date = nil
     }
   }
 }
