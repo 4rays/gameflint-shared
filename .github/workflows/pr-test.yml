@@ -8,18 +8,22 @@ on:
     branches:
     - main
 
+concurrency:
+  group: tests
+  cancel-in-progress: true
+
 jobs:
   build:
     container:
-      image: swiftlang/swift:nightly-5.6-bionic
+      image: swift:5.7.1-focal
     runs-on: ubuntu-latest
 
     steps:
-    - name: 'Checkout'
+    - name: Checkout
       uses: actions/checkout@v2
-    - name: 'Run Test'
+    - name: Run Test
       run: | 
         swift package resolve
         swift test --enable-code-coverage
-    - name: 'Code Coverage'
+    - name: Code Coverage
       uses: mattpolzin/swift-codecov-action@0.7.1
