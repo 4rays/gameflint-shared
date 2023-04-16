@@ -72,9 +72,9 @@ extension Game.Partial {
     metadata.update(with: externalGame)
     self.metadata = metadata
     
-    if let urlString = externalGame.url?.absoluteString {
+    if let urlString = externalGame.url {
       var links = self.links ?? []
-      links.append(urlString)
+      links.append(urlString.urlSanitized)
       self.links = links
     }
   }
