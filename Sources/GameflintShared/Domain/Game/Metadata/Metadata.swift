@@ -42,3 +42,22 @@ public struct Metadata: Codable, Hashable, Sendable {
     self.xboxID = xboxID
   }
 }
+
+extension Metadata {
+  public mutating func update(
+    with externalGame: Metadata.IGDB.ExternalGame
+  ) {
+    switch externalGame.service {
+    case .steam: self.steamID = externalGame.externalID
+    case .gog: self.gogID = externalGame.externalID
+    case .xbox: self.xboxID = externalGame.externalID
+    case .appStore: self.appStoreID = externalGame.externalID
+    case .twitch: self.twitchID = externalGame.externalID
+    case .playStore: self.playStoreID = externalGame.externalID
+    case .epic: self.epicID = externalGame.externalID
+    case .oculus: self.oculusID = externalGame.externalID
+    case .psn: self.psnID = externalGame.externalID
+    case .none: break
+    }
+  }
+}
