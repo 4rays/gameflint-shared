@@ -1,7 +1,6 @@
 import XCTest
 @testable import GameflintShared
 
-
 final class CollectionExtensionTests: XCTestCase {
   struct Person: Identifiable, Equatable {
     public var id: UUID

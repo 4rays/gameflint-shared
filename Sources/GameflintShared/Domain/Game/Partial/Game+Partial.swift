@@ -63,3 +63,27 @@ extension Game.Partial {
       .deduplicated()
   }
 }
+
+extension Game.Partial {
+  public mutating func update(
+    with externalGame: Metadata.IGDB.ExternalGame
+  ) {
+    var metadata = self.metadata ?? Metadata()
+    metadata.update(with: externalGame)
+    self.metadata = metadata
+    
+    if let urlString = externalGame.url?.absoluteString {
+      var links = self.links ?? []
+      links.append(urlString)
+      self.links = links
+    }
+  }
+
+  public mutating func update(
+    with externalGames: [Metadata.IGDB.ExternalGame]
+  ) {
+    for externalGame in externalGames {
+      update(with: externalGame)
+    }
+  }
+}
