@@ -116,7 +116,7 @@ final class ExternalGameTests: XCTestCase {
       externalID: "67890",
       igdbID: 1,
       category: 5,
-      url: URL(string: "https://www.gog.com/game/bloodborne")
+      url: "https://www.gog.com/game/bloodborne"
     )
 
     game.update(with: gogExternal)
@@ -132,7 +132,7 @@ final class ExternalGameTests: XCTestCase {
       externalID: "12345",
       igdbID: 1,
       category: 11,
-      url: URL(string: "https://www.xbox.com/en-US/games/bloodborne")
+      url: "https://www.xbox.com/en-US/games/bloodborne"
     )
 
     game.update(with: xboxExternal)

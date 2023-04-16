@@ -5,7 +5,7 @@ extension Metadata.IGDB {
     public var externalID: String
     public var igdbID: Int
     public var category: Int
-    public var url: URL?
+    public var url: String?
 
     public var service: ExternalService? {
       switch category {
