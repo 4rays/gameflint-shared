@@ -10,9 +10,10 @@ enum DataError {
     var description: String {
       switch self {
       case .invalidReleaseDate:
-        return "The release date seems to be invalid"
+        return "The release date seems to be invalid."
+
       case .missingDefaultPlaythrough:
-        return "A default playthrough is required"
+        return "A default playthrough is required."
       }
     }
   }
