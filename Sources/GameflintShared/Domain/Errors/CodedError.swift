@@ -18,9 +18,9 @@ extension ServerResponse {
 }
 
 extension ServerResponse.CodedError {
-  public enum Code: Int, Codable, Hashable, Sendable {
-    case internalServerError = 900
-    case invalidCredentials = 910
+  public enum Code: String, Codable, Hashable, Sendable {
+    case internalServerError
+    case invalidCredentials
     case invalidSession
     case takenEmail
     case unverifiedEmail
