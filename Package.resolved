@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "http-request-builder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/4rays/http-request-builder",
+      "state" : {
+        "revision" : "b38b1eaef9005279ac1cc6cf954dd0988e1100d2",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 2
+}

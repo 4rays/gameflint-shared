@@ -1,34 +1,36 @@
+import HTTPRequestBuilder
 import XCTest
+
 @testable import GameflintShared
 
 final class PathComponentTests: XCTestCase {
   func testPathComponents() {
     XCTAssertEqual(
-      URLPath.signIn.apiVersion(.v1).fullPath,
+      Path.signIn.apiVersion(.v1).fullPath,
       "v1/auth/sign-in"
     )
 
     XCTAssertEqual(
-      URLPath().apiVersion(.v1).fullPath,
+      Path().apiVersion(.v1).fullPath,
       "v1"
     )
 
     XCTAssertEqual(
-      URLPath.verifyPasswordToken.fullPath,
+      Path.verifyPasswordToken.fullPath,
       "auth/reset-password/verify"
     )
   }
 
   func testImportGamesPath() {
     XCTAssertEqual(
-      URLPath.importGames.apiVersion(.v1).fullPath,
+      Path.importGames.apiVersion(.v1).fullPath,
       "v1/admin/games/import"
     )
   }
 
   func testUserGamesPath() {
     XCTAssertEqual(
-      URLPath.userGames.apiVersion(.v1).fullPath,
+      Path.userGames.apiVersion(.v1).fullPath,
       "v1/account/games"
     )
   }
@@ -41,7 +43,7 @@ final class PathComponentTests: XCTestCase {
   func testFlarePath() {
     let id = UUID()
     XCTAssertEqual(
-      URLPath.flare(with: id).apiVersion(.v1).fullPath,
+      Path.flare(with: id).apiVersion(.v1).fullPath,
       "v1/games/\(id)/fireside/flare"
     )
   }
