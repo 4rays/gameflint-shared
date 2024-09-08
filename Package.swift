@@ -2,7 +2,7 @@
 import PackageDescription
 
 var dependencies: [PackageDescription.Package.Dependency] = [
-  .package(url: "https://github.com/4rays/http-request-builder", from: "1.0.2")
+  .package(url: "https://github.com/4rays/http-request-builder", from: "1.0.3")
 ]
 
 var targetDependencies: [PackageDescription.Target.Dependency] = [
