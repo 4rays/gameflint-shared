@@ -47,4 +47,18 @@ final class PathComponentTests: XCTestCase {
       "v1/games/\(id)/fireside/flare"
     )
   }
+
+  func testSendability() async {
+    struct Client: Sendable {
+      var print: @Sendable () async -> String
+    }
+
+    let client = Client {
+      let path = Path.userGamesByPlaythrough
+      return path.fullPath
+    }
+
+    let result = await client.print()
+    XCTAssertEqual(result, "account/games/filters/playthroughs")
+  }
 }

@@ -1,4 +1,4 @@
-public struct APIVersion {
+public struct APIVersion: Sendable, Hashable {
   let major: Int
   let minor: Int?
   let patch: Int?
@@ -15,7 +15,7 @@ public struct APIVersion {
 }
 
 extension APIVersion {
-  public static var v1 = Self(major: 1)
+  public static let v1 = Self(major: 1)
 
   public var description: String {
     var path = "v\(major)"
