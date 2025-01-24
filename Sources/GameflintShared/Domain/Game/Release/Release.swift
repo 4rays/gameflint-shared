@@ -45,21 +45,15 @@ public struct Release: Codable, Hashable, Comparable, Identifiable, Sendable {
 
   public var officialDate: Foundation.Date? {
     switch date {
-    case .official(let date):
-      return date
-
-    default:
-      return nil
+    case .official(let date): date
+    default: nil
     }
   }
 
   public var tentativeDate: ReleaseDate? {
     switch date {
-    case .tentative(let date):
-      return date
-
-    default:
-      return nil
+    case .tentative(let date): date
+    default: nil
     }
   }
 
@@ -76,7 +70,7 @@ extension Release.Date {
 
     case let (.tentative(lhsDate), .tentative(rhsDate)):
       return lhsDate < rhsDate
-    
+
     case (.tentative, .official):
       return true
 
@@ -89,14 +83,9 @@ extension Release.Date {
 extension Release {
   public static func < (lhs: Self, rhs: Self) -> Bool {
     switch (lhs.date, rhs.date) {
-    case let (.some(lhd), .some(rhd)):
-      return lhd < rhd
-
-    case (.none, .some):
-      return true
-
-    default:
-      return false
+    case let (.some(lhd), .some(rhd)): lhd < rhd
+    case (.none, .some): true
+    default: false
     }
   }
 }
@@ -133,14 +122,14 @@ extension Release {
     updatedAt = try container.decodeIfPresent(Foundation.Date.self, forKey: .updatedAt)
 
     if let officialDate = try container.decodeIfPresent(
-        Foundation.Date.self,
-        forKey: .officialDate
-      ) {
+      Foundation.Date.self,
+      forKey: .officialDate
+    ) {
       date = .official(officialDate)
     } else if let tentativeDate = try container.decodeIfPresent(
-        ReleaseDate.self,
-        forKey: .tentativeDate
-      ) {
+      ReleaseDate.self,
+      forKey: .tentativeDate
+    ) {
       date = .tentative(tentativeDate)
     } else {
       date = nil

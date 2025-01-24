@@ -49,21 +49,15 @@ extension Release {
 
     public var officialDate: Foundation.Date? {
       switch date {
-      case .official(let date):
-        return date
-
-      default:
-        return nil
+      case .official(let date): date
+      default: nil
       }
     }
 
     public var tentativeDate: ReleaseDate? {
       switch date {
-      case .tentative(let date):
-        return date
-
-      default:
-        return nil
+      case .tentative(let date): date
+      default: nil
       }
     }
 
@@ -114,14 +108,14 @@ extension Release.Partial {
     descriptions = try container.decode([Language: String].self, forKey: .descriptions)
 
     if let officialDate = try container.decodeIfPresent(
-        Foundation.Date.self,
-        forKey: .officialDate
-      ) {
+      Foundation.Date.self,
+      forKey: .officialDate
+    ) {
       date = .official(officialDate)
     } else if let tentativeDate = try container.decodeIfPresent(
-        ReleaseDate.self,
-        forKey: .tentativeDate
-      ) {
+      ReleaseDate.self,
+      forKey: .tentativeDate
+    ) {
       date = .tentative(tentativeDate)
     } else {
       date = nil

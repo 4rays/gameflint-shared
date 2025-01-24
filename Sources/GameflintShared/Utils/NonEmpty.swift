@@ -1,7 +1,8 @@
 // From https://github.com/pointfreeco/swift-nonempty/blob/main/Sources/NonEmpty/NonEmpty.swift
 
 @dynamicMemberLookup
-public struct NonEmpty<Collection: Swift.Collection>: Swift.Collection {
+public struct NonEmpty<Collection: Swift.Collection>: Swift.Collection, Sendable
+where Collection: Sendable, Collection.Element: Sendable {
   public typealias Element = Collection.Element
   public typealias Index = Collection.Index
 
@@ -156,8 +157,9 @@ extension NonEmpty where Collection: MutableCollection & RandomAccessCollection 
 
 public typealias NonEmptyArray<Element> = NonEmpty<[Element]>
 
-public extension Swift.Collection {
-  var nonEmpty: NonEmpty<Self>? {
+extension Swift.Collection
+where Self: Sendable, Self.Element: Sendable {
+  public var nonEmpty: NonEmpty<Self>? {
     NonEmpty(rawValue: self)
   }
 }

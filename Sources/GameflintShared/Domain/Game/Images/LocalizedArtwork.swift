@@ -70,17 +70,10 @@ public enum ArtworkSize: String, Codable, Hashable {
 
   public var maxWidth: Double {
     switch self {
-    case .full:
-      return .infinity
-
-    case .maxWidth512:
-      return 512
-
-    case .maxWidth256:
-      return 256
-
-    case .maxWidth128:
-      return 128
+    case .full: .infinity
+    case .maxWidth512: 512
+    case .maxWidth256: 256
+    case .maxWidth128: 128
     }
   }
 }
@@ -92,12 +85,9 @@ public enum ArtworkType: String, Codable, Hashable, Sendable {
 
   public var availableSizes: [ArtworkSize] {
     switch self {
-    case .cover:
-      return [.full, .maxWidth512]
-    case .icon:
-      return [.full, .maxWidth256, .maxWidth128]
-    case .screenshot:
-      return [.full]
+    case .cover: [.full, .maxWidth512]
+    case .icon: [.full, .maxWidth256, .maxWidth128]
+    case .screenshot: [.full]
     }
   }
 }

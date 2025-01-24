@@ -7,7 +7,8 @@ public enum Language:
   CaseIterable,
   Codable,
   CodingKeyRepresentable,
-  Sendable {
+  Sendable
+{
   case en
   case jp
 
@@ -17,15 +18,13 @@ public enum Language:
 
   public var description: String {
     switch self {
-    case .en:
-      return "English"
-    case .jp:
-      return "日本語"
+    case .en: "English"
+    case .jp: "日本語"
     }
   }
 }
 
-extension Array where Element == Dictionary<Language, String> {
+extension Array where Element == [Language: String] {
   @available(*, deprecated, message: "Use groupByKey(:) instead.")
   public var languageGrouped: [Language: [String]] {
     groupByKey(self)

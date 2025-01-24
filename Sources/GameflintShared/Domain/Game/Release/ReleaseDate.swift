@@ -47,10 +47,9 @@ public struct ReleaseDate: Codable, Hashable, CustomStringConvertible, Comparabl
 
   public static func < (lhs: ReleaseDate, rhs: ReleaseDate) -> Bool {
     switch (try? lhs.toUTCDate(), try? rhs.toUTCDate()) {
-    case let (.some(lhd), .some(rhd)):
-      return lhd < rhd
-    default:
-      return false
+    case let (.some(lhd), .some(rhd)): lhd < rhd
+    case (.none, .some): true
+    default: false
     }
   }
 
@@ -59,8 +58,8 @@ public struct ReleaseDate: Codable, Hashable, CustomStringConvertible, Comparabl
   }
 }
 
-public extension ReleaseDate {
-  func toUTCDate() throws -> Date {
+extension ReleaseDate {
+  public func toUTCDate() throws -> Date {
     try ReleaseDate.formatterUTC.date(from: description).unwrap(
       error: DataError.Data.invalidReleaseDate
     )
@@ -68,11 +67,11 @@ public extension ReleaseDate {
 
   fileprivate func month(from quarter: Int) -> Int? {
     switch quarter {
-    case 1: return 1
-    case 2: return 4
-    case 3: return 7
-    case 4: return 10
-    default: return nil
+    case 1: 1
+    case 2: 4
+    case 3: 7
+    case 4: 10
+    default: nil
     }
   }
 }

@@ -35,63 +35,29 @@ extension ServerResponse.CodedError {
 
   public var title: String {
     switch code {
-    case .internalServerError:
-      return "Internal Server Error"
-
-    case .invalidCredentials:
-      return "Invalid Credentials"
-
-    case .invalidSession:
-      return "Invalid Session"
-
-    case .takenEmail:
-      return "Email is Taken"
-
-    case .unverifiedEmail:
-      return "Email is Unverified"
-
-    case .takenUsername:
-      return "Username is Taken"
-
-    case .gameAlreadyFlared:
-      return "Game already Flared"
-
-    case .notEnoughPellets:
-      return "Not Enough Pellets"
-
-    case .missingResource:
-      return "Resource is Missing"
+    case .internalServerError: "Internal Server Error"
+    case .invalidCredentials: "Invalid Credentials"
+    case .invalidSession: "Invalid Session"
+    case .takenEmail: "Email is Taken"
+    case .unverifiedEmail: "Email is Unverified"
+    case .takenUsername: "Username is Taken"
+    case .gameAlreadyFlared: "Game already Flared"
+    case .notEnoughPellets: "Not Enough Pellets"
+    case .missingResource: "Resource is Missing"
     }
   }
 
   public var description: String {
     switch code {
-    case .internalServerError:
-      return "Something went wrong on our end. Please try again later."
-
-    case .invalidCredentials:
-      return "The credentials provided are invalid."
-
-    case .invalidSession:
-      return "The current session is invalid. Please sign in again."
-
-    case .takenEmail:
-      return "The email you entered is already taken."
-
-    case .unverifiedEmail:
-      return "The email used is unverified."
-
-    case .takenUsername:
-      return "The username you entered is already taken."
-
-    case .gameAlreadyFlared:
-      return "You have already flared this game."
-
-    case .notEnoughPellets:
-      return "You don't have enough pellets to perform this action."
-
-    case .missingResource:
-      return "The requested resource is missing."
+    case .internalServerError: "Something went wrong on our end. Please try again later."
+    case .invalidCredentials: "The credentials provided are invalid."
+    case .invalidSession: "The current session is invalid. Please sign in again."
+    case .takenEmail: "The email you entered is already taken."
+    case .unverifiedEmail: "The email used is unverified."
+    case .takenUsername: "The username you entered is already taken."
+    case .gameAlreadyFlared: "You have already flared this game."
+    case .notEnoughPellets: "You don't have enough pellets to perform this action."
+    case .missingResource: "The requested resource is missing."
     }
   }
 }
