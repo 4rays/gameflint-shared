@@ -1,13 +1,13 @@
 {
-  "originHash" : "7502aa9269ce8a0622f3f1bc0a39aa5f147d06b83dcce2df42c10f53b26561b2",
+  "originHash" : "1509c88f61040c60c9ddab4c47fd2d0ef320d40d4932c30e5b2d2a74c91a9da1",
   "pins" : [
     {
       "identity" : "http-request-builder",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/4rays/http-request-builder",
       "state" : {
-        "revision" : "2bae20e0002b6a766628283c6b0616042f2b4c7b",
-        "version" : "1.0.3"
+        "revision" : "b7b20a6c5b71790633fd80c4b895f8125951e0ef",
+        "version" : "1.2.0"
       }
     }
   ],

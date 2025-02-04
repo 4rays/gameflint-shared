@@ -36,7 +36,7 @@ final class PathComponentTests: XCTestCase {
   }
 
   func testCustomOperator() {
-    let composed = "path" / "to" / "endpoint"
+    let composed = Path("path", "to", "endpoint")
     XCTAssertEqual(composed.fullPath, "path/to/endpoint")
   }
 
