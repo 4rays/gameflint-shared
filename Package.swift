@@ -1,13 +1,9 @@
 // swift-tools-version:5.10
 import PackageDescription
 
-var dependencies: [PackageDescription.Package.Dependency] = [
-  .package(url: "https://github.com/4rays/http-request-builder", from: "1.2.0")
-]
+var dependencies: [PackageDescription.Package.Dependency] = []
 
-var targetDependencies: [PackageDescription.Target.Dependency] = [
-  .product(name: "HTTPRequestBuilder", package: "http-request-builder")
-]
+var targetDependencies: [PackageDescription.Target.Dependency] = []
 
 #if os(Linux)
   dependencies.append(
