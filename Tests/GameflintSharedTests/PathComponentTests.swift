@@ -1,4 +1,3 @@
-import HTTPRequestBuilder
 import XCTest
 
 @testable import GameflintShared
