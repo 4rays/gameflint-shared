@@ -22,10 +22,10 @@ var targetDependencies: [PackageDescription.Target.Dependency] = [
 let package = Package(
   name: "gameflint-shared",
   platforms: [
-    .iOS(.v17),
-    .macOS(.v14),
-    .tvOS(.v17),
-    .watchOS(.v10),
+    .iOS(.v16),
+    .macOS(.v13),
+    .tvOS(.v16),
+    .watchOS(.v9),
   ],
   products: [
     .library(
