@@ -1,5 +1,4 @@
 import Foundation
-import HTTPRequestBuilder
 
 extension Path {
   public static let auth = Self(String.auth)
